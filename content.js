@@ -1,21 +1,15 @@
 
 
-// var link = document.createElement('link'); 
-// link.rel = 'stylesheet'; 
-// link.type = 'text/css';
-// link.href = 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css'; 
-// link.integrity = 'sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p'
 
-
-// var css = '.edit_tag ,.remove_tag {border: none;background: transparent;display: block;outline: unset;padding: 0px 2px 2px 2px;height:30px}button:focus {outline: none;}button:hover {background-color: #3aad1a;}';
-// var style = document.createElement('style')
-// style.innerText = css
-// style.rel = 'stylesheet'; 
+var css = '.edit_tag ,.remove_tag {border: none;background: transparent;display: block;outline: unset;height:30px}button:focus {outline: none;}button:hover {background-color: #3aad1a;}';
+var style = document.createElement('style')
+style.innerText = css
+style.rel = 'stylesheet'; 
 
 
 
 // document.head.appendChild(style)
-// document.head.appendChild(link); 
+document.head.appendChild(link); 
 
 function createTag(parent_tag) {
     var tag = document.createElement('div')
@@ -35,7 +29,7 @@ function createTag(parent_tag) {
 
     var edit_tag = document.createElement('button')
     edit_tag.className = 'edit_tag'
-    edit_tag.innerHTML = '<i class="fas fa-user" aria-hidden="true"></i>';
+    edit_tag.style.backgroundImage='url()'
     tag.appendChild(edit_tag)
 
     var remove_tag = document.createElement('button')
