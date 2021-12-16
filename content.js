@@ -1,23 +1,21 @@
 
 
-var link = document.createElement('link'); 
-link.rel = 'stylesheet'; 
-link.type = 'text/css';
-link.href = 'https://pro.fontawesome.com/releases/v5.10.0/css/all.css'; 
-link.integrity = 'sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p'
-link.crossorigin ='anonymous' 
+// var link = document.createElement('link'); 
+// link.rel = 'stylesheet'; 
+// link.type = 'text/css';
+// link.href = 'https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css'; 
+// link.integrity = 'sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p'
 
 
-var css = '.edit_tag ,.remove_tag {border: none;background: transparent;display: inline-block;outline: unset;padding: 0px 2px 2px 2px;}button:focus {outline: none;}button:hover {background-color: #3aad1a;}';
-var style = document.createElement('style')
-style.innerText = css
-style.type = 'text/css' 
-style.rel = 'stylesheet'; 
+// var css = '.edit_tag ,.remove_tag {border: none;background: transparent;display: block;outline: unset;padding: 0px 2px 2px 2px;height:30px}button:focus {outline: none;}button:hover {background-color: #3aad1a;}';
+// var style = document.createElement('style')
+// style.innerText = css
+// style.rel = 'stylesheet'; 
 
 
 
-document.head.appendChild(style)
-document.head.appendChild(link); 
+// document.head.appendChild(style)
+// document.head.appendChild(link); 
 
 function createTag(parent_tag) {
     var tag = document.createElement('div')
@@ -37,12 +35,12 @@ function createTag(parent_tag) {
 
     var edit_tag = document.createElement('button')
     edit_tag.className = 'edit_tag'
-    edit_tag.innerHTML = '<i class="fa fa-trash-o" aria-hidden="true"></i>';
+    edit_tag.innerHTML = '<i class="fas fa-user" aria-hidden="true"></i>';
     tag.appendChild(edit_tag)
 
     var remove_tag = document.createElement('button')
     remove_tag.className = 'remove_tag'
-    remove_tag.innerHTML = '<i class="fa fa-trash-o" aria-hidden="true"></i>';
+    remove_tag.innerHTML = '<i class="fas fa-user" aria-hidden="true"></i>';
 
     tag.appendChild(remove_tag)
 
@@ -50,19 +48,25 @@ function createTag(parent_tag) {
     parent_tag.appendChild(document.createElement('hr'))
 }
 
-var list_msg = document.getElementsByClassName('rpm2j7zs k7i0oixp gvuykj2m j83agx80 cbu4d94t ni8dbmo4 du4w35lb q5bimw55 ofs802cu pohlnb88 dkue75c7 mb9wzai9 d8ncny3e buofh1pr g5gj957u tgvbjcpo l56l04vs r57mb794 kh7kg01d eg9m0zos c3g1iek1 l9j0dhe7 k4xni2cv')[0]
 
-list_msg.addEventListener('scroll', (event) => setInterval(function() {
-    var parent_tag = document.getElementsByClassName('ue3kfks5')
-    for (i = 0; parent_tag.length; i++) {
-        try {
-            var uid = document.getElementById('tag_' + parent_tag[i].href.split('t/')[1].split('/')[0])
-            if (uid === null) {
-                createTag(parent_tag[i])
-                clearInterval()
+setInterval(function () {
+    var list_msg = document.getElementsByClassName('rpm2j7zs k7i0oixp gvuykj2m j83agx80 cbu4d94t ni8dbmo4 du4w35lb q5bimw55 ofs802cu pohlnb88 dkue75c7 mb9wzai9 d8ncny3e buofh1pr g5gj957u tgvbjcpo l56l04vs r57mb794 kh7kg01d eg9m0zos c3g1iek1 l9j0dhe7 k4xni2cv')[0]
+    if (list_msg) {
+
+        list_msg.addEventListener('scroll', (event) => setInterval(function () {
+            var parent_tag = document.getElementsByClassName('ue3kfks5')
+            for (i = 0; parent_tag.length; i++) {
+                try {
+                    var uid = document.getElementById('tag_' + parent_tag[i].href.split('t/')[1].split('/')[0])
+                    if (uid === null) {
+                        createTag(parent_tag[i])
+                        clearInterval()
+                    }
+                } catch {
+                    break
+                }
             }
-        } catch {
-            break
-        }
+        }), 100)
+        clearInterval()
     }
-}),100)
+}, 100)
