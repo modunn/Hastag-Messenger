@@ -1,0 +1,6 @@
+{
+    "name": "Duyệt khách HVK",
+    "description": "Lấy thông tin khách chờ duyệt HVK",
+    "version": "1.0",
+    "manifest_version": 3
+  }
