@@ -64,7 +64,7 @@ function createTag(parent_tag) {
     parent_tag.appendChild(document.createElement('hr'))
 }
 
-function createPopupEditTag() {
+function createPopupEditTag(parent_tag=null) {
     var edit_popup = document.createElement('div')
     edit_popup.className ='edit_popup'
     edit_popup.style.cssText = 'width: 250px; \
@@ -79,19 +79,20 @@ function createPopupEditTag() {
                     align-items: center; \
                     justify-content: space-evenly;\
                     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;'
-    document.body.appendChild(edit_popup)
+   
 
     var edit_tagname = document.createElement('input')
     edit_tagname.type='text'
     edit_tagname.className ='edit_tagname'
     edit_tagname.id ='edit_tagname'
     edit_tagname.value = 'Mundo 12345678910'
-    edit_tagname.style.cssText = 'width: 180px;\
-                                 height: 30px;\
-                                 padding: 0px;\
-                                 border-radius: 5px;\
-                                 box-sizing: border-box;\
-                                 padding: 5px;'
+    edit_tagname.style.cssText='z-index:99999;\
+                                width: 180px;\
+                                height: 30px;\
+                                padding: 0px;\
+                                border-radius: 5px;\
+                                box-sizing: border-box;\
+                                padding: 5px;'
     edit_popup.appendChild(edit_tagname)
 
     var color_tag = document.createElement('input')
@@ -100,6 +101,9 @@ function createPopupEditTag() {
     color_tag.className = 'pick_color'
     color_tag.style.cssText ='height:30px;width:30px'
     edit_popup.appendChild(color_tag)
+
+    document.body.appendChild(edit_popup)
+
 
 }createPopupEditTag()
 
@@ -126,3 +130,18 @@ setInterval(function () {
         clearInterval()
     }
 }, 100)
+
+window.addEventListener("load", (event) => setInterval(function(){
+    var parent_tag = document.getElementsByClassName('ue3kfks5')
+    for (i = 0; parent_tag.length; i++) {
+        try {
+            var uid = document.getElementById('tag_' + parent_tag[i].href.split('t/')[1].split('/')[0])
+            if (uid === null) {
+                createTag(parent_tag[i])
+                clearInterval()
+            }
+        } catch {
+            break
+        }
+    }
+}),100)
