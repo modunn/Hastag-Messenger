@@ -1,43 +1,63 @@
 
 
 
-var css = '.edit_tag ,.remove_tag {border: none;background: transparent;display: block;outline: unset;height:30px}button:focus {outline: none;}button:hover {background-color: #3aad1a;}';
-var style = document.createElement('style')
-style.innerText = css
-style.rel = 'stylesheet'; 
+// var css = '.edit_tag ,.remove_tag {border: none;background: transparent;display: block;outline: unset;height:30px}button:focus {outline: none;}button:hover {background-color: #3aad1a;}';
+// var style = document.createElement('style')
+// style.innerText = css
+// style.rel = 'stylesheet'; 
 
 
 
 // document.head.appendChild(style)
-document.head.appendChild(link); 
 
 function createTag(parent_tag) {
     var tag = document.createElement('div')
     var uid = parent_tag.href.split('t/')[1].split('/')[0]
-    tag.style.cssText = 'dislay:flex;z-index:999;margin:0 10px;min-width:130px;height:30px;background-color:#5AD539 ;border-radius:15px;border:none; align-items: center;justify-content: center;'
+    tag.style.cssText = 'display:flex;z-index:999999;margin:0 10px;min-width:130px;height:30px;background-color:#5AD539 ;border-radius:15px;border:none; align-items: center;justify-content: space-between'
 
     tag.id = 'tag_' + uid
     parent_tag.appendChild(tag)
 
     var notes = document.createElement('span')
     notes.className = 'tag_name'
-    notes.style.cssText = 'font-size: 14px;font-weight: 500;color: white;padding: 0px 10px 2px 20px;line-height:30px;text-align:left'
+    notes.style.cssText = 'padding-left:20px;font-size: 14px;font-weight: 500;color: white;padding-right:30px'
     notes.innerHTML = uid
     tag.appendChild(notes)
 
+    var action_tag = document.createElement('div')
+    action_tag.className ='aciton_tag'
+    action_tag.style.paddingRight ='20px'
 
 
     var edit_tag = document.createElement('button')
     edit_tag.className = 'edit_tag'
-    edit_tag.style.backgroundImage='url()'
-    tag.appendChild(edit_tag)
 
-    var remove_tag = document.createElement('button')
-    remove_tag.className = 'remove_tag'
-    remove_tag.innerHTML = '<i class="fas fa-user" aria-hidden="true"></i>';
+    edit_tag.style.cssText = 'border:none;background:transparent;color:white;font-size:18px;font-weight:bold;'
+    edit_tag.innerText ='✍🏻'
+    edit_tag.style.cursor ='pointer'
+    edit_tag.onclick = function(){
+        document.getElementById(tag.id).style.backgroundColor ='blue'
+        
+    }
+    action_tag.appendChild(edit_tag)
 
-    tag.appendChild(remove_tag)
+    
 
+    // var remove_tag = document.createElement('button')
+    // remove_tag.className = 'remove_tag'
+    // remove_tag.style.cssText = 'border:none;background:transparent;color:white;font-size:18px;font-weight:bold;'
+    // remove_tag.innerText ='🗑︎'
+    // remove_tag.style.cursor ='pointer'
+    // remove_tag.onclick = function(){
+    //     console.log(tag.id)
+    //     document.getElementById(tag.id).remove()
+        
+    // }
+
+    // action_tag.appendChild(remove_tag)
+
+
+    tag.appendChild(action_tag)
 
     parent_tag.appendChild(document.createElement('hr'))
 }

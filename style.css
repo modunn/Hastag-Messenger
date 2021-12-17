@@ -5,7 +5,7 @@
 .tag{
     
     margin:auto;
-    margin-top:300px;
+    margin-top:50px;
     height:30px;
     width: 130px;
     background-color:#5AD539 ;
@@ -19,7 +19,7 @@
     font-size: 14px;
     font-weight: 500;
     color: white;
-    padding: 0px 10px 2px 20px;
+    padding: 0px 10px 2px 25px;
 }
 .edit_tag ,.remove_tag {
     border: none;
@@ -27,10 +27,9 @@
     display: inline-block;
     outline: unset;
     padding: 0px 2px 2px 2px;
+    color: #FFF;
 }
 button:focus {
     outline: none;
 }
-button:hover {
-    background-color: #3aad1a;
-}
+
