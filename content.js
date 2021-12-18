@@ -47,12 +47,17 @@ function createTag(parent_tag) {
     //add nút sửa ghi chú vào tag
     var edit_tag = document.createElement('button')
     edit_tag.className = 'edit_tag'
-    edit_tag.style.cssText = 'line-height:20px;padding-bottom:5px;border-radius:15px'
+    edit_tag.style.cssText = 'line-height:20px;/*padding-bottom:5px;*/border-radius:15px;width:30px;height:30px'
     edit_tag.innerText ='✍🏻'
     edit_tag.style.cursor ='pointer'
     edit_tag.onclick = function(){
         document.getElementById(tag.id).style.backgroundColor ='blue'
         
+    }
+    
+    edit_tag.onclick = function() {
+        createPopupEditTag(tag)
+
     }
     action_tag.appendChild(edit_tag)
 
@@ -64,28 +69,39 @@ function createTag(parent_tag) {
     parent_tag.appendChild(document.createElement('hr'))
 }
 
-function createPopupEditTag(parent_tag=null) {
+function createPopupEditTag(tag=null) {
     var edit_popup = document.createElement('div')
+
+
     edit_popup.className ='edit_popup'
-    edit_popup.style.cssText = 'width: 250px; \
+    edit_popup.style.cssText = '\
+                    width: 250px; \
                     height: 50px; \
                     background-color: rgb(255, 255, 255); \
                     position: absolute; \
-                    top: 170px; \
-                    left: 327px; \
                     border-radius:2px; \
                     border-top:3px solid #0084FF;\
-                    display: flex; text-align: center; \
+                    display: flex; \
+                    text-align: center; \
                     align-items: center; \
                     justify-content: space-evenly;\
-                    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;'
-   
+                    box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;\
+                    '
+    
+    var pos = tag.getBoundingClientRect()
+    var x = pos.width + 3
+    var y = pos.top - 47
+    console.log(x,y)
+    edit_popup.style.top = y + 'px'
+    edit_popup.style.left = x + 'px'
 
+
+    var text = tag.querySelector('label').innerHTML
     var edit_tagname = document.createElement('input')
     edit_tagname.type='text'
     edit_tagname.className ='edit_tagname'
     edit_tagname.id ='edit_tagname'
-    edit_tagname.value = 'Mundo 12345678910'
+    edit_tagname.value = text
     edit_tagname.style.cssText='z-index:99999;\
                                 width: 180px;\
                                 height: 30px;\
@@ -105,7 +121,7 @@ function createPopupEditTag(parent_tag=null) {
     document.body.appendChild(edit_popup)
 
 
-}createPopupEditTag()
+}
 
 
 
