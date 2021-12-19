@@ -10,6 +10,6 @@ api = Blueprint('api',__name__)
 def index():
     user = request.args.get('user_id')
     note = Notes.query.filter_by(user=user).all()
-    cols =['id','guest_id','text_note','color','user']
-    result = [{col: getattr(d, col) for col in cols} for d in note]
-    return jsonify(json_list = result)
+    cols =['guest_id','text_note','color']
+    data = [{col: getattr(d, col) for col in cols} for d in note]
+    return jsonify(data = data)

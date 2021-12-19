@@ -1,22 +1,10 @@
 
 // api url
-const api_url = 
+var api_url = 
       "http://localhost:8888/api/?user_id=mundo12345";
-  
-// Defining async function
-async function getapi(url) {
-    
-    // Storing response
-    const response = await fetch(url, {mode: 'no-cors'});
-    
-    // Storing data in form of JSON
-    var data = await response.json();
-    
-    console.log(data);
-}
-// Calling that async function
-getapi(api_url);
-
+var c = fetch(api_url,{mode: 'no-cors'})
+.then(response => response.json())
+.then(data => console.log(data));
     
 var css = '@media screen and (max-width: 900px) {\
             .hastag_msg{\
