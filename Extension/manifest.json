@@ -13,8 +13,9 @@
     "default_icon": "icon.png"
   },
   "content_scripts": [{
-    "matches": ["*://*.messenger.com/*"],
-    "js": ["content.js"],
+    "matches": ["*://*.messenger.com/*",
+      "http://localhost:8888/*"],
+    "js": ["content.js","call_data.js"],
     "run_at": "document_end",
     "all_frames": true
   }],
@@ -25,7 +26,6 @@
   "permissions": [
     "activeTab",
     "tabs", 
-    "*://*.messenger.com/*",
-    "http://localhost:8888/*"
+    "*://*.messenger.com/*"
   ]
 }

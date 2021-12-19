@@ -1,10 +1,5 @@
 
-// api url
-var api_url = 
-      "http://localhost:8888/api/?user_id=mundo12345";
-var c = fetch(api_url,{mode: 'no-cors'})
-.then(response => response.json())
-.then(data => console.log(data));
+
     
 var css = '@media screen and (max-width: 900px) {\
             .hastag_msg{\
