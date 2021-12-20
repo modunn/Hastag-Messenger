@@ -2,9 +2,9 @@
 
 //Listen for messages
 chrome.runtime.onMessage.addListener((msg, sender, response) => {
-  if (msg.name == "fetchWords") {
+  if (msg.name == "getData") {
       const apiCall = `http://127.0.0.1:8888/api/notes?user_id=${msg.user_id}`;
-      console.log(apiCall);
+      // console.log(apiCall);
       //We call api..
       fetch(apiCall, {
         method: 'GET',
@@ -23,17 +23,58 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
           var d = data['100004966174890']
           console.log(data)
           if (d === undefined) {
-            console.log(d);
+            // console.log(d);
             response({user:'undefined',color:'undefined',text:'undefined'});
             return
-          }
-          console.log(d);
+          } 
+          // console.log(d);
           response({user:'qqqq',color:d.color,text:d.text});
         });
       })
-    }else if(msg.name=='signup'){
-        const apiCall = `http://127.0.0.1:8888/api/signup`;
+    }else if(msg.name=='edit'){
+        const apiCall = `http://127.0.0.1:8888/api/edit`;
+        fetch(apiCall, {
+          method: "post",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({id:msg.id,color:msg.color,text:msg.text})
+        }).then(function (res) {
+          if (res.status !== 200) {
+            response(res.status);
+            return;
+          }
+          res.json().then(function(msg) {
+
+            console.log(msg)
+            response(msg);
+            
+          });
+        })
     }
+    else if(msg.name=='signUp'){
+      const apiCall = `http://127.0.0.1:8888/api/signup`;
+      fetch(apiCall, {
+        method: "post",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({'user':'hehe'})
+      }).then(function (res) {
+        if (res.status !== 200) {
+          response(res.status);
+          return;
+        }
+        res.json().then(function(msg) {
+
+          console.log(msg)
+          response(msg);
+          
+        });
+      })
+  }
     return true;
 })
 

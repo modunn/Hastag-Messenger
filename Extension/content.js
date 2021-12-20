@@ -1,5 +1,28 @@
 
-  
+async function post(data) {
+    try {
+        // Create request to api service
+        const req = await fetch('http://127.0.0.1:8888/api/edit', {
+            method: 'POST',
+            headers: { 'Content-Type':'application/json' },
+            
+            // format the data
+            body: JSON.stringify({
+                id: data.id,
+                text: data.text,
+                color: data.color
+            }),
+        });
+        
+        const res = await req.json();
+
+        // Log success message
+        console.log(res);                
+    } catch(err) {
+        console.error(`ERROR: ${err}`);
+    }
+}
+
 var css = '@media screen and (max-width: 900px) {\
             .hastag_msg{\
                 width:56px;\
@@ -44,7 +67,6 @@ function createTag(parent_tag) {
                         font-weight: 500;\
                         color: white;\
                         position: relative;\
-                        display: block;\
                         padding:5px 30px 5px 20px;'
 
     notes.innerHTML = uid
@@ -78,7 +100,7 @@ function createTag(parent_tag) {
 function createPopupEditTag(tag = null) {
     var edit_popup = document.createElement('div')
 
-
+    edit_popup.id = tag.id.replace('tag_','')
     edit_popup.className = 'edit_popup'
     edit_popup.style.cssText = '\
                     width: 250px; \
@@ -107,9 +129,9 @@ function createPopupEditTag(tag = null) {
     edit_tagname.className = 'edit_tagname'
     edit_tagname.id = 'edit_tagname'
     // edit_tagname.maxLength ='35'
-    
+
     edit_tagname.value = tag.querySelector('label').innerHTML
-    edit_tagname.addEventListener("input", (e)=>{
+    edit_tagname.addEventListener("input", (e) => {
         tag.querySelector('label').innerHTML = e.target.value;
     }, false);
 
@@ -129,10 +151,10 @@ function createPopupEditTag(tag = null) {
     color_tag.id = "pick_color"
     color_tag.className = 'pick_color'
     color_tag.style.cssText = 'height:30px;width:30px'
-    
+
     color = tag.style.backgroundColor
-    color_tag.value ='#' + color .substr(4, color .indexOf(')') - 4).split(',').map((color) => String("0" + parseInt(color).toString(16)).slice(-2)).join(''); 
-    color_tag.addEventListener("input", (e)=>{
+    color_tag.value = '#' + color.substr(4, color.indexOf(')') - 4).split(',').map((color) => String("0" + parseInt(color).toString(16)).slice(-2)).join('');
+    color_tag.addEventListener("input", (e) => {
         tag.style.backgroundColor = e.target.value;
     }, false);
 
@@ -190,6 +212,13 @@ window.addEventListener('mouseup', e => {
 
     if (close_popup && e.target != close_popup && e.target.parentNode != close_popup) {
         close_popup.remove()
+        var note = close_popup.querySelector('input').value
+        var color = close_popup.querySelector('#pick_color').value
+        chrome.runtime.sendMessage({name: "edit", id:close_popup.id,text: note,color:color }, (response) => {
+            //Wait for Response
+            console.log(response)
+        
+        });
         //or yourDiv.style.display = 'none';
     }
 })
@@ -200,15 +229,21 @@ function getCookie(name) {
     return match ? match[1] : null;
 }
 //Send Message To Background
-var response = null
-chrome.runtime.sendMessage({name: "fetchWords",user_id:'mundo12345'}, (response) => {
+
+
+chrome.runtime.sendMessage({ name: "getData", user_id: 'mundo12345' }, (response) => {
     //Wait for Response
-    let nIntervId = setInterval(()=>{
+    let nIntervId = setInterval(() => {
         if (document.getElementsByClassName('tag_name')[0]) {
             document.getElementsByClassName('hastag_msg')[0].style.backgroundColor = response.color
-            document.getElementsByClassName('tag_name')[0].innerText = response.text;
+            document.getElementsByClassName('tag_name')[0].innerText = response.text
             clearInterval(nIntervId)
         }
-    },100)
+    }, 100)
+});
+
+chrome.runtime.sendMessage({ name: "signUp", user_id: 'mundo1' }, (response) => {
+    //Wait for Response
+    console.log(response)
 
 });

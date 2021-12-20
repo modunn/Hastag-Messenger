@@ -34,5 +34,31 @@ def signup():
         db.session.add(new_user)
         db.session.commit()
         return jsonify({'message':'Sign up successfully','code':0})
-    except:
+    except Exception as e:
+        print(e)
         return jsonify({'message':'Error','code':404})
+
+
+@api.route('/user',methods=['GET','POST'])
+def getuser():
+    user = Users.query.all()
+
+    cols =['user','id']
+    data = [{col: getattr(d, col) for col in cols} for d in user]
+    print(data)
+    return jsonify(data=data)
+
+@api.route('/edit',methods=['GET','POST'])
+def edit():
+    if request.method =='POST':
+        res = json.loads(request.data)
+        note = Notes.query.filter_by(guest_id=res['id']).first()
+        if note :
+            note.text_note  = res['text']
+            note.color      = res['color']
+            db.session.commit()
+            return jsonify({f'msg':'edit tag succesfully'})
+        new_note = Notes(guest_id=res['id'],color=res['color'],text_note=res['text'],user='100002122284006')
+        db.session.add(new_note)
+        db.session.commit()
+        return jsonify({f'msg':'create tag succesfully'})

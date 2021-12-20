@@ -6,5 +6,6 @@ class Config(object):
     SECRET_KEY                      = '8888'
     SQLALCHEMY_TRACK_MODIFICATIONS  = False
     EXECUTOR_PROPAGATE_EXCEPTIONS   = True
+    JSON_AS_ASCII                   = False
 
     
