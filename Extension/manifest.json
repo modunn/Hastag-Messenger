@@ -13,19 +13,21 @@
     "default_icon": "icon.png"
   },
   "content_scripts": [{
-    "matches": ["*://*.messenger.com/*",
-      "http://localhost:8888/*"],
-    "js": ["content.js","call_data.js"],
+    "matches": ["*://*.messenger.com/*"],
+    "js": ["content.js"],
     "run_at": "document_end",
     "all_frames": true
   }],
   "background": {
     "persistent": false,
-    "scripts": ["chrome.js"]
+    "scripts": ["chrome.js","background.js"],
+    "background_page" : ["popup.html"]
   },
   "permissions": [
     "activeTab",
     "tabs", 
-    "*://*.messenger.com/*"
+    "*://*.messenger.com/*",
+    "http://localhost/*",
+    "http://127.0.0.1/*"
   ]
 }

@@ -1,19 +1,17 @@
 
-
-    
+  
 var css = '@media screen and (max-width: 900px) {\
             .hastag_msg{\
                 width:56px;\
+                height:30px;\
+                border-radius:15px\
             }\
-                .tag_name {\
-                    display:none\
-                }\
+            .tag_name {display:none}\
             }';
 var style = document.createElement('style')
 style.innerText = css
 style.rel = 'stylesheet';
 style.type = 'text/css'
-
 
 
 document.head.appendChild(style)
@@ -25,9 +23,10 @@ function createTag(parent_tag) {
                         z-index:999999;\
                         margin:0 10px;\
                         min-width:56px;\
-                        height:30px;\
+                        min-height:30px;\
                         background-color:#5AD539 ;\
-                        border-radius:15px;border:none;\
+                        border-radius:20px;\
+                        border:none;\
                         align-items: center;\
                         justify-content: space-between;\
                         box-shizing:boder-box;'
@@ -39,12 +38,15 @@ function createTag(parent_tag) {
     //add ghi chú vào tag
     var notes = document.createElement('label')
     notes.className = 'tag_name'
-    notes.style.cssText = 'padding-left:20px;\
+    notes.style.cssText = '\
                         max-width:240px;\
-                        font-size: 14px;\
+                        font-size: 13px;\
                         font-weight: 500;\
                         color: white;\
-                        padding-right:30px'
+                        position: relative;\
+                        display: block;\
+                        padding:5px 30px 5px 20px;'
+
     notes.innerHTML = uid
     tag.appendChild(notes)
 
@@ -104,7 +106,7 @@ function createPopupEditTag(tag = null) {
     edit_tagname.type = 'text'
     edit_tagname.className = 'edit_tagname'
     edit_tagname.id = 'edit_tagname'
-    edit_tagname.maxLength ='35'
+    // edit_tagname.maxLength ='35'
     
     edit_tagname.value = tag.querySelector('label').innerHTML
     edit_tagname.addEventListener("input", (e)=>{
@@ -192,3 +194,21 @@ window.addEventListener('mouseup', e => {
     }
 })
 
+function getCookie(name) {
+    function escape(s) { return s.replace(/([.*+?\^$(){}|\[\]\/\\])/g, '\\$1'); }
+    var match = document.cookie.match(RegExp('(?:^|;\\s*)' + escape(name) + '=([^;]*)'));
+    return match ? match[1] : null;
+}
+//Send Message To Background
+var response = null
+chrome.runtime.sendMessage({name: "fetchWords",user_id:'mundo12345'}, (response) => {
+    //Wait for Response
+    let nIntervId = setInterval(()=>{
+        if (document.getElementsByClassName('tag_name')[0]) {
+            document.getElementsByClassName('hastag_msg')[0].style.backgroundColor = response.color
+            document.getElementsByClassName('tag_name')[0].innerText = response.text;
+            clearInterval(nIntervId)
+        }
+    },100)
+
+});

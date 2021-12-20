@@ -1,18 +1,5 @@
 var app = {},
     windowId, mainWindowId;
-// app.loadReason = "startup";
-// app.version = function() {
-//     return chrome.runtime.getManifest()
-//         .version
-// };
-// app.homepage = function() {
-//     return chrome.runtime.getManifest()
-//         .homepage_url
-// };
-// if (chrome.runtime.onInstalled) chrome.runtime.onInstalled.addListener(function(e) {
-//     app.loadReason = e.reason
-// });
-// if (chrome.runtime.setUninstallURL) chrome.runtime.setUninstallURL(app.homepage() + "?v=" + app.version() + "&type=uninstall", function() {});
 app.tab = {
     "open": function(url) {
         var tmp = (mainWindowId !== undefined) ? {
