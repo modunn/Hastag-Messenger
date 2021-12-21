@@ -7,7 +7,7 @@ class Notes(db.Model):
     guest_id        = db.Column(db.String,unique=True)
     text_note       = db.Column(db.String)
     color           = db.Column(db.String)
-    user            = db.Column(db.Integer,db.ForeignKey('users.user'))
+    user            = db.Column(db.String,db.ForeignKey('users.user'))
 
     def serialize(self):
         return {

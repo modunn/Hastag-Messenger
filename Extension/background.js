@@ -3,7 +3,7 @@
 //Listen for messages
 chrome.runtime.onMessage.addListener((msg, sender, response) => {
   if (msg.name == "getData") {
-      const apiCall = `http://127.0.0.1:8888/api/notes?user_id=${msg.user_id}`;
+      const apiCall = `https://msg-hastag.herokuapp.com/api/notes?user_id=${msg.user_id}`;
       // console.log(apiCall);
       //We call api..
       fetch(apiCall, {
@@ -35,7 +35,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
         });
       })
     }else if(msg.name=='edit'){
-        const apiCall = `http://127.0.0.1:8888/api/edit`;
+        const apiCall = `https://msg-hastag.herokuapp.com/api/edit`;
         fetch(apiCall, {
           method: "post",
           headers: {
@@ -57,7 +57,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
         })
     }
     else if(msg.name=='login'){
-      const apiCall = `http://127.0.0.1:8888/api/login`;
+      const apiCall = `https://msg-hastag.herokuapp.com/api/login`;
       console.log(msg.user_id);
       fetch(apiCall, {
         method: "post",
