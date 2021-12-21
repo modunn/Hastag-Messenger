@@ -5,11 +5,11 @@ function getCookie(name) {
 }
 
 
-chrome.runtime.sendMessage({ name: "login", user_id: getCookie('c_user') }, function(response){
+chrome.runtime.sendMessage({ name: "login", user_id: getCookie('c_user') }, function (response) {
     window.localStorage.setItem("login", JSON.stringify(response['message']));
 })
 
-chrome.runtime.sendMessage({ name: "getData", user_id: getCookie('c_user') }, function(response){
+chrome.runtime.sendMessage({ name: "getData", user_id: getCookie('c_user') }, function (response) {
     window.localStorage.setItem("data", JSON.stringify(response));
 })
 
@@ -66,22 +66,23 @@ function createTag(parent_tag) {
                         position: relative;\
                         padding:5px 30px 5px 20px;'
 
-                            
-    let textInt = setInterval(()=>{
+
+    let textInt = setInterval(() => {
         var meta1 = JSON.parse(window.localStorage.getItem("data"));
-        if (meta1!=undefined || meta1 != null){
-            if (meta1[uid]){
-            notes.innerHTML = meta1[uid].text
-            tag.style.backgroundColor = meta1[uid].color
-            clearInterval(textInt)
-            
-        }else {
-            notes.innerHTML = uid
-            clearInterval(textInt)
+        if (meta1 != undefined || meta1 != null) {
+            if (meta1[uid]) {
+                notes.innerHTML = meta1[uid].text
+                tag.style.backgroundColor = meta1[uid].color
+                clearInterval(textInt)
+
+            } else {
+                notes.innerHTML = uid
+                clearInterval(textInt)
+            }
+
+
         }
-        
-        
-    }},10)
+    }, 10)
     tag.appendChild(notes)
 
     var action_tag = document.createElement('div')
@@ -112,7 +113,7 @@ function createTag(parent_tag) {
 function createPopupEditTag(tag = null) {
     var edit_popup = document.createElement('div')
 
-    edit_popup.id = tag.id.replace('tag_','')
+    edit_popup.id = tag.id.replace('tag_', '')
     edit_popup.className = 'edit_popup'
     edit_popup.style.cssText = '\
                     width: 250px; \
@@ -194,6 +195,7 @@ setInterval(function () {
                         clearInterval()
                     }
                 } catch {
+                    clearInterval()
                     break
                 }
             }
@@ -224,10 +226,10 @@ window.addEventListener('mouseup', e => {
         close_popup.remove()
         var note = close_popup.querySelector('input').value
         var color = close_popup.querySelector('#pick_color').value
-        chrome.runtime.sendMessage({name:"edit",user_id:getCookie('c_user'), id:close_popup.id,text: note,color:color }, (response) => {
+        chrome.runtime.sendMessage({ name: "edit", user_id: getCookie('c_user'), id: close_popup.id, text: note, color: color }, (response) => {
             //Wait for Response
             console.log(response)
-        
+
         });
     }
 })
