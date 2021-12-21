@@ -81,7 +81,7 @@ function createTag(parent_tag) {
         }
         
         
-    }},100)
+    }},10)
     tag.appendChild(notes)
 
     var action_tag = document.createElement('div')
