@@ -69,18 +69,12 @@ function createTag(parent_tag) {
                             
     let textInt = setInterval(()=>{
         var meta1 = JSON.parse(window.localStorage.getItem("data"));
-        if (meta1!=undefined || meta1 != null){
+        if (meta1){
+            clearInterval(textInt)
             if (meta1[uid]){
             notes.innerHTML = meta1[uid].text
-            tag.style.backgroundColor = meta1[uid].color
-            clearInterval(textInt)
-            
-        }else {
-            notes.innerHTML = uid
-            clearInterval(textInt)
+            tag.style.backgroundColor = meta1[uid].color     
         }
-        
-        
     }},50)
     tag.appendChild(notes)
 
