@@ -20,15 +20,18 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
           return;
         }
         res.json().then(function (data) {
-          var d = data['100004966174890']
-          console.log(data)
-          if (d === undefined) {
+          
+          if (data == null) {
             // console.log(d);
-            response({user:'undefined',color:'undefined',text:'undefined'});
+            response(null);
             return
           } 
-          // console.log(d);
-          response({user:'qqqq',color:d.color,text:d.text});
+          window.localStorage.setItem("data", JSON.stringify(data));
+
+          var meta1 = JSON.parse(window.localStorage.getItem("data"));
+
+          console.log(meta1);
+          response(data);
         });
       })
     }else if(msg.name=='edit'){
@@ -39,7 +42,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({id:msg.id,color:msg.color,text:msg.text})
+          body: JSON.stringify({user_id:msg.user_id,id:msg.id,color:msg.color,text:msg.text})
         }).then(function (res) {
           if (res.status !== 200) {
             response(res.status);
@@ -53,15 +56,16 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
           });
         })
     }
-    else if(msg.name=='signUp'){
-      const apiCall = `http://127.0.0.1:8888/api/signup`;
+    else if(msg.name=='login'){
+      const apiCall = `http://127.0.0.1:8888/api/login`;
+      console.log(msg.user_id);
       fetch(apiCall, {
         method: "post",
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({'user':'hehe'})
+        body: JSON.stringify({'user':msg.user_id})
       }).then(function (res) {
         if (res.status !== 200) {
           response(res.status);

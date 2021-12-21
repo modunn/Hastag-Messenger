@@ -22,31 +22,22 @@ def notes():
 
 
 
-@api.route('/signup',methods=['POST'])
+@api.route('/login',methods=['POST'])
 def signup():
     try:
         if request.method =='POST':
             user  = json.loads(request.data)
         response = Users.query.filter_by(user=user['user']).first()
         if response:
-            return jsonify({'message':'This account has already existed','code':301})
+            return jsonify({'message':True,'code':301})
         new_user = Users(user=user['user'])
         db.session.add(new_user)
         db.session.commit()
-        return jsonify({'message':'Sign up successfully','code':0})
+        return jsonify({'message':True,'code':0})
     except Exception as e:
         print(e)
         return jsonify({'message':'Error','code':404})
 
-
-@api.route('/user',methods=['GET','POST'])
-def getuser():
-    user = Users.query.all()
-
-    cols =['user','id']
-    data = [{col: getattr(d, col) for col in cols} for d in user]
-    print(data)
-    return jsonify(data=data)
 
 @api.route('/edit',methods=['GET','POST'])
 def edit():
@@ -58,7 +49,20 @@ def edit():
             note.color      = res['color']
             db.session.commit()
             return jsonify({f'msg':'edit tag succesfully'})
-        new_note = Notes(guest_id=res['id'],color=res['color'],text_note=res['text'],user='100002122284006')
+        print(res)
+        new_note = Notes(guest_id=res['id'],color=res['color'],text_note=res['text'],user=res['user_id'])
         db.session.add(new_note)
         db.session.commit()
         return jsonify({f'msg':'create tag succesfully'})
+
+
+
+
+@api.route('/user',methods=['GET','POST'])
+def getuser():
+    user = Users.query.all()
+
+    cols =['user','id']
+    data = [{col: getattr(d, col) for col in cols} for d in user]
+    print(data)
+    return jsonify(data=data)

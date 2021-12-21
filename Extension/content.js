@@ -1,27 +1,22 @@
-
-async function post(data) {
-    try {
-        // Create request to api service
-        const req = await fetch('http://127.0.0.1:8888/api/edit', {
-            method: 'POST',
-            headers: { 'Content-Type':'application/json' },
-            
-            // format the data
-            body: JSON.stringify({
-                id: data.id,
-                text: data.text,
-                color: data.color
-            }),
-        });
-        
-        const res = await req.json();
-
-        // Log success message
-        console.log(res);                
-    } catch(err) {
-        console.error(`ERROR: ${err}`);
-    }
+function getCookie(name) {
+    function escape(s) { return s.replace(/([.*+?\^$(){}|\[\]\/\\])/g, '\\$1'); }
+    var match = document.cookie.match(RegExp('(?:^|;\\s*)' + escape(name) + '=([^;]*)'));
+    return match ? match[1] : null;
 }
+
+
+chrome.runtime.sendMessage({ name: "login", user_id: getCookie('c_user') }, function(response){
+    window.localStorage.setItem("login", JSON.stringify(response['message']));
+})
+
+chrome.runtime.sendMessage({ name: "getData", user_id: getCookie('c_user') }, function(response){
+    window.localStorage.setItem("data", JSON.stringify(response));
+})
+
+
+
+
+
 
 var css = '@media screen and (max-width: 900px) {\
             .hastag_msg{\
@@ -42,9 +37,11 @@ document.head.appendChild(style)
 function createTag(parent_tag) {
     var tag = document.createElement('div')
     var uid = parent_tag.href.split('t/')[1].split('/')[0]
+
+
     tag.style.cssText = 'display:flex;\
                         z-index:999999;\
-                        margin:0 10px;\
+                        margin: 0 10px;\
                         min-width:56px;\
                         min-height:30px;\
                         background-color:#5AD539 ;\
@@ -69,7 +66,22 @@ function createTag(parent_tag) {
                         position: relative;\
                         padding:5px 30px 5px 20px;'
 
-    notes.innerHTML = uid
+                            
+    let textInt = setInterval(()=>{
+        var meta1 = JSON.parse(window.localStorage.getItem("data"));
+        if (meta1!=undefined || meta1 != null){
+            if (meta1[uid]){
+            notes.innerHTML = meta1[uid].text
+            tag.style.backgroundColor = meta1[uid].color
+            clearInterval(textInt)
+            
+        }else {
+            notes.innerHTML = uid
+            clearInterval(textInt)
+        }
+        
+        
+    }},100)
     tag.appendChild(notes)
 
     var action_tag = document.createElement('div')
@@ -169,7 +181,6 @@ function createPopupEditTag(tag = null) {
 }
 
 
-
 setInterval(function () {
     var list_msg = document.getElementsByClassName('rpm2j7zs k7i0oixp gvuykj2m j83agx80 cbu4d94t ni8dbmo4 du4w35lb q5bimw55 ofs802cu pohlnb88 dkue75c7 mb9wzai9 d8ncny3e buofh1pr g5gj957u tgvbjcpo l56l04vs r57mb794 kh7kg01d eg9m0zos c3g1iek1 l9j0dhe7 k4xni2cv')[0]
     if (list_msg) {
@@ -214,36 +225,18 @@ window.addEventListener('mouseup', e => {
         close_popup.remove()
         var note = close_popup.querySelector('input').value
         var color = close_popup.querySelector('#pick_color').value
-        chrome.runtime.sendMessage({name: "edit", id:close_popup.id,text: note,color:color }, (response) => {
+        chrome.runtime.sendMessage({name:"edit",user_id:getCookie('c_user'), id:close_popup.id,text: note,color:color }, (response) => {
             //Wait for Response
             console.log(response)
         
         });
-        //or yourDiv.style.display = 'none';
     }
 })
 
-function getCookie(name) {
-    function escape(s) { return s.replace(/([.*+?\^$(){}|\[\]\/\\])/g, '\\$1'); }
-    var match = document.cookie.match(RegExp('(?:^|;\\s*)' + escape(name) + '=([^;]*)'));
-    return match ? match[1] : null;
-}
+
 //Send Message To Background
 
 
-chrome.runtime.sendMessage({ name: "getData", user_id: 'mundo12345' }, (response) => {
-    //Wait for Response
-    let nIntervId = setInterval(() => {
-        if (document.getElementsByClassName('tag_name')[0]) {
-            document.getElementsByClassName('hastag_msg')[0].style.backgroundColor = response.color
-            document.getElementsByClassName('tag_name')[0].innerText = response.text
-            clearInterval(nIntervId)
-        }
-    }, 100)
-});
 
-chrome.runtime.sendMessage({ name: "signUp", user_id: 'mundo1' }, (response) => {
-    //Wait for Response
-    console.log(response)
 
-});
+
