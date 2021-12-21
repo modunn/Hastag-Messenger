@@ -82,7 +82,7 @@ function createTag(parent_tag) {
 
 
         }
-    }, 10)
+    }, 100)
     tag.appendChild(notes)
 
     var action_tag = document.createElement('div')
@@ -187,25 +187,25 @@ setInterval(function () {
         clearInterval()
         list_msg.addEventListener('scroll', (event) => setInterval(function () {
             var parent_tag = document.getElementsByClassName('ue3kfks5')
-            for (i = 0; parent_tag.length; i++) {
+            for (i = 10; parent_tag.length; i++) {
                 try {
                     var uid = document.getElementById('tag_' + parent_tag[i].href.split('t/')[1].split('/')[0])
-                    if (uid === null) {
+                    if (uid === null || uid === undefined) {
                         createTag(parent_tag[i])
                         clearInterval()
                     }
                 } catch {
-                    clearInterval()
                     break
                 }
             }
         }), 100)
         clearInterval()
     }
-}, 100)
+}, 10)
 
 window.addEventListener("load", (event) => setInterval(function () {
     var parent_tag = document.getElementsByClassName('ue3kfks5')
+    clearInterval()
     for (i = 0; parent_tag.length; i++) {
         try {
             var uid = document.getElementById('tag_' + parent_tag[i].href.split('t/')[1].split('/')[0])
