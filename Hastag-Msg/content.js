@@ -73,14 +73,10 @@ function createTag(parent_tag) {
             if (meta1[uid]){
             notes.innerHTML = meta1[uid].text
             tag.style.backgroundColor = meta1[uid].color
-            clearInterval(textInt)
             
         }else {
             notes.innerHTML = uid
-            clearInterval(textInt)
-        }
-        
-        
+        }clearInterval(textInt)
     }},100)
     tag.appendChild(notes)
 
@@ -180,16 +176,13 @@ function createPopupEditTag(tag = null) {
 
 }
 
-window.localStorage.setItem('len', 0)
 setInterval(function () {
     var list_msg = document.getElementsByClassName('rpm2j7zs k7i0oixp gvuykj2m j83agx80 cbu4d94t ni8dbmo4 du4w35lb q5bimw55 ofs802cu pohlnb88 dkue75c7 mb9wzai9 d8ncny3e buofh1pr g5gj957u tgvbjcpo l56l04vs r57mb794 kh7kg01d eg9m0zos c3g1iek1 l9j0dhe7 k4xni2cv')[0]
     if (list_msg) {
         clearInterval()
-        
         list_msg.addEventListener('scroll', (event) => setInterval(function () {
             var parent_tag = document.getElementsByClassName('ue3kfks5')
-            
-            for (i = len; parent_tag.length; i++) {
+            for (i = 0; parent_tag.length; i++) {
                 try {
                     var uid = document.getElementById('tag_' + parent_tag[i].href.split('t/')[1].split('/')[0])
                     if (uid === null) {
@@ -197,7 +190,6 @@ setInterval(function () {
                         clearInterval()
                     }
                 } catch {
-                    window.localStorage.setItem('len', i)
                     break
                 }
             }
