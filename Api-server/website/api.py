@@ -47,6 +47,7 @@ def edit():
         if note :
             note.text_note  = res['text']
             note.color      = res['color']
+            note.user       = res['user_id']
             db.session.commit()
             return jsonify({f'msg':'edit tag succesfully'})
         print(res)
