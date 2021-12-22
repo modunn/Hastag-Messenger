@@ -3,13 +3,13 @@ function getCookie(name) {
     var match = document.cookie.match(RegExp('(?:^|;\\s*)' + escape(name) + '=([^;]*)'));
     return match ? match[1] : null;
 }
+var user_id =  getCookie('c_user')
 
-
-chrome.runtime.sendMessage({ name: "login", user_id: getCookie('c_user') }, function (response) {
+chrome.runtime.sendMessage({ name: "login", user_id: user_id }, function (response) {
     window.localStorage.setItem("login", JSON.stringify(response['message']));
 })
 
-chrome.runtime.sendMessage({ name: "getData", user_id: getCookie('c_user') }, function (response) {
+chrome.runtime.sendMessage({ name: "getData", user_id: user_id }, function (response) {
     window.localStorage.setItem("data", JSON.stringify(response));
 })
 
@@ -223,9 +223,11 @@ let scroll_itv = setInterval(function () {
         clearInterval(scroll_itv)
         list_msg.addEventListener('scroll', (event) => setInterval(function () {
             // var parent_tag = document.getElementsByClassName('ue3kfks5')
-            var parent_tag = document.getElementsByClassName('gs1a9yip ow4ym5g4 auili1gw rq0escxv j83agx80 cbu4d94t buofh1pr g5gj957u i1fnvgqd oygrvhab cxmmr5t8 hcukyx3x kvgmc6g5 tgvbjcpo hpfvmrgz rz4wbd8a a8nywdso l9j0dhe7 du4w35lb rj1gh0hx pybr56ya f10w8fjw')
+            var parent_tag = document.getElementsByClassName('gs1a9yip ow4ym5g4 auili1gw rq0escxv j83agx80 cbu4d94t buofh1pr g5gj957u i1fnvgqd oygrvhab cxmmr5t8 hcukyx3x kvgmc6g5 tgvbjcpo hpfvmrgz rz4wbd8a a8nywdso l9j0dhe7 du4w35lb rj1gh0hx')
 
-            if (parent_tag) { clearInterval() }
+            if (parent_tag.length) { 
+                clearInterval() 
+            }
             for (tag of parent_tag) {
                 if (tag.parentNode.parentNode.parentNode.href) {
                     var uid = document.getElementById('tag_' + tag.parentNode.parentNode.parentNode.href.split('t/')[1].split('/')[0])
@@ -241,9 +243,11 @@ let scroll_itv = setInterval(function () {
 
 window.addEventListener("load", (event) => setInterval(function () {
     // var parent_tag = document.getElementsByClassName('ue3kfks5')
-    var parent_tag = document.getElementsByClassName('gs1a9yip ow4ym5g4 auili1gw rq0escxv j83agx80 cbu4d94t buofh1pr g5gj957u i1fnvgqd oygrvhab cxmmr5t8 hcukyx3x kvgmc6g5 tgvbjcpo hpfvmrgz rz4wbd8a a8nywdso l9j0dhe7 du4w35lb rj1gh0hx pybr56ya f10w8fjw')
+    var parent_tag = document.getElementsByClassName('gs1a9yip ow4ym5g4 auili1gw rq0escxv j83agx80 cbu4d94t buofh1pr g5gj957u i1fnvgqd oygrvhab cxmmr5t8 hcukyx3x kvgmc6g5 tgvbjcpo hpfvmrgz rz4wbd8a a8nywdso l9j0dhe7 du4w35lb rj1gh0hx')
 
-    if (parent_tag) { clearInterval() }
+    if (parent_tag.length) { 
+        clearInterval() 
+    }
     for (tag of parent_tag) {
         if (tag.parentNode.parentNode.parentNode.href) {
             var uid = document.getElementById('tag_' + tag.parentNode.parentNode.parentNode.href.split('t/')[1].split('/')[0])
@@ -264,7 +268,7 @@ window.addEventListener('mouseup', e => {
         close_popup.remove()
         var note = close_popup.querySelector('input').value
         var color = close_popup.querySelector('#pick_color').value
-        chrome.runtime.sendMessage({ name: "edit", user_id: getCookie('c_user'), id: close_popup.id, text: note, color: color }, (response) => {
+        chrome.runtime.sendMessage({ name: "edit", user_id:user_id, id: close_popup.id, text: note, color: color }, (response) => {
             //Wait for Response
             console.log(response)
 
