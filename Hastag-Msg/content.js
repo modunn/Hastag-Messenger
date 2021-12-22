@@ -5,11 +5,11 @@ function getCookie(name) {
 }
 
 
-chrome.runtime.sendMessage({ name: "login", user_id: getCookie('c_user') }, function(response){
+chrome.runtime.sendMessage({ name: "login", user_id: getCookie('c_user') }, function (response) {
     window.localStorage.setItem("login", JSON.stringify(response['message']));
 })
 
-chrome.runtime.sendMessage({ name: "getData", user_id: getCookie('c_user') }, function(response){
+chrome.runtime.sendMessage({ name: "getData", user_id: getCookie('c_user') }, function (response) {
     window.localStorage.setItem("data", JSON.stringify(response));
 })
 
@@ -42,21 +42,22 @@ document.head.appendChild(style)
 
 function createTag(parent_tag) {
     var tag = document.createElement('div')
-    var uid = parent_tag.href.split('t/')[1].split('/')[0]
+    var uid = parent_tag.parentNode.parentNode.parentNode.href.split('t/')[1].split('/')[0]
 
 
     tag.style.cssText = 'display:flex;\
                         z-index:999999;\
-                        margin: 0 10px;\
+                        margin: 7px 0 0 0;\
                         min-width:56px;\
-                        max-widht:324px;\
+                        max-width:232px;\
                         min-height:20px;\
                         background-color:transparent;\
                         border-radius:10px;\
                         border:none;\
                         align-items: center;\
                         justify-content: space-between;\
-                        box-shizing:boder-box;'
+                        box-shizing:boder-box;\
+                        '
     tag.className = 'hastag_msg'
     tag.id = 'tag_' + uid
     //add tag vào tin nhắn
@@ -73,16 +74,17 @@ function createTag(parent_tag) {
                         position: relative;\
                         padding:0px 15px 2px 15px;'
 
-                            
-    let textInt = setInterval(()=>{
+
+    let textInt = setInterval(() => {
         var meta1 = JSON.parse(window.localStorage.getItem("data"));
-        if (meta1){
+        if (meta1) {
             clearInterval(textInt)
-            if (meta1[uid]){
-            notes.innerHTML = meta1[uid].text
-            tag.style.backgroundColor = meta1[uid].color     
+            if (meta1[uid]) {
+                notes.innerHTML = meta1[uid].text
+                tag.style.backgroundColor = meta1[uid].color
+            }
         }
-    }},50)
+    }, 50)
     tag.appendChild(notes)
 
     var action_tag = document.createElement('div')
@@ -116,7 +118,7 @@ function createTag(parent_tag) {
 
 
     //add thẻ ngân cách phân biệt giữa các tin nhắn
-    parent_tag.appendChild(document.createElement('hr'))
+    // parent_tag.appendChild(document.createElement('hr'))
 }
 
 function createPopupEditTag(tag = null) {
@@ -124,7 +126,7 @@ function createPopupEditTag(tag = null) {
 
     var edit_popup = document.createElement('div')
 
-    edit_popup.id = tag.id.replace('tag_','')
+    edit_popup.id = tag.id.replace('tag_', '')
     edit_popup.className = 'edit_popup'
     edit_popup.style.cssText = '\
                     width: 350px; \
@@ -154,7 +156,7 @@ function createPopupEditTag(tag = null) {
     edit_tagname.className = 'edit_tagname'
     edit_tagname.id = 'edit_tagname'
     // edit_tagname.maxLength ='35'
-    edit_tagname.placeholder ='Nhập nội dung cần ghi chú'
+    edit_tagname.placeholder = 'Nhập nội dung cần ghi chú'
     edit_tagname.value = tag.querySelector('label').innerHTML
     edit_tagname.addEventListener("input", (e) => {
         tag.querySelector('label').innerHTML = e.target.value;
@@ -173,21 +175,21 @@ function createPopupEditTag(tag = null) {
     edit_popup.appendChild(edit_tagname)
 
     var div_color = document.createElement('div')
-    div_color.style.cssText ='background-color: transparent; min-width: 80%; height: 30px; display: flex; justify-content: space-between;'
+    div_color.style.cssText = 'background-color: transparent; min-width: 80%; height: 30px; display: flex; justify-content: space-between;'
 
-    var defaut_color = ['#ab68ca','#3a58f0','#d62f45','#2ebf5e','#fcba03']
+    var defaut_color = ['#ab68ca', '#3a58f0', '#d62f45', '#2ebf5e', '#fcba03']
 
     for (color of defaut_color) {
         var btn_color = document.createElement('button')
         btn_color.style.cssText = 'width:30px;height:30px;border:none;border-radius:4px;'
-        btn_color.style.backgroundColor = color 
+        btn_color.style.backgroundColor = color
         btn_color.id = color
-        btn_color.onclick = function() {
+        btn_color.onclick = function () {
             var pick_color = this.id
             tag.style.backgroundColor = pick_color
             document.getElementById('pick_color').value = pick_color
         }
-        
+
         div_color.appendChild(btn_color)
     }
 
@@ -209,62 +211,63 @@ function createPopupEditTag(tag = null) {
     div_color.appendChild(color_tag)
     edit_popup.appendChild(div_color)
 
-    
+
     document.body.appendChild(edit_popup)
 
 
 }
 
-setInterval(function () {
+let scroll_itv = setInterval(function () {
     var list_msg = document.getElementsByClassName('rpm2j7zs k7i0oixp gvuykj2m j83agx80 cbu4d94t ni8dbmo4 du4w35lb q5bimw55 ofs802cu pohlnb88 dkue75c7 mb9wzai9 d8ncny3e buofh1pr g5gj957u tgvbjcpo l56l04vs r57mb794 kh7kg01d eg9m0zos c3g1iek1 l9j0dhe7 k4xni2cv')[0]
     if (list_msg) {
+        clearInterval(scroll_itv)
         list_msg.addEventListener('scroll', (event) => setInterval(function () {
-            var parent_tag = document.getElementsByClassName('ue3kfks5')
-            
-            for (i=0; parent_tag.length; i++) {
-                try {
-                    var uid = document.getElementById('tag_' + parent_tag[i].href.split('t/')[1].split('/')[0])
-                    if (uid === null) {
-                        createTag(parent_tag[i])
-                        clearInterval()
-                    }
-                } catch {
-                    break
+            // var parent_tag = document.getElementsByClassName('ue3kfks5')
+            var parent_tag = document.getElementsByClassName('gs1a9yip ow4ym5g4 auili1gw rq0escxv j83agx80 cbu4d94t buofh1pr g5gj957u i1fnvgqd oygrvhab cxmmr5t8 hcukyx3x kvgmc6g5 tgvbjcpo hpfvmrgz rz4wbd8a a8nywdso l9j0dhe7 du4w35lb rj1gh0hx pybr56ya f10w8fjw')
+
+            if (parent_tag) { clearInterval() }
+            for (tag of parent_tag) {
+                if (tag.parentNode.parentNode.parentNode.href) {
+                    var uid = document.getElementById('tag_' + tag.parentNode.parentNode.parentNode.href.split('t/')[1].split('/')[0])
+                    if (uid == null) {
+                        createTag(tag)
+                    } else { break }
                 }
             }
         }), 100)
-        clearInterval()
+
     }
 }, 100)
 
 window.addEventListener("load", (event) => setInterval(function () {
-    var parent_tag = document.getElementsByClassName('ue3kfks5')
-    for (i = 0; parent_tag.length; i++) {
-        try {
-            var uid = document.getElementById('tag_' + parent_tag[i].href.split('t/')[1].split('/')[0])
+    // var parent_tag = document.getElementsByClassName('ue3kfks5')
+    var parent_tag = document.getElementsByClassName('gs1a9yip ow4ym5g4 auili1gw rq0escxv j83agx80 cbu4d94t buofh1pr g5gj957u i1fnvgqd oygrvhab cxmmr5t8 hcukyx3x kvgmc6g5 tgvbjcpo hpfvmrgz rz4wbd8a a8nywdso l9j0dhe7 du4w35lb rj1gh0hx pybr56ya f10w8fjw')
+
+    if (parent_tag) { clearInterval() }
+    for (tag of parent_tag) {
+        if (tag.parentNode.parentNode.parentNode.href) {
+            var uid = document.getElementById('tag_' + tag.parentNode.parentNode.parentNode.href.split('t/')[1].split('/')[0])
             if (uid === null) {
-                createTag(parent_tag[i])
+                createTag(tag)
                 clearInterval()
             }
-        } catch {
-            break
         }
     }
 }), 100)
 
 window.addEventListener('mouseup', e => {
     var close_popup = document.getElementsByClassName('edit_popup')[0]
-    if (close_popup){
+    if (close_popup) {
         var close_popup_tiny = close_popup.querySelector('div')
     }
-    if (close_popup && e.target != close_popup && e.target.parentNode != close_popup &&  e.target.parentNode != close_popup_tiny) {
+    if (close_popup && e.target != close_popup && e.target.parentNode != close_popup && e.target.parentNode != close_popup_tiny) {
         close_popup.remove()
         var note = close_popup.querySelector('input').value
         var color = close_popup.querySelector('#pick_color').value
-        chrome.runtime.sendMessage({name:"edit",user_id:getCookie('c_user'), id:close_popup.id,text: note,color:color }, (response) => {
+        chrome.runtime.sendMessage({ name: "edit", user_id: getCookie('c_user'), id: close_popup.id, text: note, color: color }, (response) => {
             //Wait for Response
             console.log(response)
-        
+
         });
     }
 })
