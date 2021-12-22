@@ -72,7 +72,11 @@ function createTag(parent_tag) {
                         font-weight: 500;\
                         color: white;\
                         position: relative;\
-                        padding:0px 15px 2px 15px;'
+                        padding:0px 10px 0px 10px;\
+                        overflow:hidden;\
+                        display:inline-block;\
+                        text-overflow: ellipsis;\
+                        white-space: nowrap;'
 
 
     let textInt = setInterval(() => {
@@ -145,7 +149,7 @@ function createPopupEditTag(tag = null) {
                     '
 
     var pos = tag.getBoundingClientRect()
-    var x = pos.width + 3
+    var x = pos.width+pos.left - 13
     var y = pos.top - 107
     edit_popup.style.top = y + 'px'
     edit_popup.style.left = x + 'px'
@@ -228,7 +232,7 @@ let scroll_itv = setInterval(function () {
             if (parent_tag.length) { 
                 clearInterval() 
             }
-            for (tag of parent_tag) {
+            for (let tag of parent_tag) {
                 if (tag.parentNode.parentNode.parentNode.href) {
                     var uid = document.getElementById('tag_' + tag.parentNode.parentNode.parentNode.href.split('t/')[1].split('/')[0])
                     if (uid == null) {
@@ -248,7 +252,7 @@ window.addEventListener("load", (event) => setInterval(function () {
     if (parent_tag.length) { 
         clearInterval() 
     }
-    for (tag of parent_tag) {
+    for (let tag of parent_tag) {
         if (tag.parentNode.parentNode.parentNode.href) {
             var uid = document.getElementById('tag_' + tag.parentNode.parentNode.parentNode.href.split('t/')[1].split('/')[0])
             if (uid === null) {
@@ -260,6 +264,8 @@ window.addEventListener("load", (event) => setInterval(function () {
 }), 100)
 
 window.addEventListener('mouseup', e => {
+    var meta1 = JSON.parse(window.localStorage.getItem("data"));
+
     var close_popup = document.getElementsByClassName('edit_popup')[0]
     if (close_popup) {
         var close_popup_tiny = close_popup.querySelector('div')
@@ -268,6 +274,8 @@ window.addEventListener('mouseup', e => {
         close_popup.remove()
         var note = close_popup.querySelector('input').value
         var color = close_popup.querySelector('#pick_color').value
+
+        
         chrome.runtime.sendMessage({ name: "edit", user_id:user_id, id: close_popup.id, text: note, color: color }, (response) => {
             //Wait for Response
             console.log(response)
