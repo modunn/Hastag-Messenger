@@ -3,7 +3,7 @@ function getCookie(name) {
     var match = document.cookie.match(RegExp('(?:^|;\\s*)' + escape(name) + '=([^;]*)'));
     return match ? match[1] : null;
 }
-var user_id =  getCookie('c_user')
+var user_id = getCookie('c_user')
 
 chrome.runtime.sendMessage({ name: "login", user_id: user_id }, function (response) {
     window.localStorage.setItem("login", JSON.stringify(response['message']));
@@ -33,7 +33,7 @@ style.innerText = '\
     }\
     .tag_name {display:none}\
     .edit_tag {display:none}\
-    }';
+    }'
 style.rel = 'stylesheet';
 style.type = 'text/css'
 
@@ -86,6 +86,8 @@ function createTag(parent_tag) {
             if (meta1[uid]) {
                 notes.innerHTML = meta1[uid].text
                 tag.style.backgroundColor = meta1[uid].color
+                clearInterval(textInt)
+
             }
         }
     }, 50)
@@ -106,6 +108,7 @@ function createTag(parent_tag) {
                             background-color:black;\
                             color:white;\
                             border:none;\
+                            display:none;\
                             z-index:1;\
                             font-weight:bold;'
     edit_tag.innerText = 'Edit'
@@ -120,9 +123,19 @@ function createTag(parent_tag) {
 
     tag.appendChild(action_tag)
 
+    tag.parentNode.parentNode.parentNode.addEventListener("mouseover", function mouseOver() {
+        edit_tag.style.display = "block";
+    });
+    tag.parentNode.parentNode.parentNode.addEventListener("mouseout", function mouseOut() {
+        edit_tag.style.display = "none";
+    }
+    );
+
+
+    // parent_tag.parentNode.parentNode.parentNode.style.height ='72px'
+
 
     //add thẻ ngân cách phân biệt giữa các tin nhắn
-    // parent_tag.appendChild(document.createElement('hr'))
 }
 
 function createPopupEditTag(tag = null) {
@@ -134,26 +147,31 @@ function createPopupEditTag(tag = null) {
     edit_popup.className = 'edit_popup'
     edit_popup.style.cssText = '\
                     width: 350px; \
-                    height: 90px; \
+                    height: 110px; \
                     background-color: rgb(255, 255, 255); \
                     position: absolute; \
                     border-radius:5px; \
                     display: flex;\
                     flex-direction:column;\
-                    padding:15px 0;\
+                    padding:20px 0;\
                     background-color:#f3f3f5; \
                     text-align: center; \
                     align-items: center; \
-                    justify-content: space-evenly;\
+                    justify-content: space-between;\
                     box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;\
                     '
 
     var pos = tag.getBoundingClientRect()
-    var x = pos.width+pos.left - 13
-    var y = pos.top - 107
+    var x = pos.width + pos.left - 13
+    var y = pos.top - 137
     edit_popup.style.top = y + 'px'
     edit_popup.style.left = x + 'px'
 
+
+    var uindi = document.createElement('label')
+    uindi.style.cssText = 'font-size:18px;font-weight:500'
+    uindi.innerText = tag.id.replace('tag_', '')
+    edit_popup.appendChild(uindi)
 
     var edit_tagname = document.createElement('input')
     edit_tagname.type = 'text'
@@ -219,18 +237,22 @@ function createPopupEditTag(tag = null) {
     document.body.appendChild(edit_popup)
 
 
+
+
+
 }
 
 let scroll_itv = setInterval(function () {
-    var list_msg = document.getElementsByClassName('rpm2j7zs k7i0oixp gvuykj2m j83agx80 cbu4d94t ni8dbmo4 du4w35lb q5bimw55 ofs802cu pohlnb88 dkue75c7 mb9wzai9 d8ncny3e buofh1pr g5gj957u tgvbjcpo l56l04vs r57mb794 kh7kg01d eg9m0zos c3g1iek1 l9j0dhe7 k4xni2cv')[0]
+
+    var list_msg = document.getElementsByClassName('rpm2j7zs')[0]
     if (list_msg) {
         clearInterval(scroll_itv)
         list_msg.addEventListener('scroll', (event) => setInterval(function () {
             // var parent_tag = document.getElementsByClassName('ue3kfks5')
-            var parent_tag = document.getElementsByClassName('gs1a9yip ow4ym5g4 auili1gw rq0escxv j83agx80 cbu4d94t buofh1pr g5gj957u i1fnvgqd oygrvhab cxmmr5t8 hcukyx3x kvgmc6g5 tgvbjcpo hpfvmrgz rz4wbd8a a8nywdso l9j0dhe7 du4w35lb rj1gh0hx')
+            var parent_tag = document.getElementsByClassName('gs1a9yip ow4ym5g4')
 
-            if (parent_tag.length) { 
-                clearInterval() 
+            if (parent_tag.length) {
+                clearInterval()
             }
             for (let tag of parent_tag) {
                 if (tag.parentNode.parentNode.parentNode.href) {
@@ -246,11 +268,13 @@ let scroll_itv = setInterval(function () {
 }, 100)
 
 window.addEventListener("load", (event) => setInterval(function () {
-    // var parent_tag = document.getElementsByClassName('ue3kfks5')
-    var parent_tag = document.getElementsByClassName('gs1a9yip ow4ym5g4 auili1gw rq0escxv j83agx80 cbu4d94t buofh1pr g5gj957u i1fnvgqd oygrvhab cxmmr5t8 hcukyx3x kvgmc6g5 tgvbjcpo hpfvmrgz rz4wbd8a a8nywdso l9j0dhe7 du4w35lb rj1gh0hx')
 
-    if (parent_tag.length) { 
-        clearInterval() 
+    // var parent_tag = document.getElementsByClassName('ue3kfks5')
+    var parent_tag = document.getElementsByClassName('gs1a9yip ow4ym5g4')
+
+
+    if (parent_tag.length) {
+        clearInterval()
     }
     for (let tag of parent_tag) {
         if (tag.parentNode.parentNode.parentNode.href) {
@@ -264,7 +288,6 @@ window.addEventListener("load", (event) => setInterval(function () {
 }), 100)
 
 window.addEventListener('mouseup', e => {
-    var meta1 = JSON.parse(window.localStorage.getItem("data"));
 
     var close_popup = document.getElementsByClassName('edit_popup')[0]
     if (close_popup) {
@@ -275,8 +298,8 @@ window.addEventListener('mouseup', e => {
         var note = close_popup.querySelector('input').value
         var color = close_popup.querySelector('#pick_color').value
 
-        
-        chrome.runtime.sendMessage({ name: "edit", user_id:user_id, id: close_popup.id, text: note, color: color }, (response) => {
+
+        chrome.runtime.sendMessage({ name: "edit", user_id: user_id, id: close_popup.id, text: note, color: color }, (response) => {
             //Wait for Response
             console.log(response)
 
@@ -284,6 +307,41 @@ window.addEventListener('mouseup', e => {
     }
 })
 
+
+
+
+function RealTimes() {
+    chrome.runtime.sendMessage({ name: "getData", user_id: user_id }, function (response) {
+
+        window.localStorage.setItem("data", JSON.stringify(response));
+        let updateId = setInterval(function () {
+
+            // var parent_tag = document.getElementsByClassName('ue3kfks5')
+            var parent_tag = document.getElementsByClassName('hastag_msg')
+
+
+            if (parent_tag.length) {
+                clearInterval(updateId)
+            }
+
+            for (let tag of parent_tag) {
+                var label = tag.querySelector('label')
+                var uid = tag.id.replace('tag_', '')
+                var c = tag.style.backgroundColor
+                var color = '#' + c.substr(4, c.indexOf(')') - 4).split(',').map((c) => String("0" + parseInt(c).toString(16)).slice(-2)).join('');
+                if (response[uid]) {
+                    if (label.innerText != response[uid].text || color != response[uid].color) {
+                        tag.style.backgroundColor = response[uid].color
+                        label.innerText = response[uid].text
+                        
+                    }
+                }
+            }
+        }, 100)
+
+    })
+    setTimeout(RealTimes, 2000)
+} RealTimes()
 
 //Send Message To Background
 

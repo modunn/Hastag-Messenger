@@ -58,6 +58,7 @@ chrome.windows.onRemoved.addListener(function(e) {
         windowId = null
     }
 });
+
 chrome.browserAction.onClicked.addListener(function() {
     windowId ? chrome.windows.update(windowId, {
         "focused": true

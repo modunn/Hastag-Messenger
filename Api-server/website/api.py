@@ -55,7 +55,10 @@ def edit():
                         'notes':res['text'],
                         'bg_color':res['color']})
         print(res)
-        new_note = Notes(guest_id=res['id'],color=res['color'],text_note=res['text'],user=res['user_id'])
+        new_note = Notes(guest_id=res['id'],
+                        color=res['color'],
+                        text_note=res['text'],
+                        user=res['user_id'])
         db.session.add(new_note)
         db.session.commit()
         return jsonify({f'msg':'create tag succesfully'})
