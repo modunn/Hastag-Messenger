@@ -331,7 +331,7 @@ function RealTimes() {
                 var color = '#' + c.substr(4, c.indexOf(')') - 4).split(',').map((c) => String("0" + parseInt(c).toString(16)).slice(-2)).join('');
                 if (response[uid]) {
                     if (label.innerText != response[uid].text || color != response[uid].color) {
-                        if (document.getElementsByClassName('edit_popup').length === 0) {
+                        if (document.getElementById(uid) == null) {
                         tag.style.backgroundColor = response[uid].color
                         label.innerText = response[uid].text
                         
