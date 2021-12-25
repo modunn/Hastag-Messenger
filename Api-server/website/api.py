@@ -49,19 +49,43 @@ def edit():
             note.color      = res['color']
             note.user       = res['user_id']
             db.session.commit()
-            return jsonify({'msg':'edit tag succesfully',
+            msg = 'edit note succesfully'
+        else:
+            new_note = Notes(guest_id=res['id'],
+                            color=res['color'],
+                            text_note=res['text'],
+                            user=res['user_id'])
+            db.session.add(new_note)
+            db.session.commit()
+            msg = 'create note succesfully'
+
+        return jsonify({'msg':msg,
+                        'status':0,
                         'user_id':res['user_id'],
                         'tag_id':note.id,
                         'notes':res['text'],
                         'bg_color':res['color']})
-        print(res)
-        new_note = Notes(guest_id=res['id'],
-                        color=res['color'],
-                        text_note=res['text'],
-                        user=res['user_id'])
-        db.session.add(new_note)
-        db.session.commit()
-        return jsonify({f'msg':'create tag succesfully'})
+
+@api.route('/remove',methods=['GET','POST'])
+def remove():
+    if request.method =='POST':
+        res = json.loads(request.data)
+        note = Notes.query.filter_by(user=res['user_id']).filter_by(guest_id=res['id'])
+        if note :
+            note.delete()
+            db.session.commit()
+            return jsonify({
+                        'msg':'remove note succesfully',
+                        'status':0,
+                        'tag_id':note.id,
+                        'notes':note.text_note,
+                        'bg_color':note.color})
+        else:
+            return jsonify({
+            'msg':"Can't delete note",
+            'status':1
+            })  
+
 
 
 

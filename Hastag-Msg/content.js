@@ -67,7 +67,7 @@ function createTag(parent_tag) {
     var notes = document.createElement('label')
     notes.className = 'tag_name'
     notes.style.cssText = '\
-                        max-width:225px;\
+                        width:225px;\
                         font-size: 12px;\
                         font-weight: 500;\
                         color: white;\
@@ -93,25 +93,28 @@ function createTag(parent_tag) {
     }, 50)
     tag.appendChild(notes)
 
+    
+
     var action_tag = document.createElement('div')
     action_tag.className = 'aciton_tag'
-    action_tag.style.cssText = 'text-align:center;align-items:center;display:flex,justify-content:center;'
+    action_tag.style.cssText = 'text-align:center;align-items:center;display:flex;justify-content:center;'
 
     //add nút sửa ghi chú vào tag
     var edit_tag = document.createElement('button')
     edit_tag.className = 'edit_tag'
-    edit_tag.style.cssText = 'border-radius:10px;\
-                            width:50px;\
+    edit_tag.style.cssText = 'border-bottom-left-radius:10px;\
+                            border-top-left-radius:10px;\
+                            border:none;\
+                            border-right:1px solid rgb(255,255,255);\
+                            width:35px;\
                             height:20px;\
-                            font-size:12px;\
+                            font-size:10px;\
                             padding-bottom:2px;\
                             background-color:black;\
                             color:white;\
-                            border:none;\
                             display:none;\
-                            z-index:1;\
-                            font-weight:bold;'
-    edit_tag.innerText = 'Edit'
+                            z-index:1;'
+    edit_tag.innerText = 'Sửa'
     edit_tag.style.cursor = 'pointer'
 
 
@@ -121,15 +124,43 @@ function createTag(parent_tag) {
     action_tag.appendChild(edit_tag)
 
 
+    var remove_tag = document.createElement('button')
+    remove_tag.className = 'remove_tag'
+    remove_tag.style.cssText = 'border-bottom-right-radius:10px;\
+                            border-top-right-radius:10px;\
+                            width:35px;\
+                            height:20px;\
+                            font-size:10px;\
+                            padding-bottom:2px;\
+                            background-color:black;\
+                            color:white;\
+                            border:none;\
+                            display:none;\
+                            z-index:1;'
+    remove_tag.innerText = 'Xóa'
+    remove_tag.style.cursor = 'pointer'
+
+
+    remove_tag.onclick = function () {
+        
+    }
+    action_tag.appendChild(remove_tag)
+
+
+
     tag.appendChild(action_tag)
 
     tag.parentNode.parentNode.parentNode.addEventListener("mouseover", function mouseOver() {
         edit_tag.style.display = "block";
+        remove_tag.style.display = "block";
     });
     tag.parentNode.parentNode.parentNode.addEventListener("mouseout", function mouseOut() {
         edit_tag.style.display = "none";
+        remove_tag.style.display = "none";
     }
     );
+
+
 
 
     // parent_tag.parentNode.parentNode.parentNode.style.height ='72px'
