@@ -26,7 +26,8 @@
     "activeTab",
     "tabs", 
     "*://*.messenger.com/*",
-    "*://*.msg-hastag.herokuapp.com/*"
+    "*://*.msg-hastag.herokuapp.com/*",
+    "http://localhost:8080/*"
 
   ]
 }

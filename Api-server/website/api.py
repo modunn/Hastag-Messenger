@@ -70,16 +70,19 @@ def edit():
 def remove():
     if request.method =='POST':
         res = json.loads(request.data)
-        note = Notes.query.filter_by(user=res['user_id']).filter_by(guest_id=res['id'])
+        note = Notes.query.filter_by(user=res['user_id']).filter_by(guest_id=res['id']).first()
         if note :
-            note.delete()
+            db.session.delete(note)
             db.session.commit()
             return jsonify({
                         'msg':'remove note succesfully',
                         'status':0,
-                        'tag_id':note.id,
-                        'notes':note.text_note,
-                        'bg_color':note.color})
+                        'note_id':note.id,
+                        'note_text': note.text_note,
+                        'background_color':note.color,
+                        'user_id' : res['user_id'],
+                        'guest_id':res['id']
+                        })
         else:
             return jsonify({
             'msg':"Can't delete note",

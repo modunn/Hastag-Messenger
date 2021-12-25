@@ -103,6 +103,7 @@ function createTag(parent_tag) {
     var edit_tag = document.createElement('button')
     edit_tag.className = 'edit_tag'
     edit_tag.style.cssText = 'border-bottom-left-radius:10px;\
+                            z-index:99999;\
                             border-top-left-radius:10px;\
                             border:none;\
                             border-right:1px solid rgb(255,255,255);\
@@ -127,6 +128,7 @@ function createTag(parent_tag) {
     var remove_tag = document.createElement('button')
     remove_tag.className = 'remove_tag'
     remove_tag.style.cssText = 'border-bottom-right-radius:10px;\
+                            z-index:99999;\
                             border-top-right-radius:10px;\
                             width:35px;\
                             height:20px;\
@@ -142,7 +144,13 @@ function createTag(parent_tag) {
 
 
     remove_tag.onclick = function () {
-        
+        chrome.runtime.sendMessage({ name: "remove", user_id: user_id, id:uid}, (response) => {
+            //Wait for Response
+            console.log(response)
+            tag.style.backgroundColor = 'transparent'
+            notes.innerText =''
+
+        });
     }
     action_tag.appendChild(remove_tag)
 
@@ -367,6 +375,11 @@ function RealTimes() {
                         label.innerText = response[uid].text
                         
                     }}
+                }else {
+                        if (document.getElementById(uid) == null) {
+                        tag.style.backgroundColor = 'transparent'
+                        label.innerText = ''      
+                        }
                 }
             }
         }, 100)

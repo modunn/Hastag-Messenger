@@ -55,7 +55,6 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
       }
       res.json().then(function (msg) {
 
-        console.log(msg)
         response(msg);
 
       });
@@ -63,7 +62,6 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
   }
   else if (msg.name == 'login') {
     const apiCall = `https://msg-hastag.herokuapp.com/api/login`;
-    console.log(msg.user_id);
     fetch(apiCall, {
       method: "post",
       headers: {
@@ -78,7 +76,6 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
       }
       res.json().then(function (msg) {
 
-        console.log(msg)
         response(msg);
       });
     })
@@ -102,7 +99,6 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
         return;
       }
       res.json().then(function (msg) {
-
         console.log(msg)
         response(msg);
 
