@@ -49,7 +49,7 @@ function createTag(parent_tag) {
                         z-index:999999;\
                         margin: 7px 0 0 0;\
                         min-width:56px;\
-                        max-width:232px;\
+                        max-width:205px;\
                         min-height:20px;\
                         background-color:transparent;\
                         border-radius:10px;\
