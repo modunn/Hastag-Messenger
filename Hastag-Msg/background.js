@@ -3,7 +3,7 @@
 //Listen for messages
 chrome.runtime.onMessage.addListener((msg, sender, response) => {
   if (msg.name == "getData") {
-    const apiCall = `https://msg-hastag.herokuapp.com/api/notes?user_id=${msg.user_id}`;
+    const apiCall = `https://msg-notes.herokuapp.com/api/notes?user_id=${msg.user_id}`;
     // console.log(apiCall);
     //We call api..
     fetch(apiCall, {
@@ -35,7 +35,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
         });
       })
   } else if (msg.name == 'edit') {
-    const apiCall = `https://msg-hastag.herokuapp.com/api/edit`;
+    const apiCall = `https://msg-notes.herokuapp.com/api/edit`;
     fetch(apiCall, {
       method: "post",
       headers: {
@@ -61,7 +61,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
     })
   }
   else if (msg.name == 'login') {
-    const apiCall = `https://msg-hastag.herokuapp.com/api/login`;
+    const apiCall = `https://msg-notes.herokuapp.com/api/login`;
     fetch(apiCall, {
       method: "post",
       headers: {
@@ -81,7 +81,7 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
     })
   }
   else if (msg.name == 'remove') {
-    const apiCall = `https://msg-hastag.herokuapp.com/api/remove`;
+    const apiCall = `https://msg-notes.herokuapp.com/api/remove`;
     console.log(msg.user_id);
     fetch(apiCall, {
       method: "post",
