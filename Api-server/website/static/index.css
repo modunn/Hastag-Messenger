@@ -33,6 +33,11 @@ body {
     font-size: 26px;
     font-weight:bold;
 }
+.card__heart:hover ,.card__coffe:hover {
+    font-size: 30px;
+}
+
+
 .card__heart {
     color: #CB6CE6;
 }
