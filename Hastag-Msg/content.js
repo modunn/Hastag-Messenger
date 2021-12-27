@@ -288,7 +288,16 @@ let scroll_itv = setInterval(function () {
         clearInterval(scroll_itv)
         list_msg.addEventListener('scroll', (event) => setInterval(function () {
             // var parent_tag = document.getElementsByClassName('ue3kfks5')
-            var parent_tag = document.getElementsByClassName('gs1a9yip ow4ym5g4')
+            var parent_tag = document.getElementsByClassName('hpfvmrgz i1fnvgqd bp9cbjyn')
+            try {
+
+            
+            if (parent_tag[0].parentNode.parentNode.parentNode.href){
+                console.log('ok')
+            }else {
+                var parent_tag = document.getElementsByClassName('gs1a9yip ow4ym5g4')
+            }
+            }catch {}
 
             if (parent_tag.length) {
                 clearInterval()
@@ -309,7 +318,14 @@ let scroll_itv = setInterval(function () {
 window.addEventListener("load", (event) => setInterval(function () {
 
     // var parent_tag = document.getElementsByClassName('ue3kfks5')
-    var parent_tag = document.getElementsByClassName('gs1a9yip ow4ym5g4')
+    var parent_tag = document.getElementsByClassName('hpfvmrgz i1fnvgqd bp9cbjyn')
+    try {
+    if (parent_tag[0].parentNode.parentNode.parentNode.href){
+        console.log('ok')
+    }else {
+        var parent_tag = document.getElementsByClassName('gs1a9yip ow4ym5g4')
+    }
+}catch{}
 
 
     if (parent_tag.length) {
