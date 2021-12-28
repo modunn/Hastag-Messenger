@@ -9,12 +9,19 @@
     padding: 0;
     box-sizing: border-box;
 }
+*:focus {
+    outline: none;
+}
 
-body {
+html{
     height: 100%;
-    background: rgb(0,212,255);
-    background: linear-gradient(90deg, rgba(0,212,255,1) 0%, rgba(175,56,166,1) 60%, rgba(93,9,121,1) 100%, rgba(2,0,36,.5) 100%);
+    overflow: hidden;
+
+  }
+body{
+    min-height: 100%;
     font-family: "Poppins";
+    background: linear-gradient(90deg, rgba(0,212,255,1) 0%, rgba(175,56,166,1) 60%, rgba(93,9,121,1) 100%, rgba(2,0,36,.5) 100%);
 }
 
 .card {
@@ -94,3 +101,135 @@ body {
 .card__acition a{
     text-decoration: none;
 }
+
+
+
+
+.form__login {
+    position: absolute;
+    margin:auto;
+    width: 450px;
+    height: 730px;
+    background: white;
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.form__container .card__img {
+    width: 50%;
+    margin-top:10px
+}
+.form__container .card__title {
+    font-size: 50px;
+}
+.form__username ,.form__password,.form__submit {
+    text-align: center;
+    margin-top: 20px;
+}
+.form__username input ,.form__password input ,
+.form__submit input {
+    width: 85%;
+    height: 40px;
+    margin: auto;
+    padding:0 10px;
+    border: 2px solid #b5b5b5;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: 400;
+
+}
+.form__username input:focus ,.form__password input:focus
+{
+    border: 2px solid var(--primary-color);
+}
+.form__submit {
+    margin-top: 30px;
+}
+.form__submit input {
+    border: none;
+    transition: 0.2s;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(90deg, rgba(0,212,255,1) 0%, rgba(175,56,166,1) 60%, rgba(93,9,121,1) 100%);
+    
+}
+.form__submit input:hover {
+    width: 84%;
+}
+
+.form__submit input:active {
+    padding-right: 1px;
+}
+.social {
+    text-align: center;
+    margin-top: 60px;
+}
+.social h4 {
+    width: 85%; 
+    text-align: center; 
+    border-bottom: 1px solid rgb(0, 213, 255); 
+    line-height: 0.1em;
+    margin: auto;
+    color: rgb(0, 213, 255);
+ } 
+ 
+.social h4 span { 
+    background:#fff; 
+    padding:0 10px; 
+    text-align: center;
+ }
+ .social__facebook {
+    margin-top: 40px;
+    text-align: center;
+
+ }
+ .social__facebook a{
+    background: #0084FF; 
+    display: block;
+    width: 85%;
+    min-height: 40px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    cursor: pointer;
+    margin: auto;
+    padding-top: 7px;
+
+ }
+ .social__facebook a:hover{
+    background: #004b92; 
+
+ }
+
+ .social__facebook a:active{
+    background: #0066c5; 
+
+ }
+
+
+ @media only screen and (max-width: 600px) {
+     body {
+         background: white;
+     }
+    .form__login {
+      width: 100%;
+      height: 100%;
+      border-radius: unset;
+      padding: 0;
+      margin: 0;
+    }
+    .form__container {
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -55%);
+
+    }
+  }
+

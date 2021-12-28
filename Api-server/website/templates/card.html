@@ -1,19 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
+{%extends 'base.html'%}
+{%block body%}
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-    <link rel="shortcut icon" href="static/icon/icon.ico" />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='index.css')}}">
-
-
-    <title>Notes Messenger</title>
-</head>
-
-<body>
     <div class="card">
         <div class="card__heart">
             <i class='bx bx-heart'></i>
@@ -44,6 +31,4 @@
             </a>
         </div>
     </div>
-</body>
-
-</html>
+{%endblock%}

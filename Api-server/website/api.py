@@ -99,5 +99,4 @@ def getuser():
 
     cols =['user','id']
     data = [{col: getattr(d, col) for col in cols} for d in user]
-    print(data)
     return jsonify(data=data)

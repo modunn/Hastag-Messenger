@@ -1,5 +1,5 @@
 from . import db
-
+from flask_login import UserMixin
  
 
 class Notes(db.Model):
@@ -18,11 +18,12 @@ class Notes(db.Model):
             'user'  : self.user
         }
         
-class Users(db.Model):
-	id = db.Column(db.Integer(), primary_key=True)
-	user = db.Column(db.String,unique=True)
-	notes    = db.relationship('Notes',backref='users')
-
+class Users(db.Model,UserMixin):
+	id          = db.Column(db.Integer(), primary_key=True)
+	user        = db.Column(db.String,unique=True)
+	pass_word   = db.Column(db.String)
+	notes       = db.relationship('Notes',backref='users')
+ 
 	def __str__(self):
 		return str(self.id)
 
