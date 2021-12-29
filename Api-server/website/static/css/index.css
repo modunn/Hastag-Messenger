@@ -1,7 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Questrial&display=swap');
 
 :root{
-    --primary-color : #5E17EB
+    --primary-color : #5E17EB;
+    --second--color :#af38a6;
 }
 
 * {
@@ -23,6 +25,192 @@ body{
     font-family: "Poppins";
     background: linear-gradient(90deg, rgba(0,212,255,1) 0%, rgba(175,56,166,1) 60%, rgba(93,9,121,1) 100%, rgba(2,0,36,.5) 100%);
 }
+
+.nav__bar {
+    display: flex;
+    width: 100%;
+    height: 70px;
+    padding: 0 30px;
+    justify-content: space-between;
+    box-shadow: 1px 1px 3px 0 rgb(0 0 0 / 16%);
+    font-size: 17px;
+    
+}
+.nav__bar--left,.nav__bar--right {
+    height: 70px;
+    width: 260px;
+    display: flex;
+}
+.nav__bar--left img{
+    height: 65px;
+    width: auto;
+}
+.nav__bar--center {
+    max-width: 1100px;
+}
+.nav__bar--center ,.nav__bar--right {
+    align-items: center;
+    padding-bottom: 2px;
+    display: flex;
+}
+
+.nav__bar--link {
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    margin-right: 2rem;
+    line-height: 20px;
+    margin-top: 6px;
+    padding: 5px 0;
+    
+
+}
+.nav__bar--link.current ,.nav__bar--link:hover{
+    border-bottom: 2px solid var(--second--color);
+}
+
+.nav__bar--right {
+    justify-content: flex-end
+}
+.nav__bar--link.auth-button {
+    padding: 5px 20px;
+    border: none;
+    border: 2px solid #151429;
+    border-radius: 20px;
+}
+.nav__bar--link.auth-button:hover {
+    background-color: #151429;
+    color: #fff;
+}
+
+.product__hero{
+    padding-top: 125px;
+    padding-bottom: 150px;
+    background-image: linear-gradient(211deg,#f3f3f3,hsla(0,0%,100%,0) 20%);
+}
+.my__contain {
+    display: flex;
+    justify-content: space-evenly;
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.product__contain--content ,.product__contain--img {
+    width: 46%;
+}
+.heading {
+    display: block;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    line-height: 70px;
+}
+.description {
+    text-align: justify;
+    max-width: 85%;
+}
+
+h1 {
+    font-size: 53px;
+    font-weight: 400;
+    margin-top: 0;
+    letter-spacing: -1.5px;
+    color: black;
+}
+p ,h4,h3,h2,span,label{
+    font-family: "Questrial";
+
+}
+p {
+    font-size: 19px;
+    padding-bottom: 20px;
+    line-height: 28px;
+    font-style: normal;
+}
+
+.steps__section {
+    margin-top: 35px;
+    padding-top: 0;
+    padding-bottom: 20px;
+    border-top: 40px solid #fff;
+    background-color: #f0f4f6;
+}
+
+
+.steps__content--wrap {
+    margin-top: -110px;
+    padding-top: 0;
+}
+.steps__header {
+    margin-top: 0;
+    margin-bottom: 35px;
+    text-align: center;
+}
+h4 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 17px;
+    line-height: 24px;
+    font-style: normal;
+    font-weight: 600;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+}
+
+
+.steps__flex_card {
+    height: 470px;
+    margin-right: 10px;
+    margin-left: 10px;
+    border-bottom-left-radius: 2px;
+    border-bottom-right-radius: 2px;
+    background-color: #fff;
+    width: 33.333%;
+    margin-bottom: 0;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+
+
+.steps__flex_card--yellow {
+    display: flex;
+    height: 295px;
+    padding-right: 40px;
+    padding-left: 40px;
+    flex-direction: column;
+    align-items: center;
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    background-color: #ffb3dd82;
+}
+
+.steps-description {
+    font-size: 17px;
+    padding-top: 25px;
+    padding-right: 40px;
+    padding-left: 40px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 .card {
     margin: 150px auto;
@@ -46,7 +234,7 @@ body{
 
 
 .card__heart {
-    color: #CB6CE6;
+    color:var(--second--color);
 }
 .card__coffe {
     left: unset;
@@ -96,7 +284,7 @@ body{
 
 .card__acition button:hover{
     padding: 10px 10px;
-    background: #CB6CE6;
+    background: var(--second--color);
 }
 .card__acition a{
     text-decoration: none;
@@ -150,14 +338,13 @@ body{
 }
 .form__submit input {
     border: none;
-    transition: 0.2s;
     font-weight: bold;
     color: white;
     background: linear-gradient(90deg, rgba(0,212,255,1) 0%, rgba(175,56,166,1) 60%, rgba(93,9,121,1) 100%);
     
 }
 .form__submit input:hover {
-    width: 84%;
+    background: rgb(175,56,166);
 }
 
 .form__submit input:active {

@@ -1,0 +1,53 @@
+{%extends 'base.html'%}
+{%block head%}
+<style>
+    body {
+        background: white;
+    }
+    html {
+        overflow: auto;
+    }
+</style>
+{%endblock%}
+
+{%block body%}
+<header>
+    <div class="nav__bar">
+        <div class="nav__bar--left">
+            <img src="{{ url_for('static',filename='icon/app_name.svg')}}" alt="">
+
+        </div>
+
+        <div class="nav__bar--center">
+            <a href="{{url_for('views.product')}}" class="nav__bar--link current">How it works</a>
+            <a href="#" class="nav__bar--link">Pricing</a>
+            <a href="#" class="nav__bar--link">Docs</a>
+            <a href="#" class="nav__bar--link">Download</a>
+        </div>
+        <div class="nav__bar--right">
+            {%if current_user.is_authenticated%}
+            <a href="{{url_for('auth.logout')}}" class="nav__bar--link auth-button">Log out</a>
+            {%else%}
+            <a href="{{url_for('auth.login')}}" class="nav__bar--link">Login</a>
+            <a href="#" class="nav__bar--link auth-button">Sign up</a>
+            {%endif%}
+        </div>
+    </div>
+</header>
+{%block content%}
+{%endblock%}
+
+
+<script>
+    let links = document.querySelectorAll('.nav__bar--link');
+    for (let i = 0; i < links.length; i++) {
+        links[i].addEventListener('click', function () {
+            for (let j = 0; j < links.length; j++)
+                links[j].classList.remove('current');
+            this.classList.add('current');
+        });
+    }
+</script>
+</header>
+
+{%endblock%}

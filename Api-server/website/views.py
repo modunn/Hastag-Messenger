@@ -8,10 +8,14 @@ views = Blueprint('views',__name__)
 
 
 @views.route('/',methods=['GET','POST'])
-@views.route('/home',methods=['GET','POST'])
-@login_required
-def home():
-    return render_template('home.html')
+def index():
+    return render_template('index.html',user=current_user)
+
+
+
+@views.route('/product',methods=['GET','POST'])
+def product():
+    return render_template('product.html')
 
 
 @views.route('/card_view',methods=['GET','POST'])

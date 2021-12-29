@@ -14,7 +14,7 @@ auth = Blueprint('auth', __name__)
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('views.home'))    
+        return redirect(url_for('views.index'))    
     if request.method == 'POST':
         data = request.form
         username = data['username']
@@ -23,7 +23,7 @@ def login():
         if user:
             if password == user.pass_word:
                 login_user(user, remember=True)
-                return redirect(request.args.get('next') or url_for('views.home'))
+                return redirect(request.args.get('next') or url_for('views.index'))
 
     return render_template('login.html')
 
