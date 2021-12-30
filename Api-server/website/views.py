@@ -12,10 +12,23 @@ def index():
     return render_template('index.html',user=current_user)
 
 
-
 @views.route('/product',methods=['GET','POST'])
 def product():
     return render_template('product.html')
+
+@views.route('/pricing',methods=['GET','POST'])
+def pricing():
+    return render_template('pricing.html')
+    
+@views.route('/docs',methods=['GET','POST'])
+def docs():
+    return render_template('docs.html')
+    
+@views.route('/download',methods=['GET','POST'])
+def download():
+    return render_template('download.html')
+
+
 
 
 @views.route('/card_view',methods=['GET','POST'])

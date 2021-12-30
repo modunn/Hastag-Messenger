@@ -1,4 +1,4 @@
-{%extends 'index.html'%}
+{%extends 'index.html'%} {%block title%}Product -{%endblock%} 
 
 {%block content%}
 <div class="product__hero">
@@ -6,8 +6,8 @@
         <div class="product__contain--content">
             <h1 class="heading">What is Notes?</h1>
             <p class="description">Notes Messenger là một tiện ích của google chrome giúp thêm ghi chú vào messenger
-                trong facebook</p>
-            <a href="#" class="cta-button"></a>
+            </p>
+            <a href="{{url_for('auth.login')}}" class="cta-button">Login</a>
         </div>
         <div class="product__contain--img">
             <img src="{{url_for('static',filename='icon/product-hero.svg')}}" alt="">
@@ -16,37 +16,190 @@
 </div>
 <div class="steps__section">
     <div class="steps__content--wrap">
-    <h4 class="steps__header">LÀM THẾ NÀO NÓ HOẠT ĐỘNG</h4>
-    <div class="my__contain">
-        <div class="steps__flex_card">
-            <div class="steps__flex_card--yellow">
-                <div class="steps-header-wrap"></div>
-                <div class="steps-img"></div>
+        <h4 class="steps__header">HOW IT WORKS</h4>
+        <div class="my__contain">
+            <div class="steps__flex_card">
+                <div class="steps__flex_card--violet">
+                    <div class="steps-header-wrap">
+                        <div class="steps__number--background">
+                            <h4 class="steps__number">1</h4>
+                        </div>
+                        <h3> Tải xuống tiện ích</h3>
+                    </div>
+                    <img src="{{url_for('static',filename='icon/download.svg')}}" alt="download image"
+                        class="steps-img">
+                </div>
+                <p class="steps-description">
+                    Tải xuống và lưu vào một thư mục bất kì trong máy, thường sẽ là thư mục Download.
+                </p>
             </div>
-            <p class="steps-description">
-                Tải xuống và chạy một chương trình trên máy của bạn và cung cấp cho nó cổng của một dịch vụ mạng, thường là một máy chủ web.
-            </p>
-        </div>
-        <div class="steps__flex_card">
-            <div class="steps__flex_card--yellow">
-                <div class="steps-header-wrap"></div>
-                <div class="steps-img"></div>
+            <div class="steps__flex_card">
+                <div class="steps__flex_card--violet">
+                    <div class="steps-header-wrap">
+                        <div class="steps__number--background">
+                            <h4 class="steps__number">2</h4>
+                        </div>
+                        <h3> Cài đặt trên chrome</h3>
+                    </div>
+                    <img src="{{url_for('static',filename='icon/setting.svg')}}" alt="download image" class="steps-img">
+                </div>
+                <p class="steps-description">
+                    Mở trang tiện ích, chọn chế độ nhà phát triển và biến nó thành một tiện ích mở rộng của google
+                    chrome.
+                </p>
             </div>
-            <p class="steps-description">
-                Kết nối với dịch vụ đám mây ngrok chấp nhận lưu lượng truy cập trên một địa chỉ công cộng.
-            </p>
-        </div>
-        <div class="steps__flex_card">
-            <div class="steps__flex_card--yellow">
-                <div class="steps-header-wrap"></div>
-                <div class="steps-img"></div>
+            <div class="steps__flex_card">
+                <div class="steps__flex_card--violet">
+                    <div class="steps-header-wrap">
+                        <div class="steps__number--background">
+                            <h4 class="steps__number">3</h4>
+                        </div>
+                        <h3>Truy cập ghi chú từ mọi nơi</h3>
+                    </div>
+                    <img src="{{url_for('static',filename='icon/global.svg')}}" alt="download image" class="steps-img">
+                </div>
+                <p class="steps-description">
+                    Truy cập trang <a href="https://www.messenger.com/" target="blank">messenger</a> hoặc nhấp vào icon
+                    tiện ích trên
+                    thanh điều hướng để sử dụng
+                </p>
             </div>
-            <p class="steps-description">
-                Lưu lượng truy cập được chuyển tiếp đến quy trình ngrok đang chạy trên máy của bạn và sau đó đến địa chỉ cục bộ mà bạn đã chỉ định.
-
-            </p>
         </div>
     </div>
 </div>
+<div class="benefits">
+    <h4 class="benefits-header">WHAT IT'S GOOD FOR</h4>
+    <div class="flex__col--wrap benefits">
+        <div class="flex__3--col benefits-wrap">
+            <div class="benefits-icon-wrap">
+                <img src="{{url_for('static',filename='icon/cloud-icon.svg')}}" alt="" class="cloud-icon">
+            </div>
+            <div class="coral-rule"></div>
+            <h3 class="benefits-content">Lưu trữ ghi chú của bạn trên nền tảng đám mây</h3>
+        </div>
+        <div class="flex__3--col benefits-wrap">
+            <div class="benefits-icon-wrap">
+                <img src="{{url_for('static',filename='icon/demo-icon.svg')}}" alt="" class="demo-icon">
+            </div>
+            <div class="coral-rule"></div>
+            <h3 class="benefits-content">Tự động tải ghi chú mà không cần đăng nhập</h3>
+        </div>
+        <div class="flex__3--col benefits-wrap">
+            <div class="benefits-icon-wrap">
+                <img src="{{url_for('static',filename='icon/webhook-icon.svg')}}" alt="" class="webhook-icon">
+            </div>
+            <div class="coral-rule"></div>
+            <h3 class="benefits-content">Xây dựng hệ thống ghi chú của riêng bạn</h3>
+        </div>
+        <div class="flex__3--col benefits-wrap">
+            <div class="benefits-icon-wrap">
+                <img src="{{url_for('static',filename='icon/mobile-apps-icon.svg')}}" alt="">
+            </div>
+            <div class="coral-rule"></div>
+            <h3 class="benefits-content">Xem ghi chú ngay trên tất cả các loại thiết bị di động
+            </h3>
+        </div>
+        <div class="flex__3--col benefits-wrap">
+            <div class="benefits-icon-wrap">
+                <img src="{{url_for('static',filename='icon/devices-icon.svg')}}" alt="">
+            </div>
+            <div class="coral-rule"></div>
+            <h3 class="benefits-content">Kết nối đa thiết bị cập nhật theo thời gian thực
+            </h3>
+        </div>
+    </div>
 </div>
-{%endblock%}
+
+<div class="features__section">
+    <div class="features-content-wrap">
+        <h2 class="features-header">A few great features</h2>
+        <div class="features-card">
+            <img src="{{url_for('static',filename='icon/control.svg')}}" alt="" class="features-icon">
+            <h4 class="features-subhead">Bảo mật tuyệt đối</h4>
+            <div class="features-col2">
+                <div class="features-content">
+                    <div class="features-description">
+                        <div>
+                            <strong class="features-title">Easy Messenger</strong>
+                        </div>
+                        <p class="smoke">
+                            Thông qua bảo mật hai lớp của google và messenger, tăng cường độ bảo mật của ứng dụng nhưng
+                            vẫn giữ nguyên sự đơn giản và tiện lợi khi sử dụng
+                        </p>
+                    </div>
+                </div>
+                <div class="features-content">
+                    <div class="features-description">
+                        <div>
+                            <strong class="features-title">Authenticated Access</strong>
+                        </div>
+                        <p class="smoke">
+                            Xác thực quyền truy cập ứng dụng thông qua tài khoản facebook, truy cập dashboard cá nhân
+                            bằng chính tài khoản và mật khẩu của bạn.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- -->
+        <div class="features-card">
+            <img src="{{url_for('static',filename='icon/reserved.svg')}}" alt="" class="features-icon">
+            <h4 class="features-subhead">Tạo phong cách riêng</h4>
+            <div class="features-col2">
+                <div class="features-content">
+                    <div class="features-description">
+                        <div>
+                            <strong class="features-title">Custom</strong>
+                        </div>
+                        <p class="smoke">
+                            Dễ dàng chỉnh sửa màu sắc, kiểu dáng kích thước, tự tạo những kiểu ghi chú mang đậm phong
+                            cách cá nhân và thể hiện cá tính của riêng bạn
+                        </p>
+                    </div>
+                    <div class="code-block-black">
+                        <p class="code-text">
+                            Bộc lộ cá tính, tự tin sáng tạo
+                        </p>
+                    </div>
+                </div>
+                <div class="features-content">
+                    <div class="features-description">
+                        <div>
+                            <strong class="features-title">Search</strong>
+                        </div>
+                        <p class="smoke">
+                            Lọc và tìm kiếm các ghi chú, sắp xếp chúng theo cách của riêng bạn.Thuận tiện và vô
+                            cùng dễ dàng, khiến cho công việc thường ngày trở nên thú vị hơn
+                        </p>
+                        <div class="code-block-black">
+                            <p class="code-text">
+                                Làm việc thoải mái, hiệu quả tăng cao
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="questions__contain">
+        <div class="question__col">
+            <h3 class="question__header">Tôi có thể sử dụng tối đa là bao nhiêu thẻ ghi chú, thẻ ghi chú sẽ được lưu trữ trong bao lâu?</h3>
+            <p class="question__description">
+                Số lượng thẻ ghi chú sử dụng tối đa dành cho người dùng miễn phí là 150
+                thẻ, đối với người dùng trả ví thì nó không giới hạn.
+                Thẻ ghi chú được chúng tôi lưu trữ vĩnh viễn
+            </p>
+        </div>
+        <div class="question__col">
+            <h3 class="question__header">Tối có thể trích xuất thẻ ghi chú của mình không?</h3>
+            <p class="question__description">
+                Yes, bạn hoàn toàn có thể trích xuất dữ liệu thẻ ghi chú bất kì hoặc tất cả
+                tùy thuộc vào nhu cầu cá nhân, chúng tôi cho phép người dùng sử dụng chức năng này đối với cả hai nhóm
+                người dùng trả phí và miễn phí
+
+            </p>
+        </div>
+
+    </div>
+    {%endblock%}

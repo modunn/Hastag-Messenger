@@ -1,9 +1,10 @@
-{%extends 'base.html'%}
+{%extends 'base.html'%}{%block title%}Home -{%endblock%} 
 {%block head%}
 <style>
     body {
         background: white;
     }
+
     html {
         overflow: auto;
     }
@@ -19,10 +20,10 @@
         </div>
 
         <div class="nav__bar--center">
-            <a href="{{url_for('views.product')}}" class="nav__bar--link current">How it works</a>
-            <a href="#" class="nav__bar--link">Pricing</a>
-            <a href="#" class="nav__bar--link">Docs</a>
-            <a href="#" class="nav__bar--link">Download</a>
+            <a href="{{url_for('views.product')}}" class="nav__bar--link">How it works</a>
+            <a href="{{url_for('views.pricing')}}" class="nav__bar--link">Pricing</a>
+            <a href="{{url_for('views.docs')}}" class="nav__bar--link">Docs</a>
+            <a href="{{url_for('views.download')}}" class="nav__bar--link">Download</a>
         </div>
         <div class="nav__bar--right">
             {%if current_user.is_authenticated%}
@@ -36,18 +37,33 @@
 </header>
 {%block content%}
 {%endblock%}
+<footer class="footer">
+    <div class="footer__contain">
+        <div class="footer__col left">
+            <a href="{{url_for('views.product')}}" class="footer__menu">How it works</a>
+            <a href="{{url_for('views.pricing')}}" class="footer__menu">Pricing</a>
+            <a href="{{url_for('views.docs')}}" class="footer__menu">Docs</a>
+            <a href="{{url_for('views.download')}}" class="footer__menu">Download</a>
+        </div>
+        <div class="footer__col center">
+            <h3 style="margin-bottom: 30px;">Stay focused on workding.</h3>
+            <a href="{{url_for('views.card_view')}}" class="white-button">Get started for free</a>
+        </div>
+        <div class="footer__col right">
+            <a href="#" class="footer__menu sank">Abuse</a>
+            <a href="#" class="footer__menu sank">DPA</a>
+            <a href="#" class="footer__menu sank">Privacy</a>
+            <a href="#" class="footer__menu sank">Security</a>
+            <a href="#" class="footer__menu sank">Terms of service</a>
+        </div>
+    </div>
+    <div class="small-caps">
 
+        <p style="text-align:center;height: 35px;font-size: 14px;">© NOTES MESSENGER 2021</p>
+    </div>
+</footer>
 
-<script>
-    let links = document.querySelectorAll('.nav__bar--link');
-    for (let i = 0; i < links.length; i++) {
-        links[i].addEventListener('click', function () {
-            for (let j = 0; j < links.length; j++)
-                links[j].classList.remove('current');
-            this.classList.add('current');
-        });
-    }
-</script>
+<script src="{{url_for('static',filename='./js/index.js')}}"></script>
 </header>
 
 {%endblock%}
