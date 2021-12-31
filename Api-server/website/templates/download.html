@@ -1,3 +1,34 @@
 {%extends 'index.html'%}{%block title%}Download -{%endblock%} 
 {%block content%}
+
+<div class="card">
+    <div class="card__heart">
+        <i class='bx bx-heart'></i>
+    </div>
+    <div class="card__coffe">
+        <i class='bx bx-coffee'></i>
+    </div>
+    <div class="card__img">
+        <img src="{{url_for('static',filename='icon/icon.png')}}" alt="">
+    </div>
+    <div class="card__title">
+        Messenger Notes
+    </div>
+    <div class="card__info">
+        Extension giúp thêm ghi chú vào Messenger
+    </div>
+    <div class="card__acition">
+        <a href="https://github.com/modunn/Hastag-Messenger/releases/download/v1.0/NoteMessenger.crx"
+            target="blank">
+            <button class="card__action--download">
+                Tải xuống
+            </button>
+        </a>
+        <a href="https://join.skype.com/invite/qt6sILS5bDlm" target="blank">
+            <button class="card__action--buy-coffe">
+                Buy my coffee
+            </button>
+        </a>
+    </div>
+</div>
 {%endblock%}

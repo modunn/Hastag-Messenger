@@ -7,7 +7,11 @@
             <h1 class="heading">What is Notes?</h1>
             <p class="description">Notes Messenger là một tiện ích của google chrome giúp thêm ghi chú vào messenger
             </p>
+            {%if current_user.is_authenticated%}
+            <a href="{{url_for('views.download')}}" class="cta-button">Download</a>
+            {%else%}
             <a href="{{url_for('auth.login')}}" class="cta-button">Login</a>
+            {%endif%}
         </div>
         <div class="product__contain--img">
             <img src="{{url_for('static',filename='icon/product-hero.svg')}}" alt="">
