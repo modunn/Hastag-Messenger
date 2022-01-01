@@ -12,6 +12,7 @@
 {%endblock%}
 
 {%block body%}
+
 <header>
     <div class="nav__bar">
         <div class="nav__bar--left">
@@ -32,6 +33,18 @@
             <a href="{{url_for('auth.login')}}" class="nav__bar--link">Login</a>
             <a href="#" class="nav__bar--link auth-button">Sign up</a>
             {%endif%}
+        </div>
+        <div class="nav__bar--menu">
+            <button id='menu-btn-on' onclick='openMenu()' class="nav__bar--link menu">
+                <i class='bx bx-menu'></i>
+            </button>
+            <button id='menu-btn-close' onclick='openMenu()' class="nav__bar--link menu close">
+                <i class='bx bx-x'></i>
+            </button>
+        </div>
+    </div>
+    <div class="menu__modal--bg">
+        <div class="menu__modal--popup">
         </div>
     </div>
 </header>
@@ -58,12 +71,12 @@
         </div>
     </div>
     <div class="small-caps">
-
-        <p style="text-align:center;height: 35px;font-size: 14px;">© NOTES MESSENGER 2021</p>
+        <p>© NOTES MESSENGER 2021</p>
     </div>
 </footer>
 
+
+
 <script src="{{url_for('static',filename='./js/index.js')}}"></script>
-</header>
 
 {%endblock%}

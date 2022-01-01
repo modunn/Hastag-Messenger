@@ -9,8 +9,7 @@ views = Blueprint('views',__name__)
 
 @views.route('/',methods=['GET','POST'])
 def index():
-    return redirect(url_for('views.product',user=current_user))
-
+    return render_template('index.html',user=current_user)
 
 @views.route('/product',methods=['GET','POST'])
 def product():

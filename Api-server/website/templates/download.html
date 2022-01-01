@@ -1,34 +1,84 @@
 {%extends 'index.html'%}{%block title%}Download -{%endblock%} 
 {%block content%}
 
-<div class="card">
-    <div class="card__heart">
-        <i class='bx bx-heart'></i>
-    </div>
-    <div class="card__coffe">
-        <i class='bx bx-coffee'></i>
-    </div>
-    <div class="card__img">
-        <img src="{{url_for('static',filename='icon/icon.png')}}" alt="">
-    </div>
-    <div class="card__title">
-        Messenger Notes
-    </div>
-    <div class="card__info">
-        Extension giúp thêm ghi chú vào Messenger
-    </div>
-    <div class="card__acition">
-        <a href="https://github.com/modunn/Hastag-Messenger/releases/download/v1.0/NoteMessenger.crx"
-            target="blank">
-            <button class="card__action--download">
-                Tải xuống
-            </button>
-        </a>
-        <a href="https://join.skype.com/invite/qt6sILS5bDlm" target="blank">
-            <button class="card__action--buy-coffe">
-                Buy my coffee
-            </button>
-        </a>
+<div class="background__fixed">
+    <div class="download__contain">
+        <div class="dl__head">
+            <h1>Install Notes Messenger</h1>
+            <p>Chia sẻ ghi chú dễ dàng trên internet
+            </p>
+        </div>
+        <div class="card__download">
+            <div class="dl-top">
+                <p>Install Notes Messenger via Chocolatey</p>
+                <div class="code__block">
+                    <div class="code__block--white">
+                        <span class="mon">$</span>
+                        <span class="letter">choco install notes_messenger</span>
+                    </div>
+                    <button class="icon--copy" onclick="copyToClipboard()">
+                        <i class='bx bx-copy'></i>
+                    </button>
+                </div>
+            </div>
+            <div class="dl-center">
+                <div class="dl-or">or</div>
+                
+            </div>
+            <dl class="dl-bottom">
+                <p>Download file</p>
+                <div class="chosen-dl">
+                    <div class="cbb-dl">
+                        <div class="cbb-text">
+                            <i class='bx bxl-windows'></i>
+                            <span>Windows (64-bit)</span>
+                        </div>
+                        <div class="cbb-arrow">
+                            <i class='bx bx-chevron-down'></i>
+                        </div>
+                    </div>
+                    <a class="button-dl" href="https://github.com/modunn/Hastag-Messenger/releases/download/v1.0/NoteMessenger.crx">
+                        <div class="icon-cloud">
+                            <i class='bx bx-cloud-download'></i>
+                        </div>
+                        Download
+                    </a>
+                </div>
+                <p style="margin-top: 20px;color: rgb(180, 180, 180);">Double-click .zip file once downloaded</p>
+
+            </dl>
+
+        </div>
+        <div class="card__download" >
+            <div class="dl-top hai">
+                <p>Add authtoken</p>
+                <div class="code__block">
+                    <div class="code__block--white">
+                        <span class="mon">$</span>
+                        <span class="letter">notes_messenger authtoken < token > </span>
+                    </div>
+                    <button class="icon--copy" onclick="copyToClipboard()">
+                        <i class='bx bx-copy'></i>
+                    </button>
+                </div>
+                <p style="margin-top: 25px;">Don’t have an authtoken? <a>Sign up</a></p>
+
+            </div>
+        </div>
+        <div class="card__download" >
+            <div class="dl-top hai">
+                <p>Start a tunnel</p>
+                <div class="code__block">
+                    <div class="code__block--white">
+                        <span class="mon">$</span>
+                        <span class="letter">notes_messenger http 80</span>
+                    </div>
+                    <button class="icon--copy" onclick="copyToClipboard()">
+                        <i class='bx bx-copy'></i>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 {%endblock%}
