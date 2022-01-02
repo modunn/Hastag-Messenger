@@ -23,7 +23,7 @@ def login():
         if user:
             if password == user.pass_word:
                 login_user(user, remember=True)
-                return redirect(request.args.get('next') or url_for('views.index'))
+                return redirect(request.args.get('next') or url_for('views.home'))
 
     return render_template('login.html')
 

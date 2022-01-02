@@ -2,3 +2,5 @@ Flask==2.0.2
 Flask-SQLAlchemy==2.5.1
 gunicorn==19.9.0
 psycopg2
+flask_login
+flask_migrate

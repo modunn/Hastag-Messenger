@@ -1208,6 +1208,9 @@ p.code-text {
         width: 100%;
         border-radius: unset;
     }
+    .home-hero {
+        margin-top: 40px;
+    }
 
 
   }
