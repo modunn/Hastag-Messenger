@@ -106,33 +106,17 @@ def remove():
 def custom():
     if request.method =='POST':
         res = json.loads(request.data)
-        print(res)
         user = res.get('user')
         color_default = res.get('color_default')
         length =  res.get('length')
         custom = Custom.query.filter_by(user=user).first()
-        if custom:
-            custom.color_default = color_default
-            custom.length = length
-            db.session.commit()
-            return {'msg':'edit succesfully',
-                    'code':0,
-                    'user_id':user,
-                    'custom_id':custom.id
-                    }
-
-        custom = Custom(
-            color_default=color_default,
-            length=length,
-            user=user
-        )
-
-        db.session.add(custom)
+        custom.color_default = color_default
+        custom.length = length
         db.session.commit()
-        return {'msg':'create succesfully',
+
+        return {'msg':'edit succesfully',
                 'code':0,
                 'user_id':user,
                 'custom_id':custom.id
                 }
-
     return 'Hello world'
