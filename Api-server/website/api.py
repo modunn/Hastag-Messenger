@@ -33,6 +33,7 @@ def signup():
         new_user = Users(user=user['user'])
         db.session.add(new_user)
         db.session.commit()
+        
         return jsonify({'message':True,'code':0})
     except Exception as e:
         print(e)

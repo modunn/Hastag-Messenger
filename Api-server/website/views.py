@@ -8,8 +8,10 @@ views = Blueprint('views',__name__)
 
 
 @views.route('/',methods=['GET','POST'])
-def index():
-    return render_template('index.html',user=current_user)
+@views.route('/home',methods=['GET','POST'])
+def home():
+    return render_template('home.html',user=current_user)
+
 
 @views.route('/product',methods=['GET','POST'])
 def product():
@@ -28,8 +30,4 @@ def docs():
 @login_required
 def download():
     return render_template('download.html')
-
-
-
-
 

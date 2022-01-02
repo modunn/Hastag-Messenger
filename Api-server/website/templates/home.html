@@ -1,0 +1,57 @@
+{%extends 'index.html'%}
+
+{%block content%}
+<div class="home-hero">
+    <div class="home-hero--flexrow2 ">
+        <div class="home-hero--flexcol2 top-row">
+            <div class="home-hero--content">
+                <h1>Public Notes for</h1>
+                <h4 class="typewrite" data-period="2000" data-type='["SSH access to your Raspberry Pi.",
+                     "exposing your local messenger.", 
+                     "building notes integrations.", 
+                     "sending previews to clients.",
+                     "public notes everywhere"]'>
+                    <span class="wrap"></span>
+                </h4>
+                <p style="margin-top:10px;font-size: 17px;margin-bottom: 20px;">Dành nhiều thời gian hơn cho công việc. Đơn giản hóa việc lưu trữ thông tin khách hàng một cách nhanh chóng và an toàn.
+                </p>
+                <a href="{{url_for('views.download')}}" class="cta-button tiny">Get started for free</a>
+            </div>
+            <div class="home-hero--img">
+                <img src="{{ url_for('static',filename='icon/code.svg')}}" alt="">
+            </div>
+        </div>
+        <div class="home-hero--flexcol2 part">
+            <a class="partner" >
+                <i class="bx bxl-github"></i>
+                <h2 class="partner-name">GitHub</h2>
+            </a>
+
+            <a class="partner">
+                <i class="bx bxl-slack"></i>
+                <h2 class="partner-name">Slack</h2>
+            </a>
+
+            <a class="partner">
+                <i class="bx bxl-chrome"></i>
+                <h2 class="partner-name">Chrome</h2>
+            </a>
+
+            <a class="partner">
+                <i class="bx bxl-amazon"></i>
+                <h2 class="partner-name">Amazon</h2>
+            </a>
+
+            <a class="partner">
+                <i class="bx bxl-google"></i>
+                <h2 class="partner-name">Google</h2>
+            </a>
+
+        </div>
+        <div class="home-hero--flexcol2 bottom-row">
+            <p class="and-well">As well as <a href="#"> Messenger Web Services</a> and many more.</p>
+
+        </div>
+    </div>
+</div>
+{%endblock%}

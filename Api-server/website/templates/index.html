@@ -16,7 +16,10 @@
 <header>
     <div class="nav__bar">
         <div class="nav__bar--left">
-            <img src="{{ url_for('static',filename='icon/app_name.svg')}}" alt="">
+            <a href="{{url_for('views.home')}}">
+                <img src="{{ url_for('static',filename='icon/app_name.svg')}}" alt="">
+            </a>
+            
 
         </div>
 
@@ -24,7 +27,7 @@
             <a href="{{url_for('views.product')}}" class="nav__bar--link">How it works</a>
             <a href="{{url_for('views.pricing')}}" class="nav__bar--link">Pricing</a>
             <a href="{{url_for('views.docs')}}" class="nav__bar--link">Docs</a>
-            <a href="{{url_for('views.download')}}" class="nav__bar--link">Download</a>
+            <a href="{{url_for('views.download')}}" class="nav__bar--link">Download<i class='bx bx-down-arrow-alt'></i></a>
         </div>
         <div class="nav__bar--right">
             {%if current_user.is_authenticated%}
@@ -35,15 +38,16 @@
             {%endif%}
         </div>
         <div class="nav__bar--menu">
-            <button id='menu-btn-on' onclick='openMenu()' class="nav__bar--link menu">
+            <button id='menu-btn-on' onclick='toggleMenu()' class="nav__bar--link menu">
                 <i class='bx bx-menu'></i>
             </button>
-            <button id='menu-btn-close' onclick='openMenu()' class="nav__bar--link menu close">
+            <button id='menu-btn-close' onclick='toggleMenu()' class="nav__bar--link menu close">
                 <i class='bx bx-x'></i>
             </button>
         </div>
     </div>
     <div class="menu__modal--bg">
+
         <div class="menu__modal--popup">
         </div>
     </div>
@@ -63,11 +67,11 @@
             <a href="{{url_for('views.download')}}" class="white-button">Get started for free</a>
         </div>
         <div class="footer__col right">
-            <a href="#" class="footer__menu sank">Abuse</a>
-            <a href="#" class="footer__menu sank">DPA</a>
-            <a href="#" class="footer__menu sank">Privacy</a>
-            <a href="#" class="footer__menu sank">Security</a>
-            <a href="#" class="footer__menu sank">Terms of service</a>
+            <a href="#" class="footer__menu">Abuse</a>
+            <a href="#" class="footer__menu">DPA</a>
+            <a href="#" class="footer__menu">Privacy</a>
+            <a href="#" class="footer__menu">Security</a>
+            <a href="#" class="footer__menu">Terms of service</a>
         </div>
     </div>
     <div class="small-caps">
