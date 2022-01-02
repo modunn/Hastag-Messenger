@@ -19,7 +19,7 @@ class Notes(db.Model):
         }
 class Custom(db.Model):
     id              = db.Column(db.Integer,primary_key=True)
-    color_default   = db.Column(db.String)
+    color_default   = db.Column(db.JSON)
     length          = db.Column(db.String)
     user            = db.Column(db.String,db.ForeignKey('users.user')) 
 

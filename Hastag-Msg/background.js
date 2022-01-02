@@ -60,8 +60,8 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
       });
     })
   }
-  else if (msg.name == 'login') {
-    const apiCall = `https://msg-notes.herokuapp.com/api/login`;
+  else if (msg.name == 'infomation') {
+    const apiCall = `https://msg-notes.herokuapp.com/api/infomation`;
     fetch(apiCall, {
       method: "post",
       headers: {
