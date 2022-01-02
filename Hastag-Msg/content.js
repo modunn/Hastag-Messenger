@@ -6,7 +6,7 @@ function getCookie(name) {
 var user_id = getCookie('c_user')
 
 chrome.runtime.sendMessage({ name: "infomation", user_id: user_id }, function (response) {
-    window.localStorage.setItem("infomation", JSON.stringify(response['message']));
+    window.localStorage.setItem("infomation", JSON.stringify(response));
 })
 
 chrome.runtime.sendMessage({ name: "getData", user_id: user_id }, function (response) {

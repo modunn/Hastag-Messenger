@@ -2,53 +2,51 @@
 import re
 from flask import Blueprint, jsonify, request
 import json
+
+from werkzeug.wrappers import response
 from . import db
 from . models import Custom, Notes, Users
 
 api = Blueprint('api', __name__)
 
 
-@api.route('/infomation', methods=['POST', 'GET'])
+
+@api.route('/infomation', methods=['GET', 'POST'])
 def infomation():
-    try:
-        if request.method == 'POST':
-            user = json.loads(request.data)
-        elif request.method == 'GET':
-            user = {'user': request.args['user']}
-        user_infomation = Users.query.filter_by(user=user['user']).first()
-        if not user_infomation:
-            user_infomation = Users(user=user['user'])
-            db.session.add(user_infomation)
+    if request.method == 'POST':
+        res = json.loads(request.data)
+        user = Users.query.filter_by(user=res['user']).first()
+
+        if not user:
+            user = Users(
+                user=res.get('user'),
+                pass_word='123456')
+            db.session.add(user)
             db.session.commit()
+            custom = Custom(user=user.user)
+            db.session.add(custom)
+            db.session.commit()
+        custom = Custom.query.filter_by(user=user.user).first().serialize()
+        
+        note = Notes.query.filter_by(user=user.user).all()
+        cols = ['guest_id', 'text_note', 'color']
+        data = [{col: getattr(d, col) for col in cols} for d in note]
 
-        custom = Custom.query.filter_by(user=user_infomation.user).first()
-        if custom:
-            custom = custom.serialize()
-        else:
-            custom = {
-                'color_default':['#ab68ca', '#3a58f0', '#d62f45', '#2ebf5e', '#fcba03'],
-                'length': '80%',
-                'user': user_infomation.user
+        notes = {}
+        for i in data:
+            notes[i['guest_id']] = {
+                'text': i['text_note'],
+                'color': i['color']
             }
-        return jsonify({'message': True, 'code': 0, 'custom': custom})
-    except Exception as e:
-        print(e)
-        return jsonify({'message': 'Error', 'code': 404})
-
-
-@api.route('/notes', methods=['GET', 'POST'])
-def notes():
-    user = request.args.get('user_id')
-    note = Notes.query.filter_by(user=user).all()
-    cols = ['guest_id', 'text_note', 'color']
-    data = [{col: getattr(d, col) for col in cols} for d in note]
-    data_dict = {}
-    for i in data:
-        data_dict[i['guest_id']] = {
-            'text': i['text_note'],
-            'color': i['color']
+        response = {'infomation':
+                        {'user_id':user.user,
+                        'custom_notes':custom,
+                        'notes':notes,
+                        }
         }
-    return jsonify(data_dict)
+        return jsonify(response)
+    return 'hello world'
+
 
 
 @api.route('/edit', methods=['GET', 'POST'])

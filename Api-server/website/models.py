@@ -19,8 +19,8 @@ class Notes(db.Model):
         }
 class Custom(db.Model):
     id              = db.Column(db.Integer,primary_key=True)
-    color_default   = db.Column(db.JSON)
-    length          = db.Column(db.String)
+    color_default   = db.Column(db.JSON,default=['#ab68ca', '#3a58f0', '#d62f45', '#2ebf5e', '#fcba03'])
+    length          = db.Column(db.String,default='80%')
     user            = db.Column(db.String,db.ForeignKey('users.user')) 
 
     def serialize(self):
