@@ -21,6 +21,13 @@
     justify-content: stretch;
     color: #fff;
 }
+.minimum-sidebar {
+    overflow: hidden;
+    flex: 0 0 55px;
+    max-width: 55px;
+    width: 55px;
+    
+}
 .sidebar-header{
     min-height: 56px;
     display: flex;
@@ -77,7 +84,9 @@
     display: flex;
     align-items: center;
     height: 100%; 
-    padding: 15px 20px;
+    padding: 10px 20px;
+    min-height: 45px;
+    max-height: 45px;
 }
 .menu-item-link span {
     margin-left: 20px;
