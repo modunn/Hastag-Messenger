@@ -8,13 +8,13 @@ from flask_login import login_user, logout_user, login_required,current_user
 from . import db
 from . models import Users
 
-auth = Blueprint('auth', __name__)
+auth = Blueprint('auth', __name__,template_folder='templates/auth')
 
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('views.index'))    
+        return redirect(url_for('dashboard.started'))    
     if request.method == 'POST':
         data = request.form
         username = data['username']
@@ -23,7 +23,7 @@ def login():
         if user:
             if password == user.pass_word:
                 login_user(user, remember=True)
-                return redirect(request.args.get('next') or url_for('views.home'))
+                return redirect(request.args.get('next') or url_for('dashboard.started'))
 
     return render_template('login.html')
 

@@ -13,10 +13,12 @@ def create_app():
     from .api import api
     from .views import views
     from .auth import auth
+    from .dashboard import dashboard
 
     app.register_blueprint(api, url_prefix='/api')
     app.register_blueprint(views, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/auth')
+    app.register_blueprint(dashboard, url_prefix='/dashboard')
 
     db.init_app(app)
     from .models import Users, Notes

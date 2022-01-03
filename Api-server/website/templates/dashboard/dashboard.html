@@ -1,14 +1,193 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dash Board</title>
-    <link rel="stylesheet" href="url_for('static',filename='dasboard.css')">
-    <style ></style>
-</head>
-<body>
-    <h1>Hello world</h1>
-</body>
-</html>
+{%extends 'base.html'%} {%block title%}Dashboard -{%endblock%}
+{%block head%}
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/dashboard.css')}}">
+{%endblock%}
+{%block body%}
+<div id="app" class="app__contain">
+    <div class="content-wrapper">
+        <div class="main-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-avt">
+                    <img src="https://cdn2.olm.vn/images/avt/avt4/avt1081394_256by256.jpg?v=1" alt="" class="avartar">
+                </div>
+                <span class="user-name">{{current_user.user}}</span>
+                <i class='bx bx-chevron-down'></i>
+            </div>
+            <div class="sidebar-menu">
+                <ul class="sidebar-menu-list">
+                    <li class="menu-item ">
+                        <a href="{{url_for('dashboard.started')}}" class='menu-item-link'>
+                            <i class='bx bxs-hot'></i>
+                            <span>
+                                Get started
+                            </span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{url_for('dashboard.custom_note')}}" class='menu-item-link'>
+                            <i class='bx bx-customize'></i>
+                            <span>
+                                Custom note
+                            </span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{url_for('dashboard.list_note')}}" class='menu-item-link'>
+                            <i class='bx bx-note'></i>
+                            <span>
+                                List notes
+                            </span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{url_for('dashboard.api')}}" class='menu-item-link'>
+                            <i class='bx bxs-file-json'></i>
+                            <span>
+                                API
+                            </span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{url_for('dashboard.event')}}" class='menu-item-link'>
+                            <i class='bx bx-calendar-event'></i>
+                            <span>
+                                Event
+                            </span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{url_for('dashboard.billing')}}" class='menu-item-link'>
+                            <i class='bx bx-money'></i>
+                            <span>
+                                Billing
+                            </span>
+                        </a>
+                    </li>
+                    <li class="menu-item">
+                        <a href="{{url_for('dashboard.setting')}}" class='menu-item-link'>
+                            <i class='bx bxl-netlify'></i>
+                            <span>
+                                Setting
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="sidebar-bottom">
+                <div class="ant-card">
+                    <div class="ant-card-head">
+                        <div class="ant-card-head-wrapper">
+                            <div class="ant-card-head-title">
+                                <div class="ant-row">
+                                    <div class="card-head-wrapper">
+                                        <img src="{{url_for('static',filename='icon/fire.svg')}}" alt=""
+                                            class="ant-img">
+                                    </div>
+                                    <div class="ant-col">
+                                        <div class="ant-title">
+                                            <h5 class="ant-typography">Get access to powerful features like:</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ant-card-body">
+                        <ul>
+                            <li>Permanent notes storage</li>
+                            <li>Your own custom notes</li>
+                            <li>Access to beta features</li>
+                            <li>and more!</li>
+                        </ul>
+                        <div class="ant-card-upgrade">
+                            <a href="#" class="card-btn card-btn-primary card-btn-lg">Upgrade now</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="main-content">
+            <div class="main-header">
+                <div class="header-col">
+                    <div class="header-icon">
+                        <i class='bx bx-food-menu'></i>
+                    </div>
+                </div>
+                <div class="header-col">
+                    <div class="header-icon">
+                        <i class='bx bx-headphone'></i>
+                    </div>
+                    <div class="header-icon">
+                        <i class='bx bx-notepad'></i>
+                    </div>
+                    <div id='cta-button-user'class="header-icon">
+                        <i class='bx bx-user'></i>
+                    </div>
+                </div>
+            </div>
+            <div class="main-body">
+                {%block main_body%}
+
+                {%endblock%}
+            </div>
+
+        </div>
+    </div>
+</div>
+<div class="ant-dropdown-main">
+    <div class="ant-dropdown">
+        <ul class="ant-dropdown-menu">
+            <li class="ant-dropdown-item-group">
+                <div class="ant-dropdown-menu-item-group-title">
+                    <span>Account</span>
+                </div>
+            </li>
+            <li class="ant-dropdown-item ant-dropdown-item-selected">
+                <a href="#">
+                    <span>
+                        {{current_user.user}}
+                    </span>
+                </a>
+            </li>
+            <li class="ant-dropdown-menu-item-divider">
+            </li>
+            <li class="ant-dropdown-item">
+                <a href="#">
+                    <i class='bx bx-plus-circle'></i>
+                    <span>New account</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="ant-dropdown-user">
+        <ul class="ant-dropdown-menu dropdown-user">
+            <li class="ant-dropdown-item-group">
+                <div class="ant-dropdown-menu-item-group-title user-tittle">
+                    <span> {{current_user.user}}</span>
+                </div>
+            </li>
+            <li class="ant-dropdown-menu-item-divider">
+
+            <li class="ant-dropdown-item">
+                <a href="#">
+                    <span>
+                        User setting
+                    </span>
+                </a>
+            </li>
+            </li>
+            <li class="ant-dropdown-item">
+                <a href="{{url_for('auth.logout')}}">
+                    <span>
+                        Logout
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+<script src="{{url_for('static',filename='./js/dashboard.js')}}"></script>
+
+{%endblock%}

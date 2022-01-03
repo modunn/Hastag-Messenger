@@ -1,14 +1,7 @@
 {%extends 'base.html'%}{%block title%}Home -{%endblock%} 
 {%block head%}
-<style>
-    body {
-        background: white;
-    }
+<link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/index.css')}}">
 
-    html {
-        overflow: auto;
-    }
-</style>
 {%endblock%}
 
 {%block body%}
@@ -27,7 +20,11 @@
             <a href="{{url_for('views.product')}}" class="nav__bar--link">How it works</a>
             <a href="{{url_for('views.pricing')}}" class="nav__bar--link">Pricing</a>
             <a href="{{url_for('views.docs')}}" class="nav__bar--link">Docs</a>
+            {%if current_user.is_authenticated%}
+            <a href="{{url_for('dashboard.started')}}" class="nav__bar--link">Dashboard</a>
+            {%endif%}
             <a href="{{url_for('views.download')}}" class="nav__bar--link">Download<i class='bx bx-down-arrow-alt'></i></a>
+
         </div>
         <div class="nav__bar--right">
             {%if current_user.is_authenticated%}
