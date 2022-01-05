@@ -1,4 +1,32 @@
 
+
+function messageBox(icon,text) {
+    const message = document.querySelector('.card-message')
+    message.style.display = 'block'
+    var color = "#167D2E"
+    if (icon=="error") {
+        color = 'red'
+    }
+
+    message.innerHTML = `
+    <div class="card-message-body card-center">
+        <div class="card-message-icon card-center" style="color:${color}">
+            <i class="bx bxs-${icon}-circle"></i>
+        </div>
+        <div class="card-message-text card-center">
+            <span>${text}</span>
+        </div>
+    </div>
+    `
+    let intId = setInterval(() => {
+    message.style.display = 'none'
+    clearInterval(intId)
+    }, 2000)
+}
+
+
+
+
 const btnChangePass = document.querySelector("#change-password")
 const xChangePass = document.querySelector(".card-btn-x")
 const popupPassword = document.querySelector('#popup-password')
@@ -31,26 +59,9 @@ async function changePassword() {
 
     const reNewPassword = document.querySelector("#reNewPassword").value
 
-    const message = document.querySelector('.card-message')
 
-    message.style.display = 'block'
     if (reNewPassword != newPassword) {
-
-        message.innerHTML = '\
-                    <div class="card-message-body card-center">\
-                        <div class="card-message-icon card-center" style="color:red">\
-                            <i class="bx bxs-error-circle"></i>\
-                        </div>\
-                        <div class="card-message-text card-center">\
-                            <span>Nhập lại mật khẩu không chính xác</span>\
-                        </div>\
-                    </div>\
-                    '
-        let intId = setInterval(() => {
-            message.style.display = 'none'
-            clearInterval(intId)
-        }, 2000)
-
+        messageBox('error','Nhập lại mật khẩu không chính xác')
         return
     }
 
@@ -66,36 +77,11 @@ async function changePassword() {
     const response = await fetch('/api/update-password', options)
     const data = await response.json()
     if (data.code === 1) {
-        message.innerHTML = '\
-                    <div class="card-message-body card-center">\
-                        <div class="card-message-icon card-center" style="color:red">\
-                            <i class="bx bxs-error-circle"></i>\
-                        </div>\
-                        <div class="card-message-text card-center">\
-                            <span>Mật khẩu cũ không chính xác</span>\
-                        </div>\
-                    </div>\
-                    '
-        let intId = setInterval(() => {
-            message.style.display = 'none'
-            clearInterval(intId)
-        }, 2000)
+        messageBox('error','Mật khẩu cũ không chính xác')
         return
     }
-    message.innerHTML = '\
-    <div class="card-message-body card-center">\
-        <div class="card-message-icon card-center" style="color:#0dab32;">\
-            <i class="bx bxs-check-circle"></i>\
-        </div>\
-        <div class="card-message-text card-center">\
-            <span>Đổi mật khẩu thành công</span>\
-        </div>\
-    </div>\
-    '
-    let intId = setInterval(() => {
-        message.style.display = 'none'
-        clearInterval(intId)
-    }, 2000)
+    messageBox('check','Đổi mật khẩu thành công')
+
     return
 
 
@@ -133,42 +119,13 @@ async function changeAccountName() {
     const showName = document.querySelector(".user-name")
     showName.textContent = username
 
-    const message = document.querySelector('.card-message')
 
-    message.style.display = 'block'
     if (data.code == 0) {
-        message.innerHTML = '\
-                    <div class="card-message-body card-center">\
-                        <div class="card-message-icon card-center" style="color: #0dab32;">\
-                            <i class="bx bxs-check-circle"></i>\
-                        </div>\
-                        <div class="card-message-text card-center">\
-                            <span>Update thành công</span>\
-                        </div>\
-                    </div>\
-                    '
+        messageBox('check','Đổi tên thành công')
 
-        let intId = setInterval(() => {
-            message.style.display = 'none'
-            clearInterval(intId)
-        }, 2000)
     } else {
-        message.innerHTML = '\
-                    <div class="card-message-body card-center">\
-                        <div class="card-message-icon card-center" style="color: red;">\
-                            <i class="bx bxs-error-circle"></i>\
-                        </div>\
-                        <div class="card-message-text card-center">\
-                            <span>Có lỗi xảy ra</span>\
-                        </div>\
-                    </div>\
-                    '
-        let intId = setInterval(() => {
-            const messageChild = message.querySelector('.card-message-body')
-            message.style.display = 'none'
-            message.remove(messageChild)
-            clearInterval(intId)
-        }, 2000)
+        messageBox('error','Có lỗi xảy ra')
+
     }
 
     console.log(data)
