@@ -14,7 +14,6 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
       headers: { "Content-Type": "application/json" }
     })
       .then(function (res) {
-        //wait for response..
         if (res.status !== 200) {
           response(res.status);
           return;

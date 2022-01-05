@@ -1,5 +1,6 @@
 #app {
     min-height: 100vh;
+    font-family: 'Questrial';
 }
 #app {
     height: 100vh;
@@ -408,7 +409,7 @@ h1.card-typography, .card-typography h1 {
     line-height: 1.5715;
     position: relative;
     display: inline-block;
-    font-weight: 500;
+    font-weight: 550;
     white-space: nowrap;
     text-align: center;
     border: 1px solid transparent;
@@ -422,18 +423,39 @@ h1.card-typography, .card-typography h1 {
     background: #fff;
     border-color: #d9d9d9;
 }
+
+.card-btn-default:hover, .card-btn-default:focus {
+    color: #3f77e8;
+    background: #fff;
+    border-color: #3f77e8;
+}
+
 .card-btn-primary {
     color: #fff;
     background: #1853db;
     border-color: #1853db;
     text-shadow: none;
     box-shadow: 0 1px 3px #0000001a, 0 1px 1px #0000000d;
+    transition: .3s;
 }
 .card-btn-primary:hover, .card-btn-primary:focus {
     color: #fff;
     background: #3f77e8;
     border-color: #3f77e8;
+}   
+.card-btn-dangerous {
+    color: #ff4d4f;
+    background: #fff;
+    border-color: #ff4d4f;
 }
+ 
+.card-btn-dangerous:hover, .card-btn-dangerous:focus {
+    color: #ff7875;
+    background: #fff;
+    border-color: #ff7875;
+}
+
+
 .card-btn-link {
     color: #1853db;
     background: transparent;
@@ -507,7 +529,22 @@ a.card-btn-lg {
     flex: 0 0 8.33333334%;
     max-width: 8.33333334%;
 }
+.card-col-lg-3{
+    display: block;
+    flex: 0 0 12.50000001%;
+    max-width: 12.50000001%;
+}
+.card-col-lg-4{
+    display: block;
+    flex: 0 0 16.66666668%;
+    max-width: 16.66666668%;
+}
 
+.card-col-lg-8 {
+    display: block;
+    flex: 0 0 33.33333333333333%;
+    max-width: 33.33333333333333%;
+}
 .card-col-lg-9 {
     display: block;
     flex: 0 0 37.5%;
@@ -534,11 +571,20 @@ a.card-btn-lg {
     flex: 0 0 54.16666667%;
     max-width: 54.16666667%;
 }
-
+.card-col-lg-16 {
+    display: block;
+    flex: 0 0 66.66666672%;
+    max-width: 66.66666672%;
+}
 .card-col-24 {
     display: block;
     flex: 0 0 100%;
     max-width: 100%;
+}
+.card-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 /* width size */
 .w-96 {
@@ -546,6 +592,18 @@ a.card-btn-lg {
 }
 .max-w-full {
     max-width: 100%;
+}
+.w-full {
+    width: 100%;
+}
+.w-90 {
+    width: 90%;
+}
+.w-80 {
+    width: 80%;
+}
+.w-70 {
+    width: 70%;
 }
 /* height size */
 .h-full{
@@ -585,6 +643,7 @@ a.card-btn-lg {
     position: relative;
     background: #fff;
     border-radius: 4px;
+    width: 100%;
 }
 .card-bordered{
     border: 1px solid #d9d9d9;
@@ -611,6 +670,8 @@ a.card-btn-lg {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
+    font-size: 18px;
+    font-weight:600;
 }
 .card-code {
     background-color: #f0f2f5;
@@ -621,6 +682,173 @@ a.card-btn-lg {
     font-weight: 500;
 }
 .card-mg-8 {
-    margin-top: 8px;
     margin-bottom: 8px;
+}
+
+.card-mg-12{
+    margin-bottom: 12px;
+}
+.card-mg-16{
+    margin-top: 26px;
+}
+.card-btn-radius-circle{
+    border-radius:unset;
+    border-radius:20px;
+    width: 40px;
+}
+
+.card-notification {
+    display: none;
+}
+.show-card-notification {
+    display: block;
+}
+
+.card-notification-text {
+    background-color: #1f1e37;
+    position: absolute;
+    left: -45px;
+    top: -51px;
+    color: white;
+    z-index: 100;
+    padding: 8px;
+    text-align: center;
+    margin: auto;
+    border-radius: 5px;
+}
+.card-notification-text::before {
+    content: " ";
+    position: absolute;
+    background: #1f1e37;
+    width: 10px;
+    height: 10px;
+    top: 35px;
+    left: 80%;
+    margin-left: -15px;
+    transform: rotate(45deg);
+}
+.pick-color {
+    top: 10;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+    opacity: 0;
+    position: absolute;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.card-input {
+    box-sizing: border-box;
+    margin: 0;
+    font-variant: tabular-nums;
+    list-style: none;
+    font-feature-settings: "tnum","tnum";
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    min-width: 0;
+    padding: 4px 11px;
+    color: #000000d9;
+    font-size: 16px;
+    line-height: 1.5715;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    transition: all .3s;
+}
+.card-input:hover {
+    border-color: #3f77e8;
+    border-right-width: 1px!important;
+}
+.card-input:focus, .card-input-focused {
+    border-color: #3f77e8;
+    border-right-width: 1px!important;
+    outline: 0;
+    box-shadow: 0 0 0 3px #1853db33;
+}
+.card-form-item-label {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: 32px;
+    color: #151429;
+    font-size: 16px;
+}
+.card-form-item-explain{
+    margin-top: 5px;
+    margin-bottom: 10px;
+    min-height: 22px;
+    clear: both;
+    min-height: 24px;
+    color: #00000073;
+    font-size: 14px;
+    line-height: 1.5715;
+    transition: color .3s cubic-bezier(.215,.61,.355,1);
+}
+
+.card-message {
+    color: #000000d9;
+    font-size: 14px;
+    line-height: 1.5715;
+    list-style: none;
+    position: fixed;
+    top: 60px;
+    left: 0;
+    z-index: 1010;
+    width: 100%;
+    pointer-events: none;
+    height: 30px;
+    display: none;
+
+}
+.card-message-body {
+    max-width: 300px;
+    margin: auto;
+    background: #fff;
+    min-height: 50px;
+    border-radius: 4px;
+    box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014, 0 9px 28px 8px #0000000d;
+}
+.card-message-icon {
+    font-size: 25px;
+}
+.card-message-text {
+    margin-left: 10px;
+}
+
+
+.card-bg-popup {
+    height: 100%;
+    background: rgba(0,0,0,.4);
+    z-index: 999;
+    display: none;
+}
+.popup-activate {
+    display:flex
+}
+.card-popup {
+    width: 400px;
+    height: 300px;
+    background: white;
+    margin-bottom: 200px;
+    border-radius: 4px;
+    box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014, 0 9px 28px 8px #0000000d;
+}
+
+.card-btn-x {
+    position: absolute;
+    top :10px;
+    right:24px;
+    font-size:30px;
+    color: #d8dadf;
+    cursor: pointer;
+}
+
+.card-btn-x:hover {
+    color: #8d8d8d;
 }

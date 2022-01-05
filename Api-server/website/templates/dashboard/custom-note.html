@@ -1,5 +1,57 @@
 {%extends 'dashboard.html'%}{%block title%}Custom note -{%endblock%}
 
 {%block main_body%}
-<h1 style="text-align: center;font-size: 100px;margin-top: 200px;">Custom note</h1>
+
+<div class="card-row card-padding24">
+    <div class="card-col card-col-24 card-mg-8">
+        <div class="card-div">
+            <div class="card-div-head">
+                <div class="card-head-wrapper">
+                    <div class="card-head-tittle">
+                        Tùy chỉnh ghi chú
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-row card-row-space-between">
+                    <div class="card-col card-col-lg-10">
+                        <div class="card-row card-row-space-between" id='color-default'>
+                            {%for color in current_user.custom_note[0].color_default%}
+                            <button 
+                                class="card-btn card-btn-radius-circle card-btn-lg" 
+                                style="background-color:{{color}};overflow:hiden" value="{{color}}">
+                                <input type="color" class="pick-color" id="pick-color" value="{{color}}"title="Sửa">
+                            </button>
+                            {%endfor%}
+                        </div>
+                    </div>
+                    <div class="card-col card-col-lg-1">
+                        <div class="card-divider card-divider-vertical primary-divider-color h-full">
+                        </div>
+                    </div>
+                    <div class="card-col card-col-lg-10 card-center">
+                        <div class="card-row card-row-space-between w-full">
+                            <span class="card-typography">Kích thước</span>
+                            <input type="range" min="10" max="100" value="{{current_user.custom_note[0].length}}" class="w-70" id='length-note'>
+                            <span class="card-typography" id="note-length-value">{{current_user.custom_note[0].length}}%</span>
+                        </div>
+                    </div>
+                    <div class="card-col card-col-lg-1">
+                        <div class="card-divider card-divider-vertical primary-divider-color h-full">
+                        </div>
+                    </div>
+                    <button class="card-btn card-btn-primary card-btn-lg" id="save-btn">
+                        <div class="card-notification">
+                            <div class="card-notification-text">
+                            </div>
+                        </div>
+                        Lưu
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{{url_for('static',filename='./js/custom_note.js')}}"></script>
+
 {%endblock%}

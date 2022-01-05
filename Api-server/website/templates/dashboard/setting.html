@@ -1,5 +1,128 @@
 {%extends 'dashboard.html'%}{%block title%}Setting -{%endblock%}
 
 {%block main_body%}
-<h1 style="text-align: center;font-size: 100px;margin-top: 200px;">Setting</h1>
+<div class="card-row card-padding24 ">
+    <div class="card-col card-col-24 card-mg-8 card-bordered">
+        <div class="card-div">
+            <div class="card-div-head">
+                <div class="card-head-wrapper">
+                    <div class="card-head-tittle">
+                        Thông tin tài khoản
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-row">
+                    <div class="card-col card-col-lg-3">
+                        <label for="accountName" class="card-form-item-label" title="Account Name">Account Name</label>
+                    </div>
+                    <div class="card-col card-col-lg-8">
+                        <input id="accountName" class="card-input" type="text" value="{{current_user.name}}" autocomplete="false">
+                        <div class="card-form-item-explain">
+                            <div role="alert">Thay đổi tên của tài khoản notemessenger.com này. Đây phải là tên của
+                                công ty / tổ chức của bạn hoặc tên của bạn nếu bạn là một cá nhân.</div>
+                        </div>
+                        <div class="card-form-item-control-input-content">
+                            <button type="submit" class="card-btn card-btn-default" id='update-account'>
+                                <span>Update Account Name</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-col card-col-24 card-mg-8 card-bordered">
+        <div class="card-div">
+            <div class="card-div-head">
+                <div class="card-head-wrapper">
+                    <div class="card-head-tittle">
+                        Đổi mật khẩu
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-row">
+                    <div class="card-col card-col-lg-3">
+                        <label for="password" class="card-form-item-label" title="Account Name">Account Name</label>
+                    </div>
+                    <div class="card-col card-col-lg-8">
+                        <button type="submit" class="card-btn card-btn-default" id='change-password'>
+                            <span>Change password</span>
+                        </button>
+                        <div class="card-form-item-explain">
+                            <div role="alert">Thay đổi mật notemessenger.com này.Chúng tôi lưu trữ mật
+                                khẩu dướng dạng hash265.Việc thay đổi này không liên quan đến ứng dụng đang sử dụng
+                                facebook
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="card-col card-col-24 card-mg-8 card-bordered">
+        <div class="card-div">
+            <div class="card-div-head">
+                <div class="card-head-wrapper">
+                    <div class="card-head-tittle">
+                        Xóa tài khoản
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-typography">
+                    Điều này sẽ xóa vĩnh viễn tài khoản này. Nó sẽ không còn khả dụng cho bạn hoặc bất kỳ ai trong nhóm
+                    của tài khoản này.
+                </div>
+                <button type="button" class="card-btn card-btn-dangerous">
+                    <span>Xóa tài khoản</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+    <div class="ant-dropdown-main card-bg-popup card-center" id="popup-password">
+        <div class="card-popup card-bordered">
+            <div class="card-col card-col-24 card-mg-8">
+                <div class="card-div">
+                    <div class="card-div-head">
+                        <div class="card-head-wrapper">
+                            <div class="card-head-tittle">
+                                Đổi mật khẩu
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-btn-x card-center">
+                        <i class='bx bxs-x-circle'></i>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-col card-mg-12">
+                            <input id="oldPassword" class="card-input" type="password" placeholder="Mật khẩu cũ" required >
+                        </div>
+                        <div class="card-col card-mg-12">
+                            <input id="newPassword" class="card-input" type="password" placeholder="Mật khẩu mới" autocomplete="false" required>
+                        </div>
+                        <div class="card-col card-mg-12">
+                            <input id="reNewPassword" class="card-input" type="password" placeholder="Nhập lại mật khẩu mới" autocomplete="false" required>
+                        </div>
+                        <div class="card-col card-mg-16">
+                            <button type="submit" class="card-btn card-btn-default" id='update-password'>
+                                <span>Change password</span>
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+<script src="{{url_for('static',filename='./js/account.js')}}"></script>
+
 {%endblock%}

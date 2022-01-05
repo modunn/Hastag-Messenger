@@ -19,8 +19,9 @@ class Notes(db.Model):
         }
 class Custom(db.Model):
     id              = db.Column(db.Integer,primary_key=True)
+
     color_default   = db.Column(db.JSON,default=['#ab68ca', '#3a58f0', '#d62f45', '#2ebf5e', '#fcba03'])
-    length          = db.Column(db.String,default='80%')
+    length          = db.Column(db.String,default='80')
     user            = db.Column(db.String,db.ForeignKey('users.user')) 
 
     def serialize(self):
@@ -34,8 +35,9 @@ class Custom(db.Model):
 class Users(db.Model,UserMixin):
 	id          = db.Column(db.Integer(), primary_key=True)
 	user        = db.Column(db.String,unique=True)
+	name        = db.Column(db.String)
 	pass_word   = db.Column(db.String)
-	notes       = db.relationship('Notes',backref='users')
+	notes       = db.relationship('Notes',backref='users',lazy='dynamic')
 	custom_note = db.relationship('Custom',backref='users')
  
 	def __str__(self):
