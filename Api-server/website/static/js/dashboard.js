@@ -1,5 +1,30 @@
 
 
+function messageBox(icon,text) {
+    const message = document.querySelector('.card-message')
+    message.style.display = 'block'
+    var color = "#167D2E"
+    if (icon=="error") {
+        color = 'red'
+    }
+
+    message.innerHTML = `
+    <div class="card-message-body card-center">
+        <div class="card-message-icon card-center" style="color:${color}">
+            <i class="bx bxs-${icon}-circle"></i>
+        </div>
+        <div class="card-message-text card-center">
+            <span>${text}</span>
+        </div>
+    </div>
+    `
+    let intId = setInterval(() => {
+    message.style.display = 'none'
+    clearInterval(intId)
+    }, 2000)
+}
+
+
 
 var header_dropdown = document.querySelector('.sidebar-header')
 var arrow = header_dropdown.querySelector('i')

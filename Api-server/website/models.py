@@ -4,9 +4,14 @@ from flask_login import UserMixin
 
 class Notes(db.Model):
     id              = db.Column(db.Integer,primary_key=True)
-    guest_id        = db.Column(db.String,unique=True)
-    text_note       = db.Column(db.String)
+    guest_id        = db.Column(db.String)
+    guest_name      = db.Column(db.String)
     color           = db.Column(db.String)
+    address         = db.Column(db.String)
+    zalo            = db.Column(db.String)
+    telegram        = db.Column(db.String)
+    tel             = db.Column(db.String)
+    text_note       = db.Column(db.String)
     user            = db.Column(db.String,db.ForeignKey('users.user'))
 
     def serialize(self):
@@ -15,7 +20,12 @@ class Notes(db.Model):
             'guest_id' :self.guest_id,
             'note' : self.text_note,
             'color' : self.color,
-            'user'  : self.user
+            'address'  : self.address,
+            'zalo'  : self.zalo,
+            'telegram'  : self.telegram,
+            'tel'  : self.tel,
+            'user'  : self.user,
+
         }
 class Custom(db.Model):
     id              = db.Column(db.Integer,primary_key=True)
@@ -29,7 +39,7 @@ class Custom(db.Model):
             'id' : self.id,
             'color_default' :self.color_default,
             'length' : self.length,
-            'user'  : self.user
+            'user'  : self.user,
         }
 
 class Users(db.Model,UserMixin):

@@ -28,12 +28,18 @@ def infomation():
 
         custom = Custom.query.filter_by(user=user.user).first().serialize()
         note = Notes.query.filter_by(user=user.user).all()
-        cols = ['guest_id', 'text_note', 'color']
+        cols = ['id','guest_name','guest_id', 'text_note', 'color','address','zalo','telegram','tel']
         data = [{col: getattr(d, col) for col in cols} for d in note]
-
+        print(custom)
         notes = {}
         for i in data:
             notes[i['guest_id']] = {
+                'id': i['id'],
+                'name': i['guest_name'],
+                'address': i['address'],
+                'zalo': i['zalo'],
+                'telegram': i['telegram'],
+                'tel': i['tel'],
                 'text': i['text_note'],
                 'color': i['color']
             }
