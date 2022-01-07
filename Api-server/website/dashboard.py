@@ -27,7 +27,10 @@ def custom_note():
 @dashboard.route('/list-note')
 @login_required
 def list_note():
-    return render_template('list-note.html')
+    note = Notes.query.filter_by(user=current_user.user).all()
+    cols = ['id','guest_name','guest_id', 'text_note', 'color','address','zalo','telegram','tel']
+    data = [{col: getattr(d, col) for col in cols} for d in note]    
+    return render_template('list-note.html',data=data)
 
 @dashboard.route('/api')
 @login_required
@@ -47,4 +50,5 @@ def billing():
 @dashboard.route('/setting')
 @login_required
 def setting():
+
     return render_template('setting.html')

@@ -1,10 +1,12 @@
 
+const user = document.querySelector('#user').textContent
 
-function messageBox(icon,text) {
+
+function messageBox(icon, text) {
     const message = document.querySelector('.card-message')
     message.style.display = 'block'
     var color = "#167D2E"
-    if (icon=="error") {
+    if (icon == "error") {
         color = 'red'
     }
 
@@ -19,8 +21,8 @@ function messageBox(icon,text) {
     </div>
     `
     let intId = setInterval(() => {
-    message.style.display = 'none'
-    clearInterval(intId)
+        message.style.display = 'none'
+        clearInterval(intId)
     }, 2000)
 }
 
@@ -60,5 +62,21 @@ user_button.addEventListener('click', showDropdownUser);
         }
     }
 })();
+
+
+
+
+const btnSidebarMenu = document.querySelector('#sidebar-menu')
+btnSidebarMenu.addEventListener('click', () => {
+    const sidebarMenu = document.querySelector('.main-sidebar')
+    const cardUpgrade = document.querySelector('.ant-card')
+    const btnUpgrade = document.querySelector('#btn-upgrade')
+
+    btnUpgrade.classList.toggle('hide-rocket-btn')
+    cardUpgrade.classList.toggle('hide-ant-card')
+    sidebarMenu.classList.toggle('sidebar-nimimum')
+})
+
+
 
 

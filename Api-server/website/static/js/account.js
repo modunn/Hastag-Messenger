@@ -26,7 +26,6 @@ updatePassBtn.addEventListener('click', changePassword)
 
 async function changePassword() {
 
-    const user = document.querySelector('#user').textContent
 
     const currentPassword = document.querySelector("#oldPassword").value
 
@@ -65,13 +64,6 @@ async function changePassword() {
 
 
 
-
-
-
-
-
-
-
 const btnUpdateAccount = document.querySelector("#update-account")
 
 btnUpdateAccount.addEventListener('click', changeAccountName)
@@ -79,7 +71,6 @@ btnUpdateAccount.addEventListener('click', changeAccountName)
 
 async function changeAccountName() {
     const username = document.querySelector('#accountName').value
-    const user = document.querySelector('#user').textContent
     const options = {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
@@ -107,8 +98,34 @@ async function changeAccountName() {
 }
 
 
+const uploadAvtBtn= document.querySelector('#update-avt-btn')
+uploadAvtBtn.addEventListener('change',uploadAvartar)
+async function uploadAvartar(){
+    let photo = document.getElementById("upload-avartar").files[0];
+    if (!photo)return
+    const avartar = document.querySelector(".card-avartar")
+    const data = new FormData()
+    data.append('files',photo)
+    data.append('filename' ,photo.name)
+    data.append('user',user)
+    console.log(data.get('files'))
+    
+    const response = await uploadAvt(data)
 
+    document.querySelector('.avartar').src= 'data:image/png;base64, '+response.image_base64;
+    avartar.src = 'data:image/png;base64, '+response.image_base64;
+    messageBox('check','Thay đổi ảnh đại diện thành công')
+}
 
-
+async function uploadAvt(data) {
+    const options = {
+        method: 'POST',
+        body: data
+    }
+    const response = await fetch('/api/upload',options)
+    const json = await response.json()
+    console.log(json)
+    return json
+}
 
 

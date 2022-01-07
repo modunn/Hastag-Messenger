@@ -7,6 +7,40 @@
             <div class="card-div-head">
                 <div class="card-head-wrapper">
                     <div class="card-head-tittle">
+                        Ảnh đại diện
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-row">
+                    <div class="card-col card-col-lg-4 card-avartar-col">
+                        <img src="data:image/png;base64, {{current_user.image[0].image_base64}}" alt="ảnh đại diện" 
+                           class="card-avartar">
+                    </div>
+                    <div class="card-col card-col-lg-8">
+                        <div class="card-form-item-explain">
+                            <div role="alert">Thay đổi ảnh đại diện của tài khoản notemessenger.com này. Đây phải là ảnh của
+                                công ty / tổ chức của bạn hoặc ảnh của bạn nếu bạn là một cá nhân.</div>
+                        </div>
+                        <div class="card-form-item-control-input-content">
+                            <div class="card-form-item-control-input-content">
+                                <label type="submit" class="card-btn card-btn-default" id='update-avt-btn'>
+                                    <input type="file" name="upload-avartar" id="upload-avartar" style="display: none;"  accept="image/*">
+                                    <span>Upload Avartar</span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card-col card-col-24 card-mg-8 card-bordered">
+        <div class="card-div">
+            <div class="card-div-head">
+                <div class="card-head-wrapper">
+                    <div class="card-head-tittle">
                         Thông tin tài khoản
                     </div>
                 </div>
@@ -17,7 +51,7 @@
                         <label for="accountName" class="card-form-item-label" title="Account Name">Account Name</label>
                     </div>
                     <div class="card-col card-col-lg-8">
-                        <input id="accountName" class="card-input" type="text" value="{{current_user.name}}" autocomplete="false">
+                        <input id="accountName" class="card-input" type="text" value="{{current_user.name}}">
                         <div class="card-form-item-explain">
                             <div role="alert">Thay đổi tên của tài khoản notemessenger.com này. Đây phải là tên của
                                 công ty / tổ chức của bạn hoặc tên của bạn nếu bạn là một cá nhân.</div>
@@ -52,7 +86,7 @@
                         </button>
                         <div class="card-form-item-explain">
                             <div role="alert">Thay đổi mật notemessenger.com này.Chúng tôi lưu trữ mật
-                                khẩu dướng dạng hash265.Việc thay đổi này không liên quan đến ứng dụng đang sử dụng
+                                khẩu dướng dạng sha256.Việc thay đổi này không liên quan đến ứng dụng đang sử dụng
                                 facebook
                             </div>
                         </div>
@@ -101,13 +135,16 @@
                     </div>
                     <div class="card-body">
                         <div class="card-col card-mg-12">
-                            <input id="oldPassword" class="card-input" type="password" placeholder="Mật khẩu cũ" required >
+                            <input id="oldPassword" class="card-input" type="password" placeholder="Mật khẩu cũ"
+                                required>
                         </div>
                         <div class="card-col card-mg-12">
-                            <input id="newPassword" class="card-input" type="password" placeholder="Mật khẩu mới" autocomplete="false" required>
+                            <input id="newPassword" class="card-input" type="password" placeholder="Mật khẩu mới"
+                                autocomplete="nope" required>
                         </div>
                         <div class="card-col card-mg-12">
-                            <input id="reNewPassword" class="card-input" type="password" placeholder="Nhập lại mật khẩu mới" autocomplete="false" required>
+                            <input id="reNewPassword" class="card-input" type="password"
+                                placeholder="Nhập lại mật khẩu mới" autocomplete="nope" required>
                         </div>
                         <div class="card-col card-mg-16">
                             <button type="submit" class="card-btn card-btn-default" id='update-password'>
