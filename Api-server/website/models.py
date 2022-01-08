@@ -19,7 +19,7 @@ class Contacts(db.Model):
     note            = db.Column(db.String)
     color           = db.Column(db.String,default='#000')
     image           = db.Column(db.String,default=DEFAULT_IMG_DATA)
-    create_time     = db.Column(db.DateTime, nullable=False, default=datetime.utcnow().astimezone(pytz.timezone("Asia/Ho_Chi_Minh")))
+    create_time     = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
     username        = db.Column(db.String,db.ForeignKey('users.username'))
 
     def serialize(self):
