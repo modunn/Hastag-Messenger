@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template,redirect,url_for
 from flask_login import login_required,current_user
 from . import db 
-from .models import Custom,Users,Notes
-
+from .models import Styles,Users,Contacts
+from sqlalchemy import desc
 dashboard = Blueprint('dashboard',__name__,template_folder='templates/dashboard')
 
 
@@ -27,9 +27,9 @@ def custom_note():
 @dashboard.route('/list-note')
 @login_required
 def list_note():
-    note = Notes.query.filter_by(user=current_user.user).all()
-    cols = ['id','guest_name','guest_id', 'text_note', 'color','address','zalo','telegram','tel']
-    data = [{col: getattr(d, col) for col in cols} for d in note]    
+    contacts = Contacts.query.filter_by(username=current_user.username).order_by(desc(Contacts.create_time)).all()
+    cols = ['id','name','address', 'phone', 'note','color','zalo','telegram','facebook','image']
+    data = [{col: getattr(d, col) for col in cols} for d in contacts]    
     return render_template('list-note.html',data=data)
 
 @dashboard.route('/api')

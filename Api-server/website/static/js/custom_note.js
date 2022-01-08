@@ -23,12 +23,11 @@ function dataNotes() {
 
     const colorBtns = document.querySelectorAll('#color-default button')
     const lengthNote = document.querySelector('#length-note').value
-    const user = document.querySelector('#user').textContent
     colorBtns.forEach(color => {
         colorDefault.push(color.value)
     })
     return {
-        user: user,
+        username: username,
         color_default: colorDefault,
         length: lengthNote
     }
@@ -41,7 +40,7 @@ async function handleNotes() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(FormData)
     }
-    const response = await fetch('/api/custom', options)
+    const response = await fetch('/api/edit-style', options)
     const data = await response.json()
     const notiMsg = document.querySelector(".card-notification")
     const notiMsgText = document.querySelector(".card-notification-text")

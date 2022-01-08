@@ -1,9 +1,10 @@
 # views
+import re
 from flask import Blueprint, jsonify, request
 import os
 from . import db
 from flask_login import current_user
-from . models import Avartar, Custom, Notes, Users
+from . models import Avartar, Styles, Contacts, Users,DEFAULT_IMG_DATA
 import base64
 api = Blueprint('api', __name__)
 UPLOAD_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)),'/uploads/avartar')
@@ -13,137 +14,62 @@ UPLOAD_PATH = os.path.join(os.path.dirname(os.path.realpath(__file__)),'/uploads
 def infomation():
     if request.method == 'POST':
         res = request.get_json()
-        user = Users.query.filter_by(user=res['user']).first()
-        print(res)
+        user = Users.query.filter_by(username=res['username']).first()
+
         if not user:
             user = Users(
-                user=res.get('user'),
-                name=res.get('user'))
-            custom = Custom(user=user.user)
-            avt    = Avartar(user=user.user)
+                username=res.get('username'),
+                name=res.get('username'))
+
+            styles = Styles(username=user.username)
+            avt    = Avartar(username=user.username)
             db.session.add(user)
-            db.session.add(custom)
+            db.session.add(styles)
             db.session.add(avt)
             db.session.commit()
 
 
-        custom = Custom.query.filter_by(user=user.user).first().serialize()
-        note = Notes.query.filter_by(user=user.user).all()
-        cols = ['id','guest_name','guest_id', 'text_note', 'color','address','zalo','telegram','tel']
-        data = [{col: getattr(d, col) for col in cols} for d in note]
-        print(custom)
-        notes = {}
+        styles = Styles.query.filter_by(username=user.username).first().serialize()
+        contacts = Contacts.query.filter_by(username=user.username).all()
+        cols = ['id','name','address', 'phone', 'note','color','zalo','telegram','facebook']
+        data = [{col: getattr(d, col) for col in cols} for d in contacts]
+        contacts_data = {}
         for i in data:
-            notes[i['guest_id']] = {
+            contacts_data[i['facebook']] = {
                 'id': i['id'],
-                'name': i['guest_name'],
+                'name': i['name'],
                 'address': i['address'],
+                'phone' :i['phone'],
                 'zalo': i['zalo'],
                 'telegram': i['telegram'],
-                'tel': i['tel'],
-                'text': i['text_note'],
+                'facebook': i['facebook'],
+                'note': i['note'],
                 'color': i['color']
             }
         response = {'infomation':
-                        {'user_id':user.user,
-                        'custom_notes':custom,
-                        'notes':notes,
+                        {'user_id':user.id,
+                         'name':user.name,
+                        'styles':styles,
+                        'contacts':contacts_data,
                         }
         }
         return jsonify(response)
     return 'hello world'
 
-
-
-@api.route('/edit', methods=['GET', 'POST'])
-def edit():
-    if request.method == 'POST':
-        res = request.get_json()
-        note = Notes.query.filter_by(guest_id=res['id']).first()
-        if note:
-            note.text_note = res['text']
-            note.color = res['color']
-            note.user = res['user_id']
-            db.session.commit()
-            msg = 'edit note succesfully'
-        else:
-            new_note = Notes(guest_id=res['id'],
-                             color=res['color'],
-                             text_note=res['text'],
-                             user=res['user_id'])
-            db.session.add(new_note)
-            db.session.commit()
-            msg = 'create note succesfully'
-
-        return jsonify({'msg': msg,
-                        'status': 0,
-                        'user_id': res['user_id'],
-                        'tag_id': note.id,
-                        'notes': res['text'],
-                        'bg_color': res['color']})
-
-
-@api.route('/remove', methods=['GET', 'POST'])
-def remove():
-    if request.method == 'POST':
-        res = request.get_json()
-        note = Notes.query.filter_by(user=res['user_id']).filter_by(
-            guest_id=res['id']).first()
-        if note:
-            db.session.delete(note)
-            db.session.commit()
-            return jsonify({
-                'msg': 'remove note succesfully',
-                'status': 0,
-                'note_id': note.id,
-                'note_text': note.text_note,
-                'background_color': note.color,
-                'user_id': res['user_id'],
-                'guest_id': res['id']
-            })
-        else:
-            return jsonify({
-                'msg': "Can't delete note",
-                'status': 1
-            })
-
-
-@api.route('/custom', methods=['GET', 'POST'])
-def custom():
-    if request.method =='POST':
-        res = request.get_json()
-        user = res.get('user')
-        color_default = res.get('color_default')
-        length =  res.get('length')
-
-
-        custom = Custom.query.filter_by(user=user).first()
-        custom.color_default = color_default
-        custom.length = length
-        db.session.commit()
-
-        return {'msg':'edit succesfully',
-                'code':0,
-                'user_id':user,
-                'custom_id':custom.id
-                }
-    return 'Hello world'
-
-
 @api.route('/update-name', methods=['GET', 'POST'])
 def update_name():
     if request.method =='POST':
         res = request.get_json()
-        user = res.get('user')
+        username = res.get('username')
         name = res.get('name')
-        user_data = Users.query.filter_by(user=user).first()
+        user_data = Users.query.filter_by(username=username).first()
         user_data.name = name
         db.session.commit()
 
         return {'msg':'edit name succesfully',
                 'code':0,
-                'user_id':user,
-                'name':name
+                'username':user_data.username,
+                'name':user_data.name
                 }
     return 'Hello world'
 
@@ -151,10 +77,10 @@ def update_name():
 def update_password():
     if request.method =='POST':
         res = request.get_json()
-        user = res.get('user')
+        username = res.get('username')
         password = res.get('password')
         new_password = res.get('new_password')
-        user_data = Users.query.filter_by(user=user).first()
+        user_data = Users.query.filter_by(username=username).first()
         
         if password !=user_data.pass_word :
                 
@@ -183,20 +109,20 @@ def upload():
         image_name = file.filename
         content_type = file.content_type
         image_data = file.read()
-        avt  = Avartar.query.filter_by(user=current_user.user).first()
+        avt  = Avartar.query.filter_by(username=current_user.username).first()
         if avt:
-            avt.image_name     = image_name
-            avt.content_type  = content_type
-            avt.image_base64  = render_picture(image_data)
-            avt.image_data     = image_data
-            avt.user           = current_user.user
+            avt.image_name = image_name
+            avt.content_type = content_type
+            avt.image_base64 = render_picture(image_data)
+            avt.image_data = image_data
+            avt.username = current_user.username
             db.session.commit()
             return jsonify({
                 'image_base64':avt.image_base64,
                 'msg':'Upload succesfully',
                 'code':0,
                 'id':avt.id,
-                'user':avt.user,
+                'user':avt.username,
                 'image_name':avt.image_name,
                 'content_type':avt.content_type
                 })
@@ -205,7 +131,7 @@ def upload():
             content_type=content_type,
             image_base64=render_picture(image_data),
             image_data=image_data,
-            user =current_user.user
+            username =current_user.username
             )
         db.session.add(avt)
         db.session.commit()
@@ -214,8 +140,86 @@ def upload():
                 'msg':'Upload succesfully',
                 'code':0,
                 'id':avt.id,
-                'user':avt.user,
+                'username':avt.username,
                 'image_name':avt.image_name,
                 'content_type':avt.content_type
                 })
 
+
+@api.route('/add-contact',methods=['GET','POST'])
+def add_contact():
+    if request.method == "POST":
+        image_data = request.files.get('image',False)
+        if image_data:
+            image = render_picture(image_data.read())
+        else : 
+            image = DEFAULT_IMG_DATA
+
+        data = request.form
+        name = data.get("name")
+        note = data.get("note")
+        if not note:
+            note = "Null"
+        address = data.get("address")
+        phone = data.get("phone")
+        facebook = data.get("facebook")
+        zalo =   data.get("zalo")
+        telegram = data.get("telegram")
+        color = data.get("color")
+
+
+        new_contact = Contacts(
+            name = name,
+            note = note,
+            address = address,
+            phone = phone,
+            facebook = facebook,
+            zalo = zalo,
+            telegram = telegram,
+            color    = color,
+            image = image,
+            username = current_user.username
+        )
+        db.session.add(new_contact)
+        db.session.commit()
+        return jsonify({
+                "user_id"    : current_user.id,
+                "contact_id" : new_contact.id,
+                "username"   : current_user.username,
+                "name"       : name,
+                "note"       : note,      
+                "address"    : address,
+                "phone"      : phone,
+                "facebook"   : facebook,
+                "zalo"       : zalo,
+                "telegram"   : telegram,
+                "color"      : color,
+                "image"      : image, 
+                "msg"        :"Thêm liên hệ thành công",
+                "code"       :0
+                })
+
+    return jsonify({"message":"hello world"})
+
+
+
+@api.route('/edit-style', methods=['GET', 'POST'])
+def edit_style():
+    if request.method =='POST':
+        res = request.get_json()
+        username = res.get('username')
+        color_default = res.get('color_default')
+        length =  res.get('length')
+
+
+        styles = Styles.query.filter_by(username=username).first()
+        styles.color_default = color_default
+        styles.length = length
+        db.session.commit()
+
+        return {'msg':'edit succesfully',
+                'code':0,
+                'username':username,
+                'styles_id':styles.id
+                }
+    return 'Hello world'

@@ -21,7 +21,7 @@ def create_app():
     app.register_blueprint(dashboard, url_prefix='/dashboard')
 
     db.init_app(app)
-    from .models import Users, Notes
+    from .models import Users
 
     
     with app.app_context():

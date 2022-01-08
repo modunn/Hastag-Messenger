@@ -30,7 +30,7 @@
         <div class="nav__bar--right">
             {%if current_user.is_authenticated%}
             <a href="{{url_for('dashboard.setting')}}" class="ant-avartar" title="{{current_user.name}}">
-                <img src="data:image/png;base64, {{current_user.image[0].image_base64}}" alt="ảnh đại diện"
+                <img src="data:image/png;base64, {{current_user.avartar[0].image_base64}}" alt="ảnh đại diện"
                     class="ant-avartar-img">
             </a>
             <a href="{{url_for('auth.logout')}}" class="nav__bar--link auth-button">Log out</a>

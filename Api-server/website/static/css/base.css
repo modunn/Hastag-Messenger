@@ -31,3 +31,7 @@ input, button, select, optgroup, textarea {
     font-family: inherit;
     line-height: inherit;
 }
+
+.card-display {
+    display: none;
+}

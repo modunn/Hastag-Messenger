@@ -16,7 +16,7 @@
                 <div class="card-row card-row-space-between">
                     <div class="card-col card-col-lg-10">
                         <div class="card-row card-row-space-between" id='color-default'>
-                            {%for color in current_user.custom_note[0].color_default%}
+                            {%for color in current_user.styles[0].color_default%}
                             <button 
                                 class="card-btn card-btn-radius-circle card-btn-lg" 
                                 style="background-color:{{color}};overflow:hiden" value="{{color}}">
@@ -32,8 +32,8 @@
                     <div class="card-col card-col-lg-10 card-center">
                         <div class="card-row card-row-space-between w-full">
                             <span class="card-typography">Kích thước</span>
-                            <input type="range" min="10" max="100" value="{{current_user.custom_note[0].length}}" class="w-70" id='length-note'>
-                            <span class="card-typography" id="note-length-value">{{current_user.custom_note[0].length}}%</span>
+                            <input type="range" min="10" max="100" value="{{current_user.styles[0].length}}" class="w-70" id='length-note'>
+                            <span class="card-typography" id="note-length-value">{{current_user.styles[0].length}}%</span>
                         </div>
                     </div>
                     <div class="card-col card-col-lg-1">

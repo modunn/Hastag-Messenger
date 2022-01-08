@@ -1,7 +1,7 @@
 {%extends 'dashboard.html'%}{%block title%}List note -{%endblock%}
 
 {%block main_body%}
-<div class="card-row " style="max-width: 1250px;margin: 30px auto;">
+<div class="card-row " style="max-width: 80%;margin:30px auto;">
     <div class="card-col card-col-24 card-mg-8 w-full">
         <div class="card-div card-bordered">
             <div class="card-div-head">
@@ -10,17 +10,19 @@
                         Tùy chọn bộ lọc
                     </div>
                 </div>
-
             </div>
             <div class="card-body">
-                <div class="card-row card-row-space-between">
+                <div class="card-row card-row-flex-start">
                     <div class="card-col">
-                        <button class="card-btn card-btn-primary card-center">
+                        <button class="card-btn card-btn-primary card-center" id="new-contact-btn">
                             <i class='bx bx-message-alt-add' style="margin-right: 5px;"></i>
-                            <span>Thêm ghi chú</span>
+                            <span>Thêm liên hệ</span>
                         </button>
+                        <div class="new-contact-card">
+
+                        </div>
                     </div>
-                    <div class="card-col card-col-lg-21">
+                    <div class="card-col card-mg-l-20">
                         <input placeholder="Tìm kiếm theo tên" id="search-user" class="card-input">
                     </div>
                 </div>
@@ -31,16 +33,16 @@
 <div class="card-grid-4-gap-20">
     {% for key in data%}
     <div class="card-col" data-id="{{key['id']}}">
-        <div class="card-contact card-padding24 card-bordered">
+        <div class="card-contact padding24 card-bordered">
             <div class="card-contact-img card-center card-mg-20">
-                <img src="{{url_for('static',filename='icon/user.png')}}" alt="">
+                <img src="data:image/png;base64, {{key['image']}}" alt="Ảnh đại diện">
             </div>
-            <h2 class="card-typography card-name">
+            <h2 class="card-typography card-name text-nowrap" title="{{key['name']}}">
                 <div class="card-color-circle" style="background-color: {{key['color']}};"></div>
-                <span>{{key['guest_name']}}</span>
+                <span class="text-nowrap" >{{key['name']}}</span>
             </h2>
-            <span class="card-typography card-note">
-                {{key['text_note']}}
+            <span class="card-typography card-note text-nowrap" title="{{key['note']}}">
+                {{key['note']}}
             </span>
 
             <div class="card-col">
@@ -48,26 +50,26 @@
                     Contact
                 </h2>
                 <div class="card-contact-info">
-                    <div class="card-col card-col-lg-24">
-                        <span>Địa chỉ: <strong>{{key['address']}}</strong></span>
+                    <div class="card-col card-col-lg-24 text-nowrap" title="{{key['address']}}">
+                        <span >Địa chỉ: <strong class="text-nowrap">{{key['address']}}</strong></span>
                     </div>
-                    <div class="card-col card-col-lg-24">
+                    <div class="card-col card-col-lg-24 text-nowrap" title="{{key['phone']}}">
                         <span>số điện thoại: </span>
-                        <span><strong>{{key['tel']}}</strong></span>
+                        <span><strong class="text-nowrap">{{key['phone']}}</strong></span>
                     </div>
                 </div>
                 <h2 class="card-typography card-title">
                     Social
                 </h2>
                 <div class="card-contact-social card-center">
-                    <a href="{{key['telegram']}}" class="telegram card-center" target="blank" title="telegram">
+                    <a href="{{key['telegram']}}" class="telegram card-center" target="blank" title="{{key['telegram']}}">
                         <i class='bx bxl-telegram'></i>
                     </a>
-                    <a href="{{key['zalo']}}" class="phone card-center" target="blank" title="zalo">
+                    <a href="{{key['zalo']}}" class="phone card-center" target="blank" title="{{key['zalo']}}">
                         <i class='bx bxs-alarm-snooze'></i>
                     </a>
-                    <a href="https://facebook.com/{{key['guest_id']}}" target="blank" class="facebook card-center"
-                        title="facebook">
+                    <a href="https://facebook.com/{{key['facebook']}}" target="blank" class="facebook card-center"
+                        title="{{key['facebook']}}">
                         <i class='bx bxl-facebook-square'></i>
                     </a>
                 </div>

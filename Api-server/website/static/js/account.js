@@ -43,7 +43,7 @@ async function changePassword() {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            user: user,
+            username: username,
             password: currentPassword,
             new_password: reNewPassword
         })
@@ -70,20 +70,20 @@ btnUpdateAccount.addEventListener('click', changeAccountName)
 
 
 async function changeAccountName() {
-    const username = document.querySelector('#accountName').value
+    const name = document.querySelector('#accountName').value
     const options = {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-            user: user,
-            name: username
+            username: username,
+            name: name
         })
     }
     const response = await fetch('/api/update-name', options)
     const data = await response.json()
 
     const showName = document.querySelector(".user-name")
-    showName.textContent = username
+    showName.textContent = name
 
 
     if (data.code == 0) {

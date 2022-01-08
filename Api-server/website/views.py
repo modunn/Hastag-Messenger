@@ -1,7 +1,7 @@
 #views 
 from flask import Blueprint, render_template,redirect ,url_for
 from flask_login import current_user,login_required
-from .models import Avartar,Users,Custom,Notes
+from .models import Avartar,Users,Contacts,Styles
 
 views = Blueprint('views',__name__,template_folder='templates/views')
 

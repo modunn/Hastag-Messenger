@@ -1,5 +1,5 @@
 
-const user = document.querySelector('#user').textContent
+const username = document.querySelector('#user').textContent
 
 
 function messageBox(icon, text) {
