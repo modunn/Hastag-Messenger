@@ -202,6 +202,51 @@ def add_contact():
     return jsonify({"message":"hello world"})
 
 
+@api.route('/edit-contact',methods=['GET','POST'])
+def edit_contact():
+    if request.method == "POST":
+        image_data = request.files.get('image',False)
+
+
+        data = request.form
+        id = data.get('id')
+
+        contact = Contacts.query.filter_by(id=id).first()
+        if contact :
+            contact.name = data.get("name")
+            contact.note = data.get("note")
+            contact.address = data.get("address")
+            contact.phone = data.get("phone")
+            contact.facebook = data.get("facebook")
+            contact.zalo =   data.get("zalo")
+            contact.telegram = data.get("telegram")
+            contact.color = data.get("color")
+            if image_data:
+                print(data)
+                
+                contact.image = render_picture(image_data.read())
+            db.session.commit()
+
+        return jsonify({
+                "user_id"    : current_user.id,
+                "contact_id" : contact.id,
+                "username"   : current_user.username,
+                "name"       : contact.name,
+                "note"       : contact.note,      
+                "address"    : contact.address,
+                "phone"      : contact.phone,
+                "facebook"   : contact.facebook,
+                "zalo"       : contact.zalo,
+                "telegram"   : contact.telegram,
+                "color"      : contact.color,
+                "image"      : contact.image, 
+                "msg"        :"Sửa liên hệ thành công",
+                "code"       :0
+                })
+
+    return jsonify({"message":"hello world"})
+
+
 
 @api.route('/edit-style', methods=['GET', 'POST'])
 def edit_style():

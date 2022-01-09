@@ -20,75 +20,77 @@ function SearchUser() {
 
 
 const innderHtmlNewContactPopup = `
+    <div class="card-arrow">
+    </div>
+    <div class="card-add-new-contact card-bordered"> 
 
-<div class="card-add-new-contact card-bordered">
-    <div class="card-btn-x" style="right:13px">
-        <i class='bx bxs-x-circle'></i>
-    </div>
-    <div class="new-contact-top">
-        <div class="new-contact-image">
-            <label class="edit-img-new-contact">
-                <input type="file" name="upload-avartar-contact" id="upload-avartar-contact"
-                    style="display: none;" accept="image/*">
-                <i class='bx bx-camera'></i>
-            </label>
-            <div class="hidden-image">
-                <img src="/static/icon/user.png">
+        <div class="card-btn-x" style="right:13px">
+            <i class='bx bxs-x-circle'></i>
+        </div>
+        <div class="new-contact-top">
+            <div class="new-contact-image">
+                <label class="edit-img-new-contact">
+                    <input type="file" name="upload-avartar-contact" id="upload-avartar-contact"
+                        style="display: none;" accept="image/*">
+                    <i class='bx bx-camera'></i>
+                </label>
+                <div class="hidden-image">
+                    <img src="/static/icon/user.png">
+                </div>
             </div>
         </div>
-    </div>
-    <div class="new-contact-bottom">
-        <div class="new-contact-info">
-            <div class="contact-input">
-                <div class="rename-icon">
-                    <i class='bx bx-user-circle'></i>
-                </div>
-                <input type="text"  id="contact-name" class="new-input" placeholder='Tên' required>
-            </div>
-            <div class="contact-input">
-                <div class="rename-icon" id="notes">
-                    <i class='bx bxs-bookmarks'></i>
-                </div>
-                <input type="text"  id="contact-note" class="new-input" placeholder='Ghi chú'>
-                <button class="card-btn card-btn-input">
-                    <i class='bx bx-palette'></i>
-                    <input type="color" class="pick-color" id="pick-color" title="chọn màu">
-                </button>
-            </div>
+        <div class="new-contact-bottom">
+            <div class="new-contact-info">
                 <div class="contact-input">
                     <div class="rename-icon">
-                        <i class='bx bx-location-plus'></i>
+                        <i class='bx bx-user-circle'></i>
                     </div>
-                    <input type="text" id="contact-address" class="new-input" placeholder='Địa chỉ'>
+                    <input type="text" id="contact-name" class="new-input" placeholder='Tên'>
                 </div>
                 <div class="contact-input">
-                    <div class="rename-icon">
-                        <i class='bx bx-phone'></i>
+                    <div class="rename-icon" id="notes">
+                        <i class='bx bxs-bookmarks'></i>
                     </div>
-                    <input type="text" id="contact-phone" class="new-input" placeholder='Số điện thoại'>
+                    <input type="text"  id="contact-note" class="new-input" placeholder='Ghi chú'>
+                    <button class="card-btn card-btn-input">
+                        <i class='bx bx-palette'></i>
+                        <input type="color" class="pick-color" id="pick-color" title="chọn màu">
+                    </button>
                 </div>
-                <div class="contact-input">
-                    <div class="rename-icon">
-                        <i class='bx bxl-facebook-square'></i>
+                    <div class="contact-input">
+                        <div class="rename-icon">
+                            <i class='bx bx-location-plus'></i>
+                        </div>
+                        <input type="text" id="contact-address" class="new-input" placeholder='Địa chỉ'>
                     </div>
-                    <input type="text" id="contact-facebook" class="new-input" placeholder='facebook'>
-                </div>
-                <div class="contact-input">
-                    <div class="rename-icon">
-                        <i class='bx bxs-alarm-snooze'></i>
+                    <div class="contact-input">
+                        <div class="rename-icon">
+                            <i class='bx bx-phone'></i>
+                        </div>
+                        <input type="text" id="contact-phone" class="new-input" placeholder='Số điện thoại'>
                     </div>
-                    <input type="text" id="contact-zalo"class="new-input" placeholder='Zalo'>
-                </div>
-                <div class="contact-input">
-                    <div class="rename-icon">
-                        <i class='bx bxl-telegram'></i>
+                    <div class="contact-input">
+                        <div class="rename-icon">
+                            <i class='bx bxl-facebook-square'></i>
+                        </div>
+                        <input type="text" id="contact-facebook" class="new-input" placeholder='facebook'>
                     </div>
-                    <input type="text" id="contact-telegram"class="new-input" placeholder='Telegram'>
+                    <div class="contact-input">
+                        <div class="rename-icon">
+                            <i class='bx bxs-alarm-snooze'></i>
+                        </div>
+                        <input type="text" id="contact-zalo"class="new-input" placeholder='Zalo'>
+                    </div>
+                    <div class="contact-input">
+                        <div class="rename-icon">
+                            <i class='bx bxl-telegram'></i>
+                        </div>
+                        <input type="text" id="contact-telegram"class="new-input" placeholder='Telegram'>
+                    </div>
+                    <button class="card-btn card-btn-primary w-full" id="add-contact-btn" style="margin-top:10px">Thêm</button>
                 </div>
-                <button class="card-btn card-btn-primary w-full" id="add-contact-btn" style="margin-top:10px">Thêm</button>
             </div>
         </div>
-    </div>
   
 `
 function contactCard(data){
@@ -148,6 +150,18 @@ function contactCard(data){
             </div>
         `
 }
+
+
+
+
+
+
+
+
+
+
+
+
 const newContactDiv = document.querySelector('.new-contact-card')
 const newContactBtn = document.querySelector('#new-contact-btn')
 newContactBtn.addEventListener('click',showCardContact)
@@ -221,3 +235,108 @@ async function fetchAddNewContact(data) {
     const json = await response.json()
     return json
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+const btnEditCard = document.querySelectorAll(".edit-card-btn")
+btnEditCard.forEach((btn)=>{
+    btn.addEventListener("click", ()=>{
+        dataId = btn.getAttribute("data-id").split("-")[2]
+        const parent = document.querySelector(`[card-data-id='${dataId}']`)
+        const editParent = parent.querySelector(".card-edit-contact")
+        const backBtn    = editParent.querySelector(".card-btn-default")
+        const editBtn    = editParent.querySelector(`[edit-id="${dataId}"]`)
+
+
+
+        editParent.classList.toggle("show-card-edit")
+        backBtn.onclick = ()=>{
+            editParent.classList.toggle("show-card-edit")
+        }
+
+        editBtn.onclick = ()=> {
+            conssole.log(this)
+        }
+
+        const image = document.querySelector(`#img-contact-${dataId}`)
+        const editImg = document.querySelector(`#edit-avartar-contact-${dataId}`)
+        editImg.onchange = ()=>{
+            image.src = URL.createObjectURL(editImg.files[0])
+        }
+        editBtn.onclick = () =>{
+            editContact(editBtn.getAttribute("edit-id"))
+        }
+    })
+}) 
+
+
+async function editContact (id){
+    const data = new FormData()
+
+    const image = document.querySelector(`#edit-avartar-contact-${id}`).files[0]
+    const name = document.querySelector(`#name-${id}`).value;
+    const note = document.querySelector(`#note-${id}`).value;
+    const address = document.querySelector(`#address-${id}`).value;
+    const phone = document.querySelector(`#phone-${id}`).value;
+    const facebook = document.querySelector(`#facebook-${id}`).value;
+    const zalo = document.querySelector(`#zalo-${id}`).value;
+    const telegram = document.querySelector(`#telegram-${id}`).value;
+    const color = document.querySelector(`#color-${id}`).value
+
+
+
+    data.append("id",id)
+    data.append("image",image)
+    data.append("username",username)
+    data.append("name",name)
+    data.append("note",note)
+    data.append("address",address)
+    data.append("phone",phone)
+    data.append("facebook",facebook)
+    data.append("zalo",zalo)
+    data.append("telegram",telegram)
+    data.append("color",color)
+
+
+    const options = {
+        method : "POST",
+        body :data
+    }
+    const response = await fetch('/api/edit-contact',options)
+    const json = await response.json()
+    if (json.code != 0 ) {
+        messageBox("error","Có lỗi xảy ra")
+        return
+    }
+    document.querySelector(`#text-name-${id}`).textContent =json.name
+    document.querySelector(`#text-note-${id}`).textContent =json.note
+    document.querySelector(`#text-address-${id}`).textContent =json.address
+    document.querySelector(`#text-phone-${id}`).textContent =json.phone
+    document.querySelector(`#text-facebook-${id}`).href =json.facebook
+    document.querySelector(`#text-zalo-${id}`).href =json.zalo
+    document.querySelector(`#text-telegram-${id}`).href =json.telegram
+
+    document.querySelector(`#card-color-circle-${id}`).style.backgroundColor = json.color
+
+    document.querySelector(`#avartar-${id}`).src = `data:image/png;base64, ${json.image}`
+
+    messageBox("check",json.msg)
+
+
+    const parent = document.querySelector(`[card-data-id='${id}']`)
+    const editParent = parent.querySelector(".card-edit-contact")
+    editParent.classList.toggle("show-card-edit")
+}
+
+
+

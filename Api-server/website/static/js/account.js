@@ -32,7 +32,10 @@ async function changePassword() {
     const newPassword = document.querySelector("#newPassword").value
 
     const reNewPassword = document.querySelector("#reNewPassword").value
-
+    if (currentPassword.length == 0 ||  newPassword.length == 0 || reNewPassword.length == 0) {
+        messageBox("error","Bạn phải điền đầy đủ thông tin")
+        return
+    }
 
     if (reNewPassword != newPassword) {
         messageBox('error','Nhập lại mật khẩu không chính xác')
@@ -71,6 +74,10 @@ btnUpdateAccount.addEventListener('click', changeAccountName)
 
 async function changeAccountName() {
     const name = document.querySelector('#accountName').value
+    if (name.length < 4 ) {
+        messageBox('error','Tên người dùng quá ngắn')
+        return
+    }
     const options = {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
