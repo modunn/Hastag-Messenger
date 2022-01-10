@@ -51,7 +51,7 @@
                             </div>
                             <input type="text" class="new-input" placeholder='Tên' value="{{key['name']}}" id="name-{{key['id']}}">
                         </div>
-                        <div class="contact-input" style="color:{{key['color']}};">
+                        <div class="contact-input" style="color:{{key['color']}};" id="bookmarks-{{key['id']}}">
                             <div class="rename-icon">
                                 <i class='bx bxs-bookmarks'></i>
                             </div>
@@ -100,6 +100,8 @@
                 <div class="card-edit-contact-bottom">
                     <button class="card-btn card-btn-primary" edit-id="{{key['id']}}">Lưu chỉnh sửa</button>
                     <button class="card-btn card-btn-default">Quay lại</button>
+                    <button class="card-btn card-btn-dangerous absolute-btn" remove-id="{{key['id']}}">Xóa</button>
+
                 </div>
             </div>
         </div>
@@ -167,7 +169,6 @@
                 </div>
             </div>
         </div>
-
     </div>
     {%endfor%}
 </div>

@@ -1,42 +1,53 @@
-{% extends 'index.html'%} {%block title%}Login -{%endblock%} 
+{% extends 'index.html'%} {%block title%}Login -{%endblock%}
 {%block content%}
 
 <div class="login__form">
-<div class="title__login">
-    <img src="{{url_for('static',filename='icon/app_name.svg')}}" alt="logo" class="app__logo">
-    <h2>Notes messenger giúp bạn kết nối và chia sẻ với mọi người ghi chú của bạn.
-    </h2>
-</div>
+    <div class="title__login">
+        <img src="{{url_for('static',filename='icon/app_name.svg')}}" alt="logo" class="app__logo">
+        <h2>Notes messenger giúp bạn kết nối và chia sẻ với mọi người ghi chú của bạn.
+        </h2>
+        <div style="margin-top:10px;;margin-left: 5px;">
+        <div 
+            class="fb-like" 
+            data-share="true" 
+            data-width="450" 
+            data-show-faces="true" 
+            href="https://msg-notes.herokuapp.com/"
+            >
+        </div>  
+    </div>
+    </div>
 
-<form method="POST" class="form__login">
-    <div class="form__container">
-        <div class="card__img">
-            <img src="{{url_for('static',filename='icon/icon.png')}}" alt="">
-        </div>
-        <div class="card__title">
-            L O G I N 
-        </div>
-        <div class="form__username">
-            
-            <input type="text" name='username' placeholder="email or username">
-
-        </div>
-        <div class="form__password">
-            
-            <input type="password" name='password' placeholder="password">
-        </div>
-        <div class="form__submit">
-            <input type="submit" value="L O G I N">
-        </div>
-        <div class="social">
-            <h4><span>Or</span></h4>
-            <div class="social__facebook">
-                <a><i class='bx bxl-facebook' ></i>Login with Facebook</a>
+    <form method="POST" class="form__login">
+        <div class="form__container">
+            <div class="card__img">
+                <img src="{{url_for('static',filename='icon/icon.png')}}" alt="">
             </div>
+            <div class="card__title">
+                L O G I N
+            </div>
+            <div class="form__username">
 
+                <input type="text" name='username' placeholder="email or username">
+
+            </div>
+            <div class="form__password">
+
+                <input type="password" name='password' placeholder="password">
+            </div>
+            <div class="form__submit">
+                <input type="submit" value="L O G I N">
+            </div>
+            <div class="social">
+                <h4><span>Or</span></h4>
+                <div class="social__facebook">
+                    <a href="{{url_for('auth.facebook')}}"><i class='bx bxl-facebook'></i>Login with Facebook</a>
+                </div>
+
+            </div>
         </div>
-    </div> 
-    
-</form>
+
+    </form>
 </div>
+
 {%endblock%}

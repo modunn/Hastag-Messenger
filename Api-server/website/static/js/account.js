@@ -136,3 +136,52 @@ async function uploadAvt(data) {
 }
 
 
+const btnUpdateIdFacebook = document.querySelector("#update-facebook_id")
+btnUpdateIdFacebook.addEventListener('click',connectFacebook)
+
+async function connectFacebook() {
+    const facebook_id = document.querySelector("#accountfacebook_id").value
+    const options = {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+
+        body: JSON.stringify({ username: username ,facebook_id:facebook_id})
+    }
+    const response = await fetch('/api/edit-facebook', options)
+    const json = await response.json()
+    if (json.code != 0) {
+        messageBox('error',json.msg)
+    }
+    messageBox('check',json.msg)
+}
+
+
+
+document.querySelector("#remove-user").addEventListener("click",()=>{
+    if (confirm('Xóa tài khoản đồng nghĩa với việc xóa bỏ toàn bộ dữ liệu của tài khoản, bạn chắc chắn chứ ?')) {
+        logout();
+        removeUser();
+        
+    }
+    
+})
+async function removeUser() {
+    const options = {
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username: username })
+    }
+    const response = await fetch('/api/remove-user', options)
+    const json = await response.json()
+    if (json.code != 0) {
+        messageBox('error',json.msg)
+    }
+    messageBox('check',json.msg)
+    window.location.href = '/';
+}

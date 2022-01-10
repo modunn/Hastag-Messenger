@@ -1351,6 +1351,11 @@ a.card-btn-lg {
     display: flex;
     justify-content: flex-start;
     gap: 10px;
+    position: relative;
 }
 
 
+.absolute-btn {
+    position: absolute;
+    right: 0;
+}

@@ -176,7 +176,7 @@
             <li class="ant-dropdown-menu-item-divider">
 
             <li class="ant-dropdown-item">
-                <a href="#">
+                <a href="{{url_for('dashboard.setting')}}">
                     <span>
                         User setting
                     </span>
@@ -184,7 +184,7 @@
             </li>
             </li>
             <li class="ant-dropdown-item">
-                <a href="{{url_for('auth.logout')}}">
+                <a href="{{url_for('auth.logout')}}" onclick="logout();">
                     <span>
                         Logout
                     </span>

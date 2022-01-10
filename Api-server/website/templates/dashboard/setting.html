@@ -14,18 +14,20 @@
             <div class="card-body">
                 <div class="card-row">
                     <div class="card-col card-col-lg-4 card-avartar-col">
-                        <img src="data:image/png;base64, {{current_user.avartar[0].image_base64}}" alt="ảnh đại diện" 
-                           class="card-avartar">
+                        <img src="data:image/png;base64, {{current_user.avartar[0].image_base64}}" alt="ảnh đại diện"
+                            class="card-avartar">
                     </div>
                     <div class="card-col card-col-lg-8">
                         <div class="card-form-item-explain">
-                            <div role="alert">Thay đổi ảnh đại diện của tài khoản notemessenger.com này. Đây phải là ảnh của
+                            <div role="alert">Thay đổi ảnh đại diện của tài khoản notemessenger.com này. Đây phải là ảnh
+                                của
                                 công ty / tổ chức của bạn hoặc ảnh của bạn nếu bạn là một cá nhân.</div>
                         </div>
                         <div class="card-form-item-control-input-content">
                             <div class="card-form-item-control-input-content">
                                 <label type="submit" class="card-btn card-btn-default" id='update-avt-btn'>
-                                    <input type="file" name="upload-avartar" id="upload-avartar" style="display: none;"  accept="image/*">
+                                    <input type="file" name="upload-avartar" id="upload-avartar" style="display: none;"
+                                        accept="image/*">
                                     <span>Upload Avartar</span>
                                 </label>
                             </div>
@@ -59,6 +61,36 @@
                         <div class="card-form-item-control-input-content">
                             <button type="submit" class="card-btn card-btn-default" id='update-account'>
                                 <span>Update Account Name</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-col card-col-24 card-mg-8 card-bordered">
+        <div class="card-div">
+            <div class="card-div-head">
+                <div class="card-head-wrapper">
+                    <div class="card-head-tittle">
+                        Kết nối với Facebook
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="card-row">
+                    <div class="card-col card-col-lg-3">
+                        <label for="accountfacebook_id" class="card-form-item-label" title="Account facebook_id">Facebook ID</label>
+                    </div>
+                    <div class="card-col card-col-lg-8">
+                        <input id="accountfacebook_id" class="card-input" type="text" value="{{current_user.facebook_id}}">
+                        <div class="card-form-item-explain">
+                            <div role="alert">Nhập ID facebook hoặc messenger của bạn để kết nối dữ liệu từ notes
+                                messenger tới facebook messenger.</div>
+                        </div>
+                        <div class="card-form-item-control-input-content">
+                            <button type="submit" class="card-btn card-btn-default" id='update-facebook_id'>
+                                <span>Update id facebook</span>
                             </button>
                         </div>
                     </div>
@@ -110,7 +142,7 @@
                     Điều này sẽ xóa vĩnh viễn tài khoản này. Nó sẽ không còn khả dụng cho bạn hoặc bất kỳ ai trong nhóm
                     của tài khoản này.
                 </div>
-                <button type="button" class="card-btn card-btn-dangerous">
+                <button type="button" class="card-btn card-btn-dangerous" id="remove-user">
                     <span>Xóa tài khoản</span>
                 </button>
             </div>

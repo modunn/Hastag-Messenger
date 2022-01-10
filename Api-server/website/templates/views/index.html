@@ -33,7 +33,7 @@
                 <img src="data:image/png;base64, {{current_user.avartar[0].image_base64}}" alt="ảnh đại diện"
                     class="ant-avartar-img">
             </a>
-            <a href="{{url_for('auth.logout')}}" class="nav__bar--link auth-button">Log out</a>
+            <a href="{{url_for('auth.logout')}}" class="nav__bar--link auth-button" onclick="logout();">Log out</a>
             {%else%}
             <a href="{{url_for('auth.login')}}" class="nav__bar--link">Login</a>
             <a href="#" class="nav__bar--link auth-button">Sign up</a>
