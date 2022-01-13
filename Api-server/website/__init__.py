@@ -53,10 +53,8 @@ def create_app():
     @login_manager.user_loader
     def load_user(id):
         return Users.query.get(int(id))
-
-
     return app
 
 
 def imgurl_to_base64(url):
-    return base64.b64encode(requests.get(url).content).decode('ascii')
+    return "data:image/png;base64," + base64.b64encode(requests.get(url).content).decode('ascii')

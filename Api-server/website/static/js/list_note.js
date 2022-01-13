@@ -101,7 +101,7 @@ function contactCard(data) {
             <div class="card-edit-contact-top">
                 <div class="card-edit-img">
                     <div class="overlay"></div>
-                    <img src="data:image/png;base64, ${data['image']}" alt="" id="img-contact-${data['id']}">
+                    <img src="${data['image']}" alt="" id="img-contact-${data['id']}">
                     <label class="edit-btn">
                         <input type="file" name="upload-avartar-contact" id="edit-avartar-contact-${data['id']}"
                             style="display: none;" accept="image/*">
@@ -170,7 +170,7 @@ function contactCard(data) {
     </div>
     <div class="card-contact padding24">
         <div class="card-contact-img card-center card-mg-20">
-            <img src="data:image/png;base64, ${data['image']}" 
+            <img src="${data['image']}" 
             alt="Ảnh đại diện" 
             id="avartar-${data['id']}">
         </div>
@@ -440,7 +440,7 @@ async function editContact(id) {
 
     document.querySelector(`#card-color-circle-${id}`).style.backgroundColor = json.color
 
-    document.querySelector(`#avartar-${id}`).src = `data:image/png;base64, ${json.image}`
+    document.querySelector(`#avartar-${id}`).src = json.image
 
     messageBox("check", json.msg)
 

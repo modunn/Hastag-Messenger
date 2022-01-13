@@ -1,9 +1,9 @@
 
 
 
-const inputLengthNote = document.querySelector("#length-note")
-inputLengthNote.addEventListener("input", (e) => {
-    document.querySelector("#note-length-value").textContent = e.target.value + "%";
+const inputOpacityhNote = document.querySelector("#opacity-note")
+inputOpacityhNote.addEventListener("input", (e) => {
+    document.querySelector("#note-opacity-value").textContent = e.target.value + "%";
 })
 
 const saveBtn = document.querySelector("#save-btn")
@@ -22,14 +22,14 @@ function dataNotes() {
     const colorDefault = []
 
     const colorBtns = document.querySelectorAll('#color-default button')
-    const lengthNote = document.querySelector('#length-note').value
+    const opacityNote = document.querySelector('#opacity-note').value
     colorBtns.forEach(color => {
         colorDefault.push(color.value)
     })
     return {
         username: username,
         color_default: colorDefault,
-        length: lengthNote
+        opacity: opacityNote
     }
 }
 

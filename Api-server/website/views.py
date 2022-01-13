@@ -36,4 +36,4 @@ def avartar(id):
     avt = Avartar.query.filter_by(id=id).first()
     if not avt :
         return "Không thể truy cập đường dẫn này",400
-    return 'data:image/png;base64,'+ avt.image_base64
+    return avt.image_base64

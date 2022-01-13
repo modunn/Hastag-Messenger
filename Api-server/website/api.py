@@ -79,7 +79,12 @@ def connect():
                 }
         
         return jsonify(facebook_data=response)
-    return 'hello world'
+    return """
+    <div style="text-align:center;">
+    <h1 style='margin:200px auto;color:red;'>Bạn không có quyền truy cập trang web này</h1>
+    <a href="/dashboard/get-started">quay về trang chủ</a>
+    </div>
+    """
 
 @api.route('/update-name', methods=['GET', 'POST'])
 def update_name():
@@ -96,7 +101,12 @@ def update_name():
                 'username':user_data.username,
                 'name':user_data.name
                 }
-    return 'Hello world'
+    return """
+    <div style="text-align:center;">
+    <h1 style='margin:200px auto;color:red;'>Bạn không có quyền truy cập trang web này</h1>
+    <a href="/dashboard/get-started">quay về trang chủ</a>
+    </div>
+    """
 
 @api.route('/update-password', methods=['GET', 'POST'])
 def update_password():
@@ -119,13 +129,17 @@ def update_password():
         return {'msg':'edit password succesfully',
                 'code':0,
                 }
-    return 'Hello world'
+    return """
+    <div style="text-align:center;">
+    <h1 style='margin:200px auto;color:red;'>Bạn không có quyền truy cập trang web này</h1>
+    <a href="/dashboard/get-started">quay về trang chủ</a>
+    </div>
+    """
 
 
 def render_picture(data):
-
     render_pic = base64.b64encode(data).decode('ascii') 
-    return render_pic
+    return "data:image/png;base64,"+ render_pic
 
 @api.route('/upload',methods=['GET','POST'])
 def upload():
@@ -169,6 +183,12 @@ def upload():
                 'image_name':avt.image_name,
                 'content_type':avt.content_type
                 })
+    return """
+    <div style="text-align:center;">
+    <h1 style='margin:200px auto;color:red;'>Bạn không có quyền truy cập trang web này</h1>
+    <a href="/dashboard/get-started">quay về trang chủ</a>
+    </div>
+    """
 
 
 @api.route('/add-contact',methods=['GET','POST'])
@@ -224,7 +244,12 @@ def add_contact():
                 "code"       :0
                 })
 
-    return jsonify({"message":"hello world"})
+    return """
+    <div style="text-align:center;">
+    <h1 style='margin:200px auto;color:red;'>Bạn không có quyền truy cập trang web này</h1>
+    <a href="/dashboard/get-started">quay về trang chủ</a>
+    </div>
+    """
 
 
 @api.route('/edit-contact',methods=['GET','POST'])
@@ -247,8 +272,6 @@ def edit_contact():
             contact.telegram = data.get("telegram")
             contact.color = data.get("color")
             if image_data:
-                print(data)
-                
                 contact.image = render_picture(image_data.read())
             db.session.commit()
 
@@ -268,8 +291,13 @@ def edit_contact():
                 "msg"        :"Sửa liên hệ thành công",
                 "code"       :0
                 })
-
-    return jsonify({"message":"hello world"})
+        
+    return """
+    <div style="text-align:center;">
+    <h1 style='margin:200px auto;color:red;'>Bạn không có quyền truy cập trang web này</h1>
+    <a href="/dashboard/get-started">quay về trang chủ</a>
+    </div>
+    """
 
 
 
@@ -279,12 +307,12 @@ def edit_style():
         res = request.get_json()
         username = res.get('username')
         color_default = res.get('color_default')
-        length =  res.get('length')
+        opacity =  res.get('opacity')
 
 
         styles = Styles.query.filter_by(username=username).first()
         styles.color_default = color_default
-        styles.length = length
+        styles.opacity = opacity
         db.session.commit()
 
         return {'msg':'edit succesfully',
@@ -292,21 +320,44 @@ def edit_style():
                 'username':username,
                 'styles_id':styles.id
                 }
-    return 'Hello world'
+    return """
+    <div style="text-align:center;">
+    <h1 style='margin:200px auto;color:red;'>Bạn không có quyền truy cập trang web này</h1>
+    <a href="/dashboard/get-started">quay về trang chủ</a>
+    </div>
+    """
 
 @api.route("/remove-contact",methods=['GET','POST'])
 def remove_contact():
     if request.method =="POST":
         res = request.get_json()
-        print(res)
         id = res.get('id')
         contact = Contacts.query.filter_by(id=id).first()
         if contact:
             db.session.delete(contact)
             db.session.commit()
-            return jsonify({"msg":"Xóa thành công","id":id,"code":0,"user_id":current_user.id})
-        return jsonify({"msg":"Có lỗi xảy ra","id":id,"code":1,"user_id":current_user.id})
-
+            return jsonify({
+                    "msg":"Xóa thành công",
+                    "code":0,
+                    "contact_id" : contact.id,
+                    "name"       : contact.name,
+                    "note"       : contact.note,      
+                    "address"    : contact.address,
+                    "phone"      : contact.phone,
+                    "facebook"   : contact.facebook,
+                    "zalo"       : contact.zalo,
+                    "telegram"   : contact.telegram,
+                    "color"      : contact.color,
+                    "image"      : contact.image, 
+                    })
+        return jsonify({"msg":"Có lỗi xảy ra","id":id,"code":1})
+        
+    return """
+    <div style="text-align:center;">
+    <h1 style='margin:200px auto;color:red;'>Bạn không có quyền truy cập trang web này</h1>
+    <a href="/dashboard/get-started">quay về trang chủ</a>
+    </div>
+    """
 
 @api.route("/remove-user",methods=['GET','POST'])
 @login_required
@@ -330,7 +381,12 @@ def remove_user():
             logout_user()
             return jsonify({"msg":"Xóa thành công","username":username,"code":0,"user_id":user.id})
         return jsonify({"msg":"Có lỗi xảy ra","username":username,"code":1,"user_id":user.id})   
-
+    return """
+    <div style="text-align:center;">
+    <h1 style='margin:200px auto;color:red;'>Bạn không có quyền truy cập trang web này</h1>
+    <a href="/dashboard/get-started">quay về trang chủ</a>
+    </div>
+    """
 
 @api.route("/edit-facebook",methods=['GET','POST'])
 def edit_facebook():
@@ -343,3 +399,61 @@ def edit_facebook():
             return jsonify({"msg":'connect Facebook thành công',"code":0,"username":user.username})
         return jsonify({"msg":'connect Facebook thất bại',"code":1,"username":data['username']})
     
+    return """
+    <div style="text-align:center;">
+    <h1 style='margin:200px auto;color:red;'>Bạn không có quyền truy cập trang web này</h1>
+    <a href="/dashboard/get-started">quay về trang chủ</a>
+    </div>
+    """
+
+@api.route("/handle-note-facebook",methods=['GET','POST'])
+def handle_note_facebook():
+    if request.method =="POST":
+        data = request.get_json()
+
+        contact = Contacts.query.filter_by(username=data['facebook_id'],facebook=data['contact_id']).first()
+        if "data:image/png;base64" not in data['image']:
+            image = imgurl_to_base64(data['image'])
+        else:
+            image = data['image']
+        if contact :
+            contact.name = data['contact_name']
+            contact.note = data['note']
+            contact.color = data['color']
+            contact.facebook = data['contact_id']
+            contact.image = image
+            db.session.commit()
+        else :
+            contact = Contacts(
+                name = data['contact_name'],
+                note = data['note'],
+                color = data['color'],
+                image = image,
+                facebook = data['contact_id'],
+                username=data['facebook_id']
+                )
+            db.session.add(contact)
+            db.session.commit()
+
+        return jsonify({
+                "contact_id" : contact.id,
+                "username"   : data['facebook_id'],
+                "name"       : contact.name,
+                "note"       : contact.note,      
+                "address"    : contact.address,
+                "phone"      : contact.phone,
+                "facebook"   : contact.facebook,
+                "zalo"       : contact.zalo,
+                "telegram"   : contact.telegram,
+                "color"      : contact.color,
+                "image"      : contact.image, 
+                "msg"        :"Sửa liên hệ thành công",
+                "code"       :0
+                })
+    return """
+    <div style="text-align:center;">
+    <h1 style='margin:200px auto;color:red;'>Bạn không có quyền truy cập trang web này</h1>
+    <a href="/dashboard/get-started">quay về trang chủ</a>
+    </div>
+    """
+

@@ -37,7 +37,7 @@
                 <div class="card-edit-contact-top">
                     <div class="card-edit-img">
                         <div class="overlay"></div>
-                        <img src="data:image/png;base64, {{key['image']}}" alt="" id="img-contact-{{key['id']}}">
+                        <img src="{{key['image']}}" alt="" id="img-contact-{{key['id']}}">
                         <label class="edit-btn">
                             <input type="file" name="upload-avartar-contact" id="edit-avartar-contact-{{key['id']}}"
                                 style="display: none;" accept="image/*">
@@ -107,7 +107,7 @@
         </div>
         <div class="card-contact padding24">
             <div class="card-contact-img card-center card-mg-20">
-                <img src="data:image/png;base64, {{key['image']}}" 
+                <img src="{{key['image']}}" 
                 alt="Ảnh đại diện" 
                 id="avartar-{{key['id']}}">
             </div>
