@@ -1,16 +1,13 @@
 from . import socketio
-from flask_socketio import send,emit,join_room
-from flask import session
-from flask_login import current_user
-from .models import Users,Contacts
+from flask_socketio import emit,join_room
 
 
 
 @socketio.on('joined')
 def joined(msg):
-	print(msg)
 	room = msg.get("room")
 	name = msg.get("name")
+	print({"msg":f'{name} đã tham gia phòng','room':room})
 	join_room(room)
 	emit("status",{"msg":f'{name} đã tham gia phòng'},room=room)
 
