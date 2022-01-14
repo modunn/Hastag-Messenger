@@ -1,6 +1,7 @@
 {%extends 'base.html'%} {%block title%}Dashboard -{%endblock%}
 {%block head%}
 <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/dashboard.css')}}">
+
 {%endblock%}
 {%block body%}
 <div id="app" class="app__contain">
@@ -8,7 +9,7 @@
          <div class="main-sidebar "> <!--minimum-sidebar -->
             <div class="sidebar-header">
                 <div class="sidebar-avt">
-                    <img src="data:image/png;base64, {{current_user.avartar[0].image_base64}}" alt="ảnh đại diện" class="avartar">
+                    <img src="{{current_user.avartar[0].image_base64}}" alt="ảnh đại diện" class="avartar">
                 </div>
                 <span class="user-name">{{current_user.name}}</span>
                 <i class='bx bx-chevron-down'></i>
@@ -195,4 +196,8 @@
 </div>
 
 <script src="{{url_for('static',filename='./js/dashboard.js')}}"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.4.8/socket.io.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+{%block scripts%}
+{%endblock%}
 {%endblock%}

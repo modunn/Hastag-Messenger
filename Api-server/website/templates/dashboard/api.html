@@ -1,5 +1,47 @@
 {%extends 'dashboard.html'%}{%block title%}API -{%endblock%}
 
 {%block main_body%}
-<h1 style="text-align: center;font-size: 100px;margin-top: 200px;">API</h1>
+
+<div class="my__contain" style="display: flex;align-items: center;justify-content: center;margin-top: 200px;">
+    <div>
+        <ul id="messages" style="margin-bottom: 10px;list-style: none;">
+        </ul>
+        <input type="text" id="myMessage">
+        <button id="sendbutton">Send</button>
+    </div>
+
+</div>
+{%endblock%}
+{%block scripts%}
+<script type="text/javascript">
+    $(document).ready(function() {
+    
+        var socket = io.connect('http://172.18.9.28:8888/');
+    
+        socket.on('connect', function() {
+            socket.emit("joined",
+            {
+                name:"{{current_user.name}}",
+                room : "{{current_user.facebook_id}}"
+            });
+        });
+    
+        socket.on('message', function(msg) {
+            console.log(msg);
+
+            $("#messages").append('<li>'+msg.msg+'</li>');
+        });
+    
+        $('#sendbutton').on('click', function() {
+            msg = {
+                msg:$('#myMessage').val(),
+                room:"{{current_user.facebook_id}}"
+            }
+
+            socket.emit('message',msg)
+            $('#myMessage').val('');
+        });
+    
+    });
+    </script>
 {%endblock%}

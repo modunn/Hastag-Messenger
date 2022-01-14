@@ -37,7 +37,7 @@ class Contacts(db.Model):
         }
 class Styles(db.Model):
     id            = db.Column(db.Integer,primary_key=True)
-    color_default = db.Column(db.JSON,default=['#ab68ca', '#3a58f0', '#d62f45', '#2ebf5e', '#fcba03'])
+    color_default = db.Column(db.JSON,default=['#f25c54', '#0084ff', '#d39ef0', '#85f9ae', '#fbd66f'])
     opacity       = db.Column(db.String,default='100')
     username      = db.Column(db.String,db.ForeignKey('users.username')) 
 

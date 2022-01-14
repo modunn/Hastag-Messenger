@@ -119,8 +119,8 @@ async function uploadAvartar(){
     
     const response = await uploadAvt(data)
 
-    document.querySelector('.avartar').src= 'data:image/png;base64, '+response.image_base64;
-    avartar.src = 'data:image/png;base64, '+response.image_base64;
+    document.querySelector('.avartar').src= response.image_base64;
+    avartar.src = response.image_base64;
     messageBox('check','Thay đổi ảnh đại diện thành công')
 }
 

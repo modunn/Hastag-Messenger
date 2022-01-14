@@ -1,14 +1,13 @@
 # views
 import re
 from flask import Blueprint, jsonify, request
-import os,requests,base64
+import base64
 
 from flask_login import logout_user,login_required
 from flask_login.utils import login_user
 from . import db, imgurl_to_base64
 from flask_login import current_user
 from . models import Avartar, Styles, Contacts, Users,DEFAULT_IMG_DATA
-import base64
 
 api = Blueprint('api', __name__)
 

@@ -3,7 +3,6 @@ from flask import (Blueprint,
                    render_template,
                    redirect,
                    url_for,
-                   jsonify
                    )
 from flask_login import login_user, logout_user, login_required,current_user
 from . import db,oauth,imgurl_to_base64
@@ -15,6 +14,7 @@ auth = Blueprint('auth', __name__,template_folder='templates/auth')
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+
     if current_user.is_authenticated:
         return redirect(url_for('dashboard.setting'))    
     if request.method == 'POST':

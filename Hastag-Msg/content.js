@@ -4,6 +4,23 @@ function getCookie(name) {
     return match ? match[1] : null;
 }
 
+// var scripts = document.createElement("script")
+// scripts.type = 'text/javascript'
+// scripts.src = 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js'
+// document.head.appendChild(scripts)
+
+// var scriptsss = document.createElement("script")
+// scriptsss.type = 'text/javascript'
+// scriptsss.textContent = `
+//     var socket = io.connect('http://localhost:8080/');
+
+//     socket.on('connect', function() {
+//         socket.send('User has connected!');
+//     });
+// `
+// document.body.appendChild(scriptsss)
+
+
 
 
 var style = document.createElement('style')
@@ -126,7 +143,7 @@ style.innerText = `
 }
 .edit-popup h1 {
     font-size:16px;
-    max-width:175px;
+    max-width:160px;
     white-space: nowrap;
     overflow: hidden !important;
     text-overflow: ellipsis;
@@ -156,18 +173,23 @@ style.innerText = `
 
 .close-popup {
     position: absolute;
-    width: 24px;
-    height: 24px;
+    width: 26px;
+    height: 26px;
     right: 10px;
     top: 10px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 700;
+    border-radius: 13px;
     display: flex;
-    color: #1d1f23;
     justify-content: center;
     align-items: center;
     cursor:pointer;
+}
+.close-popup span {
+    font-size: 12px;
+    font-weight: bold;
+    color: #1d1f23;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .close-popup:hover {background: #e4e6eb;}
 
@@ -231,9 +253,8 @@ style.innerText = `
 `
 style.rel = 'stylesheet';
 style.type = 'text/css'
-
-
 document.head.appendChild(style)
+
 
 
 
@@ -252,37 +273,42 @@ function getUserInfo() {
             name: name_user.getAttribute("aria-label")
         }
         window.localStorage.setItem("user_info",JSON.stringify(info))
+
         return info
     }
  }
 }
 
-
-let int = setInterval(() => {
-    var msg = getUserInfo();
-    if (msg) {
-        clearInterval(int)
-        msg['msg']="getData"
-        chrome.runtime.sendMessage(msg, function (response) {
-            const data = response['facebook_data']
-            window.localStorage.setItem("facebook_data",JSON.stringify(data))
-            createNote(data)
-            let scrollITV = setInterval(()=>{
-                const scroll_chat =  document.querySelector(".rpm2j7zs")
-                if (scroll_chat){
-                    clearInterval(scrollITV)
-                    scroll_chat.addEventListener("scroll",(event)=>{
-                        var storage_data = JSON.parse(window.localStorage.getItem("facebook_data"))
-                        if (!storage_data) {
-                            var storage_data = getUserInfo();
-                        }
-                        createNote(storage_data)
-                    })
-                }
+window.addEventListener('load', (event) => {
+    let int = setInterval(() => {
+        var msg = getUserInfo();
+        if (msg) {
+            var join = msg
+            join['msg'] = "joined"
+            chrome.runtime.sendMessage(join)
+            clearInterval(int)
+            msg['msg']="getData"
+            chrome.runtime.sendMessage(msg, function (response) {
+                const data = response['facebook_data']
+                window.localStorage.setItem("facebook_data",JSON.stringify(data))
+                createNote(data)
+                let scrollITV = setInterval(()=>{
+                    const scroll_chat =  document.querySelector(".rpm2j7zs")
+                    if (scroll_chat){
+                        clearInterval(scrollITV)
+                        scroll_chat.addEventListener("scroll",(event)=>{
+                            var storage_data = JSON.parse(window.localStorage.getItem("facebook_data"))
+                            if (!storage_data) {
+                                var storage_data = data;
+                            }
+                            createNote(storage_data)
+                        })
+                    }
+                })
             })
-        })
-    }
-},1000)
+        }
+    },1000)
+})
 
 
 document.addEventListener('keydown', function(event){
@@ -296,8 +322,18 @@ document.addEventListener('keydown', function(event){
 
 function editPopup(contacts,styles,contact_id) {
     if (!contacts[contact_id]) {
+        var img =document.querySelector(`[contact-id="${contact_id}"]`).querySelector('image')
+        if (!img) {
+            var img =document.querySelector(`[contact-id="${contact_id}"]`).querySelector('img')
+            var img_url = img.src
+        }else {
+            var img_url = img.href.baseVal
+        }
+        
+
+
         contacts[contact_id]= {
-            'image':document.querySelector(`[contact-id="${contact_id}"]`).querySelector('image').href.baseVal,
+            'image':img_url,
             'name' : document.querySelector(`[contact-id="${contact_id}"]`).querySelector("span.a8c37x1j").textContent,
             'note':"",
             'color':"#e4e6eb"
@@ -322,7 +358,13 @@ function editPopup(contacts,styles,contact_id) {
                 <h1 class="id-contact" >${contact_id}</h1>
             </div>
             <div class='color-contact' style="background:${hexBgColor}" value="${hexBgColor}"></div>
-            <div class="close-popup" title="close">❌</div>
+            <div class="close-popup" title="close">
+                <span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24">
+                        <path d="M24 20.188l-8.315-8.209 8.2-8.282-3.697-3.697-8.212 8.318-8.31-8.203-3.666 3.666 8.321 8.24-8.206 8.313 3.666 3.666 8.237-8.318 8.285 8.203z"/>
+                    </svg>
+                </span>
+            </div>
         </div>
         <div class="edit-center">
             <input type="text" value="${note.innerText}" class="note-input" >
@@ -404,10 +446,12 @@ function createNoteHtml(data, div_contact_parent) {
     if(div_contact_parent.querySelector(".notes-msg")) return
 
     const styles = data['styles']
+
     const contacts = data['contacts']
 
     var div_contact_url = div_contact_parent.querySelector("a")
-    var div_contact_info = div_contact_parent.querySelector(".irj2b8pg") 
+    var div_contact_info = div_contact_parent.querySelector(".irj2b8pg")
+    
     var contact_id = div_contact_url.href.split('t/')[1].split("/")[0]
 
     div_contact_parent.setAttribute('contact-id',contact_id)
@@ -417,6 +461,9 @@ function createNoteHtml(data, div_contact_parent) {
     div_note = document.createElement("div")
     div_note.className = "notes-msg"
     div_note.id = contact_id
+    if (!div_contact_info){
+        var div_contact_info = div_contact_parent.querySelector('div.m9osqain').parentNode
+    }
     div_contact_info.appendChild(div_note)
 
 

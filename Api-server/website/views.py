@@ -15,6 +15,7 @@ def home():
 
 @views.route('/product',methods=['GET','POST'])
 def product():
+    
     return render_template('product.html')
 
 @views.route('/pricing',methods=['GET','POST'])
