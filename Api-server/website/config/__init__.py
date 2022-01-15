@@ -1,11 +1,11 @@
-
+import os
 
 class Config(object):
-    # SQLALCHEMY_DATABASE_URI         = "postgresql://lnxjujizfbngmn:612dad9cbe7462b258a015d3d473a75971d1f2dc290e6fec085c0e086ff03d0e@ec2-3-218-158-102.compute-1.amazonaws.com:5432/d81ct5kdcrvcsk"
     SQLALCHEMY_DATABASE_URI         = 'sqlite:///database.sqlite'
+    # SQLALCHEMY_DATABASE_URI         = "postgresql://afmvhquxupwegt:8cb2f833e3e29732a81ba994be30b4cd57fae4dc0c2a3b8025fa06eeb96fe0d8@ec2-3-227-15-75.compute-1.amazonaws.com:5432/deuvmjj0t40gmv"
     ALLOWED_EXTENSIONS              = set(['png', 'jpg', 'jpeg'])
     UPLOAD_FOLDER                   = '/uploads/avartar'
-    SECRET_KEY                      = '8888'
+    SECRET_KEY                      = "mundo8888"
     SQLALCHEMY_TRACK_MODIFICATIONS  = False
     EXECUTOR_PROPAGATE_EXCEPTIONS   = True
     JSON_AS_ASCII                   = False

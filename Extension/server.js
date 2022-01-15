@@ -1,5 +1,5 @@
 
-var socket = io.connect('http://172.18.9.28:8888/');
+var socket = io.connect('https://teenote.herokuapp.com/');
    
 socket.on('status', function(msg) {
   console.log(msg);
@@ -10,14 +10,13 @@ socket.on('notify', function(msg) {
   chrome.tabs.query({}, function(tabs){
     tabs.forEach(function (tab) {
       chrome.tabs.sendMessage(tab.id,msg);  
-
     })
   });
 });
 
 
 socket.on('change note', function(msg) {
-  console.log(msg)
+  msg['msg'] = "editNote"
   chrome.tabs.query({}, function(tabs){
     tabs.forEach(function (tab) {
       chrome.tabs.sendMessage(tab.id,msg);  
@@ -26,7 +25,15 @@ socket.on('change note', function(msg) {
   });
 });
 
+socket.on('remove note', function(msg) {
+  msg['msg'] = "deleteNote"
+  chrome.tabs.query({}, function(tabs){
+    tabs.forEach(function (tab) {
+      chrome.tabs.sendMessage(tab.id,msg);  
 
+    })
+  });
+});
 
 //Listen for messages
 chrome.runtime.onMessage.addListener((msg, sender, response) => {
@@ -37,18 +44,20 @@ chrome.runtime.onMessage.addListener((msg, sender, response) => {
   }else if (msg.msg=="handleNote"){
     sendNote(msg,response)
 
-  }else if (msg.msg=="removeNote"){
+  }else if (msg.msg=="removeNoteApi"){
     sendRemoveNote(msg,response)
-
   }else if (msg.msg=="joined") {
       socket.emit('joined', {name: msg.name,room: msg.facebook_id});
 
 
   }else if (msg.msg=="noteChanged") {
-      socket.emit('notechange', msg);
-    }
-    
+    socket.emit('notechange', msg);
+  }else if (msg.msg=="removeNoteSocket"){
+    console.log(msg)
+    socket.emit('removeNote', msg);
+  }  
     return true;
+  
 })
 
 
@@ -59,7 +68,7 @@ async function sendData(msg,response) {
 }
 
 async function getData(msg) {
-  const api_url = `http://172.18.9.28:8888/api/facebook-connect`;
+  const api_url = `https://teenote.herokuapp.com/api/facebook-connect`;
   const options = {
     method: "POST",
     headers: {
@@ -81,7 +90,7 @@ async function sendNote(msg,response) {
 }
 
 async function editNote(msg) {
-  const api_url = `http://172.18.9.28:8888/api/handle-note-facebook`;
+  const api_url = `https://teenote.herokuapp.com/api/handle-note-facebook`;
   const options = {
     method: "POST",
     headers: {
@@ -104,7 +113,7 @@ async function sendRemoveNote(msg,response) {
 }
 
 async function removeNote(msg) {
-  const api_url = `http://172.18.9.28:8888/api/remove-contact`;
+  const api_url = `https://teenote.herokuapp.com/api/remove-contact`;
   const options = {
     method: "POST",
     headers: {

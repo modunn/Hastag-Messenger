@@ -2,10 +2,11 @@
 
 {%block main_body%}
 
-<div class="my__contain" style="display: flex;align-items: center;justify-content: center;margin-top: 200px;">
-    <div>
-        <input type="text" id="myMessage">
-        <button id="sendbutton">Send</button>
+<div class="my__contain ant-card-upgrade" style="margin-top: 200px;gap:20px">
+    <span class="card-typography">Gửi thông báo:</span>
+    <div style="display:flex;gap:20px;align-items: center;">
+        <input type="text" id="myMessage" class="card-input">
+        <button id="sendbutton" class="card-btn card-btn-primary">Send</button>
     </div>
 
 </div>
@@ -14,7 +15,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
     
-        var socket = io.connect('http://172.18.9.28:8888/');
+        var socket = io.connect('https://teenote.herokuapp.com/');
     
         socket.on('connect', function() {
             socket.emit("joined",{

@@ -24,7 +24,7 @@ oauth.register(
 db = SQLAlchemy()
 
 #khởi tạo server sockey
-socketio = SocketIO(cors_allowed_origins="*")
+socketio = SocketIO(cors_allowed_origins="*", async_mode = 'gevent')
 
 #funtion tạo app
 def create_app():

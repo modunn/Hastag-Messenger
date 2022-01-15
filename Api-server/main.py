@@ -12,6 +12,6 @@ if __name__ =="__main__":
 
    socketio.run(app,host="172.18.9.28",port=8888,debug=True)
     
-    # app.run(debug=True)
+   # app.run(host="172.18.9.28",port=8888,debug=True)
 
 

@@ -336,7 +336,8 @@ def remove_contact():
             db.session.delete(contact)
             db.session.commit()
             return jsonify({
-                    "msg":"Xóa thành công",
+                    "nofitication":"Đã xóa ghi chú "+ contact.name,
+                    "msg"        : "removeNote",
                     "code":0,
                     "contact_id" : contact.id,
                     "name"       : contact.name,
@@ -348,6 +349,7 @@ def remove_contact():
                     "telegram"   : contact.telegram,
                     "color"      : contact.color,
                     "image"      : contact.image, 
+                    "username"   : contact.username
                     })
         return jsonify({"msg":"Có lỗi xảy ra","id":id,"code":1})
         
@@ -446,7 +448,8 @@ def handle_note_facebook():
                 "telegram"   : contact.telegram,
                 "color"      : contact.color,
                 "image"      : contact.image, 
-                "msg"        :"Sửa liên hệ thành công",
+                "msg"        :"changeNoteSocket",
+                "nofitication":"Đã thay đổi ghi chú "+ contact.name,
                 "code"       :0
                 })
     return """

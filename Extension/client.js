@@ -4,21 +4,6 @@ function getCookie(name) {
     return match ? match[1] : null;
 }
 
-// var scripts = document.createElement("script")
-// scripts.type = 'text/javascript'
-// scripts.src = 'https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js'
-// document.head.appendChild(scripts)
-
-// var scriptsss = document.createElement("script")
-// scriptsss.type = 'text/javascript'
-// scriptsss.textContent = `
-//     var socket = io.connect('http://localhost:8080/');
-
-//     socket.on('connect', function() {
-//         socket.send('User has connected!');
-//     });
-// `
-// document.body.appendChild(scriptsss)
 
 
 
@@ -544,7 +529,6 @@ function editNoteApi() {
         btn_remove.onclick = ()=>{
             removeNote(response['contact_id'])
         }
-
         response['msg'] = "noteChanged"
         chrome.runtime.sendMessage(response)
      })
@@ -558,18 +542,18 @@ function removeNote(contact_id) {
     if (!msg) {
         var msg = getUserInfo();
     }
-    msg['msg'] = "removeNote"
+    msg['msg'] = "removeNoteApi"
     msg['id'] =  contact_id
     chrome.runtime.sendMessage(msg, function (response) {
-        div_contact_info = document.getElementById(response.facebook)
-        div_contact_info.querySelector("span").style.backgroundColor = ''
-        div_contact_info.querySelector("span").textContent = ''
+        response['msg'] = "removeNoteSocket"   
+        chrome.runtime.sendMessage(response)
      })    
 }
 
 
 chrome.runtime.onMessage.addListener(function(msg, sender, response){
-    if (msg.msg =="changeNoteSocket") {
+    
+    if (msg.msg =="editNote") {
         const contact_div = document.getElementById(msg.facebook)
         if (contact_div) {
             const note = contact_div.querySelector("span")
@@ -582,6 +566,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, response){
 
             }
         };
+        
         var data = JSON.parse(window.localStorage.getItem("facebook_data"));
         if (data) {
         var contacts = data['contacts'] 
@@ -606,5 +591,24 @@ chrome.runtime.onMessage.addListener(function(msg, sender, response){
                 window.localStorage.setItem("facebook_data",JSON.stringify(data))
             })
         }
+    }else if (msg.msg =="deleteNote"){
+        var data = JSON.parse(window.localStorage.getItem("facebook_data"));
+        if (data) {
+            var div_contact_info = document.getElementById(msg.facebook)
+            if (div_contact_info){
+                div_contact_info.querySelector("span").style.backgroundColor = ''
+                div_contact_info.querySelector("span").textContent = ''  
+            } 
+            delete data["contacts"][msg.facebook]
+            window.localStorage.setItem("facebook_data",JSON.stringify(data))
+        }else {
+            var msg = getUserInfo();
+            msg['msg']="getData"   
+            chrome.runtime.sendMessage(msg, function (response) {
+                const data = response['facebook_data']
+                window.localStorage.setItem("facebook_data",JSON.stringify(data))
+            })
+        }
+        
     }
 });

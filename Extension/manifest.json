@@ -31,7 +31,9 @@
     "activeTab",
     "tabs", 
     "*://*.messenger.com/*",
-    "http://172.18.9.28:8888/*"
+    "http://172.18.9.28:8888/*",
+    "https://teenote.herokuapp.com/*",
+    "http://teenote.herokuapp.com/*"
 
   ]
 }

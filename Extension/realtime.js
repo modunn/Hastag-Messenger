@@ -16,7 +16,7 @@ style_noti.innerText = `
     }
     .div_noti_container {
         position:relative;
-        min-height:33px;
+        min-height:20px;
         display:flex;
         align-items:center;
         min-width:350px;
@@ -24,8 +24,8 @@ style_noti.innerText = `
     }
 
     .close_noti {
-        width:20px;
-        height:20px;
+        width:25px;
+        height:25px;
         border-radius:50%;
         position: absolute;
         font-size:14px;
@@ -87,17 +87,26 @@ document.body.appendChild(div_noti);
 
 
 chrome.runtime.onMessage.addListener(function(msg, sender, response){
-    console.log(msg) 
-    if (msg.msg=="changeNoteSocket") {
+    
+    if (msg.msg=="editNote" || msg.msg =="deleteNote") {
+        if (div_noti.classList.toggle("activate")){
+            div_noti.classList.toggle("activate")
+        }
         div_noti.classList.toggle("activate")
         text_noti.innerText = msg.nofitication
         let intId = setInterval(() => {
-                div_noti.classList.toggle("activate")
-                clearInterval(intId)
+            div_noti.classList.toggle("activate")
+            clearInterval(intId)
         }, 1500)
+        console.log(msg.nofitication)
     }else if(msg.msg =="notification"){
+        if (div_noti.classList.toggle("activate")){
+            div_noti.classList.toggle("activate")
+        }
         div_noti.classList.toggle("activate")
         text_noti.innerText = msg.message
+        console.log(msg.nofitication)
+
         }
     }
 );

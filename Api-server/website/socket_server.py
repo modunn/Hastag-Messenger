@@ -13,12 +13,16 @@ def joined(message):
 
 @socketio.on('notechange')
 def notechange(message):
-	message['nofitication'] = "Ghi chú " +message["name"] +" đã được thay đổi"
-	message['msg'] = "changeNoteSocket"
+	print(message['username']+" "+ message['nofitication'])
 	emit("change note",message,room=message['username'])
+
+
+@socketio.on('removeNote')
+def removeNote(message):
+	print(message['username']+" "+ message['nofitication'])
+	emit("remove note",message,room=message['username'])
 
 
 @socketio.on('notify')
 def notify(msg):
-	print( msg)
 	emit("notify",msg, broadcast=True)
