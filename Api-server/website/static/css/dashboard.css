@@ -21,53 +21,18 @@
     flex-direction: column;
     justify-content: stretch;
     color: #fff;
-    /* animation: sidebarAnimation-main 0.2s linear; */
+    transition: 0.5s ease;
 
 }
-@keyframes sidebarAnimation-main {
-    from {
-        flex: 0 0 55px;
-        max-width: 55px;
-        width: 55px;
-    }
-    to {
-        flex: 0 0 264px;
-        max-width: 264px;
-        width: 264px;
-
-    }
-}
-
-@keyframes sidebarAnimation {
-    from {
-        flex: 0 0 264px;
-        max-width: 264px;
-        width: 264px;
-    }
-    to {
-        flex: 0 0 55px;
-        max-width: 55px;
-        width: 55px;
-    }
-}
-
 
 .sidebar-nimimum {
     flex: 0 0 55px;
     max-width: 55px;
     width: 55px;
     overflow: hidden;
-    animation: sidebarAnimation 0.2s linear;
 
 }
 
-.minimum-sidebar {
-    overflow: hidden;
-    flex: 0 0 55px;
-    max-width: 55px;
-    width: 55px;
-    
-}
 .sidebar-header{
     min-height: 56px;
     display: flex;
@@ -100,6 +65,11 @@
     font-size: 15px;
     width: 100%;
     padding: 0 15px;
+    opacity: 1;
+    transform: .3s;
+}
+.main-sidebar.sidebar-nimimum .user-name {
+    opacity: 0;
 }
 .bx-chevron-down:before {
     font-size: 18px;
@@ -108,7 +78,6 @@
 
 .sidebar-menu {
     flex: 1 1 0%;
-
 }
 
 .sidebar-menu-list {
@@ -127,8 +96,18 @@
     min-height: 45px;
     max-height: 45px;
 }
+
+
 .menu-item-link span {
     margin-left: 20px;
+    opacity: 1;
+    transition: 0.2s;
+}
+.main-sidebar.sidebar-nimimum .menu-item-link span {
+    opacity: 0;
+}
+.main-sidebar.sidebar-nimimum + .main-content #sidebar-menu {
+    color: #1853db;
 }
 .menu-item-link:hover {
     color: #fff;
@@ -999,6 +978,7 @@ a.card-btn-lg {
 .card-note{
     display: block;
     margin-bottom: 15px;
+    min-height: 16px;
 }
 .card-contact-info {
     margin:8px 0px 15px ;

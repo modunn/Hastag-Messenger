@@ -1,0 +1,37 @@
+{
+  "manifest_version": 2,
+  "name": "Hastag Messenger",
+  "description":"Chrome Extension Add Notes to Messenger",
+  "version": "1.0",
+  "icons": {                   
+    "19": "icon.png",
+    "38": "icon.png",
+    "48": "icon.png",
+    "128": "icon.png"  
+  },
+  "browser_action": {
+    "default_icon": "icon.png"
+  },
+  "content_scripts": [{
+    "matches": ["*://*.messenger.com/*"],  
+    "js": ["client.js","realtime.js"],
+    "run_at": "document_end",
+    "all_frames": true
+  }],
+  "background": {
+    "persistent": false,
+    "scripts": [
+      "socketio.js",
+      "server.js",
+      "chrome.js"
+     
+    ]
+  },
+  "permissions": [
+    "activeTab",
+    "tabs", 
+    "*://*.messenger.com/*",
+    "http://172.18.9.28:8888/*"
+
+  ]
+}

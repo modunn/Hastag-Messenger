@@ -1,0 +1,35 @@
+* {
+    font-family: inherit;
+    box-sizing: border-box;
+}
+.tag{
+    
+    margin:auto;
+    margin-top:50px;
+    height:30px;
+    width: 130px;
+    background-color:#5AD539 ;
+    border-radius:15px;
+    border:none;
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+.tag_name {
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    padding: 0px 10px 2px 25px;
+}
+.edit_tag ,.remove_tag {
+    border: none;
+    background: transparent;
+    display: inline-block;
+    outline: unset;
+    padding: 0px 2px 2px 2px;
+    color: #FFF;
+}
+button:focus {
+    outline: none;
+}
+

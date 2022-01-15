@@ -6,7 +6,7 @@ import base64,requests
 from flask_socketio import SocketIO
 
 
-
+#khởi tạo trình login bằng social
 oauth = OAuth()
 oauth.register(
     name='facebook',
@@ -20,14 +20,24 @@ oauth.register(
     request_token_params={"scope": "email", "auth_type": "reauthenticate"}
 )
 
+#khởi tạo databsse
 db = SQLAlchemy()
+
+#khởi tạo server sockey
 socketio = SocketIO(cors_allowed_origins="*")
 
+#funtion tạo app
 def create_app():
+
+    #khởi tạo flask app
     app = Flask(__name__)
+
+
     from .config import Config
     app.config.from_object(Config)
 
+
+    #thiết lập đường dẫn blue print tới các nhánh khác
     from .api import api
     from .views import views
     from .auth import auth
@@ -38,28 +48,36 @@ def create_app():
     app.register_blueprint(auth, url_prefix='/auth')
     app.register_blueprint(dashboard, url_prefix='/dashboard')
 
+
+    #kết nối databse với flask app
     db.init_app(app)
     from .models import Users
 
-    
+    #tạo tất cả các table  trong database
     with app.app_context():
         db.create_all()
         db.session.commit()
 
-
+    #Kết nối trình login bằng social với flask app
     oauth.init_app(app)
 
+
+    #Tạo trình quản lí login và kết nối với flask app
     login_manager = LoginManager()
     login_manager.login_view ='auth.login'
     login_manager.init_app(app)
 
+    #load user theo user id, quản lí đăng nhập đăng xuất
     @login_manager.user_loader
     def load_user(id):
         return Users.query.get(int(id))
 
-    socketio.init_app(app,cors_allowed_origins="*")
+    #Tạo và kết nôi server web socket với app
     from . import socket_server
+    socketio.init_app(app,cors_allowed_origins="*")
 
+
+    #Hàm trả về method app , db và socket io
     return app,db,socketio
 
 
