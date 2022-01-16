@@ -2,44 +2,68 @@
 
 {%block main_body%}
 
-<div class="my__contain ant-card-upgrade" style="margin-top: 200px;gap:20px">
-    <span class="card-typography">Gửi thông báo:</span>
-    <div style="display:flex;gap:20px;align-items: center;">
-        <input type="text" id="myMessage" class="card-input">
+<div class="my__contain ant-card-upgrade" style="margin: 200px auto;width: 1100px;">
+
+    <div style="width:100%">
+        <span class="card-typography " style="display: block;margin-bottom:20px;font-size: 20px;">Gửi thông báo:</span>
+        <textarea type="text" id="myMessage" class="card-input"></textarea>
         <button id="sendbutton" class="card-btn card-btn-primary">Send</button>
     </div>
 
 </div>
 {%endblock%}
+
 {%block scripts%}
+<script  rel="stylesheet" src="{{url_for('static',filename='./js/mmd.min.js')}}"></script>
+
 <script type="text/javascript">
-    $(document).ready(function() {
-    
+    console.log( mmd('Markdown is **sweet**') );
+    const easyMDE = new EasyMDE({
+        element: $('#myMessage')[0],
+        spellChecker: false,
+        placeholder: "Type here...",
+
+        promptURLs: true,
+        promptTexts: {
+            image: "Custom prompt for URL:",
+            link: "Custom prompt for URL:",
+        },
+        previewRender: (plainText, preview) => { // Async method
+        setTimeout(() => {
+            preview.innerText = mmd(plainText);
+        }, 250);
+
+        return "Loading...";
+    },
+
+    });
+    $(document).ready(function () {
+
         var socket = io.connect('https://teenote.herokuapp.com/');
-    
-        socket.on('connect', function() {
-            socket.emit("joined",{
-                name:"{{current_user.name}}",
-                room : "{{current_user.facebook_id}}"
+
+        socket.on('connect', function () {
+            socket.emit("joined", {
+                name: "{{current_user.name}}",
+                room: "{{current_user.facebook_id}}"
             });
         });
-    
-        socket.on('change note', function(msg) {
+
+        socket.on('change note', function (msg) {
             console.log(msg);
         });
 
-        socket.on('notify', function(msg) {
-		    console.log(msg);
-	    });
+        socket.on('notify', function (msg) {
+            console.log(msg);
+        });
 
 
-        $('#sendbutton').on('click', function() {
-            socket.emit("notify",{
-                message:$('#myMessage').val(),
-                msg:"notification"
+        $('#sendbutton').on('click', function () {
+            socket.emit("notify", {
+                message: easyMDE.value(),
+                msg: "notification"
             });
         });
-    
+
     });
-    </script>
+</script>
 {%endblock%}

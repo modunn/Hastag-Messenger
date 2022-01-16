@@ -6,7 +6,7 @@ style_noti.innerText = `
         bottom:10px;
         left:10px;
         display:flex;
-        padding:20px 25px;
+        padding:8px 35px;
         align-items:center;
         gap:20px;
         border-radius:8px;
@@ -16,11 +16,14 @@ style_noti.innerText = `
     }
     .div_noti_container {
         position:relative;
-        min-height:20px;
+        min-height:35px;
         display:flex;
         align-items:center;
-        min-width:350px;
-        justify-content:center;
+        min-width:270px;
+        justify-content:flex-start;
+    }
+    .div_noti:hover {
+        background-color:rgba(32,33,36,1);
     }
 
     .close_noti {
@@ -28,19 +31,24 @@ style_noti.innerText = `
         height:25px;
         border-radius:50%;
         position: absolute;
-        font-size:14px;
-        font-weight:400;
+        font-size:11px;
+        font-weight:bold;
         text-align:center;
         border:none;
         background:transparent;
         color:#bec7d0;
-        top:-15px;
-        right:-20px;
-        cursor:pointer
+        top:-3px;
+        right:-30px;
+        cursor:pointer;
+    
     }
     .text_noti {
         color:#bec7d0;
         font-size:15px;
+    }
+    .text_noti a {
+        font-weight:bold;
+        color:#CCDDFF;
     }
     .close_noti:hover {
         background:#080808
@@ -68,7 +76,7 @@ div_noti.appendChild(div_noti_container)
 
 var close_noti = document.createElement("button")
 close_noti.className = "close_noti"
-close_noti.textContent = 'X'
+close_noti.textContent = '✖'
 close_noti.onclick = ()=>{
     div_noti.classList.toggle("activate")
 }
@@ -76,7 +84,7 @@ div_noti_container.appendChild(close_noti)
 
 
 
-var text_noti = document.createElement("span")
+var text_noti = document.createElement("div")
 text_noti.className = "text_noti"
 
 text_noti.textContent = "Đã có phiên bản mới, vui lòng truy cập TeeNote.com để update"
@@ -93,7 +101,7 @@ chrome.runtime.onMessage.addListener(function(msg, sender, response){
             div_noti.classList.toggle("activate")
         }
         div_noti.classList.toggle("activate")
-        text_noti.innerText = msg.nofitication
+        text_noti.innerHTML = msg.nofitication
         let intId = setInterval(() => {
             div_noti.classList.toggle("activate")
             clearInterval(intId)
@@ -104,9 +112,10 @@ chrome.runtime.onMessage.addListener(function(msg, sender, response){
             div_noti.classList.toggle("activate")
         }
         div_noti.classList.toggle("activate")
-        text_noti.innerText = msg.message
+        text_noti.innerHTML = msg.message
         console.log(msg.nofitication)
 
         }
     }
 );
+

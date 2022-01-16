@@ -75,3 +75,17 @@ chrome.browserAction.onClicked.addListener(function() {
 //             }
 //         }, 300);
 // });
+
+chrome.contextMenus.create({
+    id: "some-command",
+    title: "Truy cập messenger",
+    contexts: ["all"]
+});
+
+chrome.contextMenus.onClicked.addListener(function(info, tab) {
+    if (info.menuItemId == "some-command") {
+            windowId ? chrome.windows.update(windowId, {
+                "focused": true
+            }) : app.UI.create()
+    }
+});
