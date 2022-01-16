@@ -549,6 +549,7 @@ function editNoteApi() {
         btn_remove.onclick = ()=>{
             removeNote(response['contact_id'])
         }
+        
         response['msg'] = "noteChanged"
         chrome.runtime.sendMessage(response)
     })
