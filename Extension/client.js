@@ -283,6 +283,7 @@ window.addEventListener('load', (event) => {
                 window.localStorage.setItem("facebook_data", JSON.stringify(data))
                 let checkInv = setInterval(() => {
                     if (data) {
+
                         createNote(data)
                         clearInterval(checkInv)
                     }
@@ -291,15 +292,20 @@ window.addEventListener('load', (event) => {
 
                 let scrollITV = setInterval(() => {
                     const scroll_chat = document.querySelector(".rpm2j7zs")
-                    if (scroll_chat) {
+                    var target = document.querySelector(".dpja2al7")
+                    if (target) {
                         clearInterval(scrollITV)
-                        scroll_chat.addEventListener("scroll", () => {
-                            var storage_data = JSON.parse(window.localStorage.getItem("facebook_data"))
-                            if (!storage_data) {
-                                var storage_data = data;
-                            }
-                            createNote(storage_data)
-                        })
+                        var observer = new MutationObserver(function (mutations) {
+                            mutations.forEach(function (mutationRecord) {
+                                var storage_data = JSON.parse(window.localStorage.getItem("facebook_data"))
+                                if (!storage_data) {
+                                    var storage_data = data;
+                                }
+                                createNote(storage_data)
+                            });
+                        });
+
+                        observer.observe(target, { attributes: true, attributeFilter: ['style']});
                     }
                 })
             })
@@ -446,85 +452,85 @@ function createNote(data) {
 
 
 function createNoteHtml(data, div_contact_parent) {
-    if (!div_contact_parent.querySelector(".notes-msg")){
-
- 
-    const styles = data['styles']
-
-    const contacts = data['contacts']
-
-    var div_contact_url = div_contact_parent.querySelector("a")
-    var div_contact_info = div_contact_parent.querySelector(".irj2b8pg")
-
-    var contact_id = div_contact_url.href.split('t/')[1].split("/")[0]
-
-    div_contact_parent.setAttribute('contact-id', contact_id)
+    if (!div_contact_parent.querySelector(".notes-msg")) {
 
 
-    // Tạo thẻ cha ghi chú
-    div_note = document.createElement("div")
-    div_note.className = "notes-msg"
-    div_note.id = contact_id
-    if (!div_contact_info) {
-        var div_contact_info = div_contact_parent.querySelector('div.m9osqain').parentNode
-    }
-    div_contact_info.appendChild(div_note)
+        const styles = data['styles']
+
+        const contacts = data['contacts']
+
+        var div_contact_url = div_contact_parent.querySelector("a")
+        var div_contact_info = div_contact_parent.querySelector(".irj2b8pg")
+
+        var contact_id = div_contact_url.href.split('t/')[1].split("/")[0]
+
+        div_contact_parent.setAttribute('contact-id', contact_id)
 
 
-    //Tạo thẻ span hiển thị màu sắc, style và nội dung của ghi chú
-    span_note = document.createElement("span")
-    span_note.style.opacity = styles['opacity'] + '%'
-    if (contacts[contact_id]) {
-        span_note.style.background = contacts[contact_id]['color']
-        span_note.innerText = contacts[contact_id]['note']
-        if (!contacts[contact_id]['note']) {
-            span_note.style.borderRadius = "8px"
+        // Tạo thẻ cha ghi chú
+        div_note = document.createElement("div")
+        div_note.className = "notes-msg"
+        div_note.id = contact_id
+        if (!div_contact_info) {
+            var div_contact_info = div_contact_parent.querySelector('div.m9osqain').parentNode
+        }
+        div_contact_info.appendChild(div_note)
+
+
+        //Tạo thẻ span hiển thị màu sắc, style và nội dung của ghi chú
+        span_note = document.createElement("span")
+        span_note.style.opacity = styles['opacity'] + '%'
+        if (contacts[contact_id]) {
+            span_note.style.background = contacts[contact_id]['color']
+            span_note.innerText = contacts[contact_id]['note']
+            if (!contacts[contact_id]['note']) {
+                span_note.style.borderRadius = "8px"
+            }
+
+        } else {
+            span_note.style.cssText = "background:transparent;border-radius:8px;"
+            span_note.innerText = ""
+        }
+        div_note.appendChild(span_note)
+
+
+        //Tạo thẻ cha chứa hành động với ghi chú
+        div_action_note = document.createElement("div")
+        div_action_note.className = "action"
+        div_note.appendChild(div_action_note)
+
+        //Tạo button mở cửa sổ chỉnh sửa ghi chú
+        btn_edit = document.createElement("button")
+        btn_edit.className = "btn btn-primary"
+        btn_edit.setAttribute("edit-id", contact_id)
+        btn_edit.setAttribute("actioned", "edit")
+        btn_edit.innerText = "Sửa"
+
+
+
+        btn_edit.onclick = () => {
+            div_contact_parent.appendChild(editPopup(contacts, styles, contact_id)
+
+            )
+
+        }
+        div_action_note.appendChild(btn_edit)
+
+        //Tạo button xóa ghi chú
+
+        btn_remove = document.createElement("button")
+        btn_remove.className = "btn btn-dangerous"
+        btn_remove.setAttribute("actioned", "remove")
+        if (contacts[contact_id]) {
+            btn_remove.setAttribute("remove-id", contacts[contact_id]['id'])
+            btn_remove.addEventListener("click", () => {
+                removeNote(contacts[contact_id]['id'])
+            })
         }
 
-    } else {
-        span_note.style.cssText = "background:transparent;border-radius:8px;"
-        span_note.innerText = ""
+        btn_remove.innerText = "Xóa"
+        div_action_note.appendChild(btn_remove)
     }
-    div_note.appendChild(span_note)
-
-
-    //Tạo thẻ cha chứa hành động với ghi chú
-    div_action_note = document.createElement("div")
-    div_action_note.className = "action"
-    div_note.appendChild(div_action_note)
-
-    //Tạo button mở cửa sổ chỉnh sửa ghi chú
-    btn_edit = document.createElement("button")
-    btn_edit.className = "btn btn-primary"
-    btn_edit.setAttribute("edit-id", contact_id)
-    btn_edit.setAttribute("actioned", "edit")
-    btn_edit.innerText = "Sửa"
-
-
-
-    btn_edit.onclick = () => {
-        div_contact_parent.appendChild(editPopup(contacts, styles, contact_id)
-
-        )
-
-    }
-    div_action_note.appendChild(btn_edit)
-
-    //Tạo button xóa ghi chú
-
-    btn_remove = document.createElement("button")
-    btn_remove.className = "btn btn-dangerous"
-    btn_remove.setAttribute("actioned", "remove")
-    if (contacts[contact_id]) {
-        btn_remove.setAttribute("remove-id", contacts[contact_id]['id'])
-        btn_remove.addEventListener("click",() => {
-            removeNote(contacts[contact_id]['id'])
-        })
-    }
-
-    btn_remove.innerText = "Xóa"
-    div_action_note.appendChild(btn_remove)
-}
 }
 
 
@@ -545,11 +551,11 @@ function editNoteApi() {
     chrome.runtime.sendMessage(msg, function (response) {
         div_note_action = document.getElementById(response['facebook'])
         btn_remove = div_note_action.querySelector('[actioned="remove"]')
-        btn_remove.setAttribute("remove-id",response['contact_id'])
-        btn_remove.onclick = ()=>{
+        btn_remove.setAttribute("remove-id", response['contact_id'])
+        btn_remove.onclick = () => {
             removeNote(response['contact_id'])
         }
-        
+
         response['msg'] = "noteChanged"
         chrome.runtime.sendMessage(response)
     })
@@ -579,9 +585,9 @@ chrome.runtime.onMessage.addListener(function (msg, sender, response) {
         if (contact_div) {
             var btn_remove = contact_div.querySelector('[actioned="remove"]')
             btn_remove.setAttribute("remove-id", msg.contact_id)
-            btn_remove.onclick = () => {
-                removeNote( msg.contact_id)
-            }
+            btn_remove.addEventListener("click", () => {
+                removeNote(msg.contact_id)
+            })
             const note = contact_div.querySelector("span")
             note.style.backgroundColor = msg.color
             note.textContent = msg.note
@@ -624,7 +630,7 @@ chrome.runtime.onMessage.addListener(function (msg, sender, response) {
             if (div_contact_info) {
                 div_contact_info.querySelector("span").style.backgroundColor = ''
                 div_contact_info.querySelector("span").textContent = ''
-               
+
             }
             delete data["contacts"][msg.facebook]
             window.localStorage.setItem("facebook_data", JSON.stringify(data))
