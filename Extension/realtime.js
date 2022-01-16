@@ -45,10 +45,19 @@ style_noti.innerText = `
     .text_noti {
         color:#bec7d0;
         font-size:15px;
+        display:flex;
+        align-items:center;
+        gap:10px
+        
+    }
+    .text_noti img {
+        height:30px;
+
     }
     .text_noti a {
         font-weight:bold;
         color:#CCDDFF;
+
     }
     .close_noti:hover {
         background:#080808
