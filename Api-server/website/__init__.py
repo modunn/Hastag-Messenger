@@ -4,6 +4,7 @@ from flask_login import LoginManager
 from authlib.integrations.flask_client import OAuth
 import base64,requests
 from flask_socketio import SocketIO
+from flask_talisman import Talisman
 
 
 #khởi tạo trình login bằng social
@@ -31,6 +32,7 @@ def create_app():
 
     #khởi tạo flask app
     app = Flask(__name__)
+    Talisman(app)
 
 
     from .config import Config
