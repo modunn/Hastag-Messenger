@@ -653,12 +653,11 @@ chrome.runtime.onMessage.addListener(function (msg, sender, response) {
         if (data) {
             delete data["contacts"][msg.facebook]
             window.localStorage.setItem("facebook_data", JSON.stringify(data))
-        } else {
+        }else{
             var msg = getUserInfo();
             msg['msg'] = "getData"
             chrome.runtime.sendMessage(msg, function (response) {
-                const data = response['facebook_data']
-                window.localStorage.setItem("facebook_data", JSON.stringify(data))
+                window.localStorage.setItem("facebook_data", JSON.stringify(response['facebook_data']))
             })
         }
 
