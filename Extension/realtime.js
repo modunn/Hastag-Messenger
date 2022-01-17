@@ -32,7 +32,7 @@ style_noti.innerText = `
         text-align:center;
         border:none;
         background:transparent;
-        color:#bec7d0;
+        color:#ededed;
         cursor:pointer;
         background: #484A4C
     
@@ -42,7 +42,7 @@ style_noti.innerText = `
     }
 
     .text_noti {
-        color:#bec7d0;
+        color:#ededed;
         font-size:15px;
         display:flex;
         align-items:center;
