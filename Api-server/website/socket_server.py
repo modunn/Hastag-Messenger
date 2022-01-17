@@ -19,8 +19,9 @@ def notechange(message):
 
 @socketio.on('removeNote')
 def removeNote(message):
-	print(message['username']+" "+ message['nofitication'])
-	emit("remove note",message,room=message['username'])
+	if message['code'] != 1:
+		print(message['username']+" "+ message['nofitication'])
+		emit("remove note",message,room=message['username'])
 
 
 @socketio.on('notify')
