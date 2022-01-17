@@ -1,15 +1,17 @@
 
 var socket = io.connect('https://teenote.herokuapp.com/',{
   'reconnection': true,
-  'reconnectionDelay': 25000,
-  'reconnectionDelayMax' : 50000,
-  'reconnectionAttempts': 5
+  'reconnectionDelay': 500,
+  'reconnectionAttempts': 10
 });
    
 socket.on('status', function(msg) {
   console.log(msg);
 });
-
+//tell socket.io to never give up :)
+socket.on('error', function(){
+  socket.socket.connect();
+});
 
 socket.on('notify', function(msg) {
   chrome.tabs.query({}, function(tabs){

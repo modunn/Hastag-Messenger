@@ -592,13 +592,8 @@ function removeNote(contact_id) {
     msg['msg'] = "removeNoteApi"
     msg['id'] = contact_id
     chrome.runtime.sendMessage(msg, function (response) {
-        var div_contact_info = document.getElementById(response.facebook)
-        if (div_contact_info) {
-            div_contact_info.querySelector("span").style.backgroundColor = ''
-            div_contact_info.querySelector("span").textContent = ''
-            response['msg'] = "removeNoteSocket"
-            chrome.runtime.sendMessage(response)
-        }
+        response['msg'] = "removeNoteSocket"
+        chrome.runtime.sendMessage(response)
     })
 }
 
@@ -649,14 +644,13 @@ chrome.runtime.onMessage.addListener(function (msg, sender, response) {
             })
         }
     } else if (msg.msg == "deleteNote") {
+        var div_contact_info = document.getElementById(msg.facebook)
+        if (div_contact_info) {
+            div_contact_info.querySelector("span").style.backgroundColor = ''
+            div_contact_info.querySelector("span").textContent = ''
+        }
         var data = JSON.parse(window.localStorage.getItem("facebook_data"));
         if (data) {
-            var div_contact_info = document.getElementById(msg.facebook)
-            if (div_contact_info) {
-                div_contact_info.querySelector("span").style.backgroundColor = ''
-                div_contact_info.querySelector("span").textContent = ''
-
-            }
             delete data["contacts"][msg.facebook]
             window.localStorage.setItem("facebook_data", JSON.stringify(data))
         } else {
