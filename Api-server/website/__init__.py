@@ -1,13 +1,12 @@
-from flask import Flask,request,redirect
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from authlib.integrations.flask_client import OAuth
-import base64,requests,os
+import base64,requests
 from flask_socketio import SocketIO
+import warnings
+warnings.filterwarnings("ignore")
 
-
-#khởi tạo trình login bằng social
-oauth = OAuth()
 
 #khởi tạo databsse
 db = SQLAlchemy()
@@ -46,9 +45,6 @@ def create_app():
     with app.app_context():
         db.create_all()
         db.session.commit()
-
-    #Kết nối trình login bằng social với flask app
-    oauth.init_app(app)
 
 
     #Tạo trình quản lí login và kết nối với flask app

@@ -14,8 +14,8 @@
     <meta property=’og:image’ content="{{ url_for('static',filename='icon/icon.png')}}"/>
     <meta property=’og:description’ content='Kết nối với messenger quản lí liên hệ một cách dễ dàng'/>
     <meta property=’og:url’ content='https://teenote.herokuapp.com/'/>
-    <meta property='og:image:width' content='1200' />
-    <meta property='og:image:height' content='627' />
+    <meta property='og:image:width' content='1020' />
+    <meta property='og:image:height' content='1020' />
     <!-- TYPE BELOW IS PROBABLY: 'website' or 'article' or look on https://ogp.me/#types -->
     <meta property="og:type" content='website'/>
     <title>{%block title%}{{title}}{%endblock%} Tee Note</title>
@@ -28,31 +28,6 @@
 
 
     {%endblock%}
-
-<script>
-  window.fbAsyncInit = function() {
-    FB.init({
-      appId      : '212051767801881',
-      cookie     : true,
-      xfbml      : true,
-      version    : '269b1d496a13c53269b2de9495d1a81d'
-    });
-      
-    FB.AppEvents.logPageView();   
-      
-  };
-
-  (function(d, s, id){
-     var js, fjs = d.getElementsByTagName(s)[0];
-     if (d.getElementById(id)) {return;}
-     js = d.createElement(s); js.id = id;
-     js.src = "https://connect.facebook.net/en_US/sdk.js";
-     fjs.parentNode.insertBefore(js, fjs);
-   }(document, 'script', 'facebook-jssdk'));
-   FB.getLoginStatus(function(response) {
-    statusChangeCallback(response);
-    });
-</script>
 
 </body>
 
