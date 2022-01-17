@@ -1,16 +1,12 @@
 
-var socket = io.connect('https://teenote.herokuapp.com/',{
-  'reconnection': true,
-  'reconnectionDelay': 100,
-  'reconnectionAttempts': 1000
-});
+var socket = io.connect('https://teenote.herokuapp.com/');
    
 socket.on('status', function(msg) {
   console.log(msg);
 });
 //tell socket.io to never give up :)
 socket.on('error', function(){
-  socket.socket.reconnect();
+  socket.socket.connect();
 });
 
 socket.on('notify', function(msg) {
