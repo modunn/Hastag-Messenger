@@ -9,17 +9,18 @@ style_noti.innerText = `
         padding:10px 20px;
         align-items:center;
         gap:20px;
-        border-radius:8px;
+        border-radius:4px;
         opacity:0;
         transition: .5s esea;
         z-index:-1;
+        box-shadow: 0 2px 4px 0 rgb(0 0 0 / 28%);
     }
     .div_noti_container {
         position:relative;
         min-height:35px;
         display:flex;
         align-items:center;
-        min-width:270px;
+        min-width:300px;
         justify-content:space-between;
     }
 
@@ -34,7 +35,8 @@ style_noti.innerText = `
         background:transparent;
         color:#ededed;
         cursor:pointer;
-        background: #484A4C
+        background: #484A4C;
+        margin-left:20px;
     
     }
     .close_noti:hover {
