@@ -10,6 +10,14 @@
     <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='css/base.css')}}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
     <script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+    <meta property=’og:title’ content='TeeNote'/>
+    <meta property=’og:image’ content="{{ url_for('static',filename='icon/icon.png')}}"/>
+    <meta property=’og:description’ content='Kết nối với messenger quản lí liên hệ một cách dễ dàng'/>
+    <meta property=’og:url’ content='https://teenote.herokuapp.com/'/>
+    <meta property='og:image:width' content='1200' />
+    <meta property='og:image:height' content='627' />
+    <!-- TYPE BELOW IS PROBABLY: 'website' or 'article' or look on https://ogp.me/#types -->
+    <meta property="og:type" content='website'/>
     <title>{%block title%}{{title}}{%endblock%} Tee Note</title>
     {%block head%}
     {%endblock%}
@@ -22,32 +30,28 @@
     {%endblock%}
 
 <script>
-    window.fbAsyncInit = function () {
-        FB.init({
-            appId: '212051767801881',
-            xfbml: true,
-            version: 'v12.0',
-            cookie     : true
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '212051767801881',
+      cookie     : true,
+      xfbml      : true,
+      version    : '269b1d496a13c53269b2de9495d1a81d'
+    });
+      
+    FB.AppEvents.logPageView();   
+      
+  };
 
-        });
-        FB.AppEvents.logPageView();
-    };
-
-    (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) { return; }
-        js = d.createElement(s); js.id = id;
-        js.src = "https://connect.facebook.net/en_US/sdk.js";
-        fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
-    function logout(){
-        FB.getLoginStatus(function(response) {
-            FB.logout(function(response){
-
-            });
-        });
-        }
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+   FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+    });
 </script>
 
 </body>
