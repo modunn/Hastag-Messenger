@@ -12,6 +12,18 @@ from . models import Styles, Users,Avartar
 auth = Blueprint('auth', __name__,template_folder='templates/auth')
 
 
+oauth.register(
+    name='facebook',
+    client_id=u"212051767801881",
+    client_secret=u"269b1d496a13c53269b2de9495d1a81d",
+    access_token_url='https://graph.facebook.com/oauth/access_token',
+    access_token_params=None,
+    authorize_url='https://www.facebook.com/dialog/oauth',
+    authorize_params=None,
+    api_base_url='https://graph.facebook.com/',
+    request_token_params={"scope": "email", "auth_type": "reauthenticate"}
+)  
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
 
@@ -35,12 +47,11 @@ def login():
 
 @auth.route('/facebook')
 def facebook():
-    redirect_uri = url_for('auth.facebook_auth', _external=True)
-    return oauth.facebook.authorize_redirect(redirect_uri)
+    return oauth.facebook.authorize_redirect(url_for('auth.facebook_auth', _external=True))
  
 @auth.route('/facebook-login')
 def facebook_auth():
-    token = oauth.facebook.authorize_access_token()['access_token']
+    token = oauth.facebook.authorize_access_token()
 
     resp = oauth.facebook.get(
         'https://graph.facebook.com/me?fields=id,name,gender,email,friends,picture.type(large){url}'
@@ -51,9 +62,6 @@ def facebook_auth():
     user = Users.query.filter_by(username=profile['id']).first()
     if not user:
         user = Users(username=profile['id'],name=profile['name'])
-        db.session.add(user)
-        styles = Styles(username=user.username)
-
         image_base64 = imgurl_to_base64(profile['picture']['data']['url'])
         avt = Avartar(
             username=user.username,
@@ -61,7 +69,7 @@ def facebook_auth():
             image_name =user.username+"_avartar"
             )
         db.session.add(user)
-        db.session.add(styles)
+        db.session.add(Styles(username=user.username))
         db.session.add(avt)
         db.session.commit()
     login_user(user)
