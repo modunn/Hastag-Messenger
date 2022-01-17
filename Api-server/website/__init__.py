@@ -10,8 +10,8 @@ from flask_socketio import SocketIO
 oauth = OAuth()
 oauth.register(
     name='facebook',
-    client_id="212051767801881",
-    client_secret="269b1d496a13c53269b2de9495d1a81d",
+    client_id=u"212051767801881",
+    client_secret=u"269b1d496a13c53269b2de9495d1a81d",
     access_token_url='https://graph.facebook.com/oauth/access_token',
     access_token_params=None,
     authorize_url='https://www.facebook.com/dialog/oauth',
