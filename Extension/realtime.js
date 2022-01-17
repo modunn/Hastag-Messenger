@@ -1,12 +1,12 @@
 var style_noti = document.createElement('style')
 style_noti.innerText = `
     .div_noti {
-        background-color:rgba(32,33,36,.9);
+        background-color:#242526;
         position:absolute;
         bottom:10px;
         left:10px;
         display:flex;
-        padding:8px 35px;
+        padding:10px 20px;
         align-items:center;
         gap:20px;
         border-radius:8px;
@@ -20,35 +20,34 @@ style_noti.innerText = `
         display:flex;
         align-items:center;
         min-width:270px;
-        justify-content:flex-start;
-    }
-    .div_noti:hover {
-        background-color:rgba(32,33,36,1);
+        justify-content:space-between;
     }
 
     .close_noti {
         width:25px;
         height:25px;
         border-radius:50%;
-        position: absolute;
         font-size:11px;
         font-weight:bold;
         text-align:center;
         border:none;
         background:transparent;
         color:#bec7d0;
-        top:-3px;
-        right:-30px;
         cursor:pointer;
+        background: #484A4C
     
     }
+    .close_noti:hover {
+        background:#000
+    }
+
     .text_noti {
         color:#bec7d0;
         font-size:15px;
         display:flex;
         align-items:center;
         gap:10px
-        
+
     }
     .text_noti img {
         height:30px;
@@ -59,9 +58,7 @@ style_noti.innerText = `
         color:#CCDDFF;
 
     }
-    .close_noti:hover {
-        background:#080808
-    }
+
     .div_noti.activate {
         opacity:1;
         z-index:1;
@@ -83,6 +80,15 @@ div_noti_container.className = "div_noti_container"
 div_noti.appendChild(div_noti_container)
 
 
+
+
+var text_noti = document.createElement("div")
+text_noti.className = "text_noti"
+div_noti_container.appendChild(text_noti)
+
+
+
+
 var close_noti = document.createElement("button")
 close_noti.className = "close_noti"
 close_noti.textContent = '✖'
@@ -90,14 +96,6 @@ close_noti.onclick = ()=>{
     div_noti.classList.toggle("activate")
 }
 div_noti_container.appendChild(close_noti)
-
-
-
-var text_noti = document.createElement("div")
-text_noti.className = "text_noti"
-
-text_noti.textContent = "Đã có phiên bản mới, vui lòng truy cập TeeNote.com để update"
-div_noti_container.appendChild(text_noti)
 
 document.body.appendChild(div_noti);
 

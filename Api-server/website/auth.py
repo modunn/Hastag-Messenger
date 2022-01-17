@@ -40,7 +40,7 @@ def facebook():
  
 @auth.route('/facebook-login')
 def facebook_auth():
-    # token = oauth.facebook.authorize_access_token()['access_token']
+    token = oauth.facebook.authorize_access_token()['access_token']
 
     resp = oauth.facebook.get(
         'https://graph.facebook.com/me?fields=id,name,gender,email,friends,picture.type(large){url}'
