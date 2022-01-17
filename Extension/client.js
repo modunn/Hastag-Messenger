@@ -305,7 +305,7 @@ window.addEventListener('load', (event) => {
                             });
                         });
 
-                        observer.observe(target, { attributes: true, attributeFilter: ['style']});
+                        observer.observe(target, { attributes: true, attributeFilter: ['style'] });
                     }
                 })
             })
@@ -367,11 +367,26 @@ function editPopup(contacts, styles, contact_id) {
                 </span>
             </div>
         </div>
-        <div class="edit-center">
-            <input type="text" value="${note.innerText}" class="note-input" >
-        </div>
+
         </div>
     `
+
+
+    const div_center = document.createElement("div")
+    div_center.className = "edit-center"
+    const note_show = document.createElement("input")
+    note_show.type = "text"
+    note_show.value = note.innerText
+    note_show.className = "note-input"
+    note_show.name = "note"
+    note_show.ariaAutoComplete = "on"
+    note_show.id = 'note_show'
+    // edit_tagname.maxLength ='35'
+    note_show.placeholder = 'Nhập nội dung cần ghi chú'
+    div_center.appendChild(note_show)
+    popup.appendChild(div_center)
+
+
     const div_color_btn = document.createElement("div")
     div_color_btn.className = "edit-bottom"
 
@@ -391,6 +406,11 @@ function editPopup(contacts, styles, contact_id) {
         }
         div_color_btn.appendChild(btn_color)
     }
+
+
+
+
+
     const pick_color = document.createElement("input")
     pick_color.type = "color"
     pick_color.className = "color-btn"
@@ -572,8 +592,13 @@ function removeNote(contact_id) {
     msg['msg'] = "removeNoteApi"
     msg['id'] = contact_id
     chrome.runtime.sendMessage(msg, function (response) {
-        response['msg'] = "removeNoteSocket"
-        chrome.runtime.sendMessage(response)
+        var div_contact_info = document.getElementById(response.facebook)
+        if (div_contact_info) {
+            div_contact_info.querySelector("span").style.backgroundColor = ''
+            div_contact_info.querySelector("span").textContent = ''
+            response['msg'] = "removeNoteSocket"
+            chrome.runtime.sendMessage(response)
+        }
     })
 }
 
