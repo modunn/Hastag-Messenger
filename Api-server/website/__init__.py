@@ -1,10 +1,9 @@
-from flask import Flask
+from flask import Flask,request,redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from authlib.integrations.flask_client import OAuth
-import base64,requests
+import base64,requests,os
 from flask_socketio import SocketIO
-from flask_talisman import Talisman
 
 
 #khởi tạo trình login bằng social
@@ -32,7 +31,6 @@ def create_app():
 
     #khởi tạo flask app
     app = Flask(__name__)
-    Talisman(app)
 
 
     from .config import Config
@@ -77,6 +75,7 @@ def create_app():
     #Tạo và kết nôi server web socket với app
     from . import socket_server
     socketio.init_app(app,cors_allowed_origins="*")
+
 
 
     #Hàm trả về method app , db và socket io

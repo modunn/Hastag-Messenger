@@ -33,4 +33,3 @@ zope.event==4.5.0
 zope.interface==5.4.0
 gunicorn==19.9.0
 psycopg2==2.9.3
-flask-talisman
