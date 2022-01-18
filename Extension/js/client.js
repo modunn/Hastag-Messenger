@@ -85,7 +85,7 @@ window.addEventListener('load', (event) => {
 
 document.addEventListener('keydown', function (event) {
     var popup = document.querySelector(".edit-popup")
-    if (event.key === "Escape") {
+    if (event.key === "Escape" ||  event.key == "Return") {
         if (!popup) return
         editNoteApi();
         popup.remove()
@@ -150,6 +150,7 @@ function editPopup(contacts, styles, contact_id) {
     note_show.name = "note"
     note_show.ariaAutoComplete = "on"
     note_show.id = 'note_show'
+
     // edit_tagname.maxLength ='35'
     note_show.placeholder = 'Nhập nội dung cần ghi chú'
     div_center.appendChild(note_show)
@@ -208,6 +209,16 @@ function editPopup(contacts, styles, contact_id) {
             note.style.borderRadius = "8px"
         }
     })
+
+
+    let interFocus = setInterval(()=>{
+        if (document.activeElement!=note_show){
+            note_show.focus()
+            if (!document.querySelector("#note_show")) {
+                clearInterval(interFocus)
+            }
+        }
+    },100)
 
     return popup
 }
@@ -298,10 +309,7 @@ function createNoteHtml(data, div_contact_parent) {
 
 
     btn_edit.onclick = () => {
-        div_contact_parent.appendChild(editPopup(contacts, styles, contact_id)
-
-        )
-
+        div_contact_parent.appendChild(editPopup(contacts, styles, contact_id))
     }
     div_action_note.appendChild(btn_edit)
 
