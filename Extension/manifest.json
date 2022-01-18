@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Tee Note",
-  "description":"Chrome Extension Add Note to Messenger",
+  "description":"Thêm và quản lí ghi chú vào messenger",
   "version": "1.0",
   "icons": {                   
     "19": "image/icon.png",
