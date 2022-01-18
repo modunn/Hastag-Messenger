@@ -4,26 +4,27 @@
   "description":"Chrome Extension Add Note to Messenger",
   "version": "1.0",
   "icons": {                   
-    "19": "icon.png",
-    "38": "icon.png",
-    "48": "icon.png",
-    "128": "icon.png"  
+    "19": "image/icon.png",
+    "38": "image/icon.png",
+    "48": "image/icon.png",
+    "128": "image/icon.png"  
   },
   "browser_action": {
-    "default_icon": "icon.png"
+    "default_icon": "image/icon.png"
   },
   "content_scripts": [{
     "matches": ["*://*.messenger.com/*"],  
-    "js": ["client.js","realtime.js"],
+    "css":["css/style.css"],
+    "js": ["js/client.js","js/realtime.js"],
     "run_at": "document_end",
     "all_frames": true
   }],
   "background": {
     "persistent": false,
     "scripts": [
-      "socketio.js",
-      "server.js",
-      "background.js"
+      "js/socketio.js",
+      "js/server.js",
+      "js/background.js"
      
     ]
   },
