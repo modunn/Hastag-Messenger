@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 /* focus message css */
 .i224opu6 {
     background : #3a3b3c;
@@ -32,11 +34,14 @@
     text-overflow: ellipsis;
     box-shadow: 0 1px 3px #0000000d,0 1px 1px #00000006;
     margin-right:5px;
+    font-family: 'Noto Sans', sans-serif;
+
 }
 .action {
     padding-right:25px;
     display:none;
-    gap:5px
+    gap:5px;
+
 
 }
 .notes-msg:hover > .action {
@@ -60,6 +65,8 @@
     background: #fff;
     border-color: #d9d9d9;
     transition: .2s;
+    font-family: 'Noto Sans', sans-serif;
+
 
 }
 
@@ -110,6 +117,8 @@
     border-radius:4px;
     padding:15px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    font-family: 'Noto Sans', sans-serif;
+
 }
 .edit-popup::before {
     content: " ";
@@ -255,6 +264,8 @@
     transition: .5s esea;
     z-index:-1;
     box-shadow: 0 2px 4px 0 rgb(0 0 0 / 28%);
+    font-family: 'Noto Sans', sans-serif;
+
 }
 .div_noti_container {
     position:relative;

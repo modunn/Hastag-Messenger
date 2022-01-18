@@ -76,14 +76,18 @@ chrome.browserAction.onClicked.addListener(function() {
 //         }, 300);
 // });
 
-chrome.contextMenus.create({
-    id: "some-command",
-    title: "Truy cập messenger",
-    contexts: ["all"]
-});
+
+chrome.runtime.onInstalled.addListener(() => {
+    chrome.contextMenus.create({
+        id: "open-msg",
+        title: "Truy cập messenger",
+        contexts: ["all"]
+    });    
+  });
+
 
 chrome.contextMenus.onClicked.addListener(function(info, tab) {
-    if (info.menuItemId == "some-command") {
+    if (info.menuItemId == "open-msg") {
             windowId ? chrome.windows.update(windowId, {
                 "focused": true
             }) : app.UI.create()
