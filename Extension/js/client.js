@@ -10,228 +10,6 @@ function getCookie(name) {
 
 var style = document.createElement('style')
 style.innerText = `
-.notes-msg {
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    height:22px;
-}
-
-.notes-msg span {
-    display: inline-block;
-    border-radius:4px;
-    min-height:16px;
-    min-width:1px;
-    max-width:110px;
-    padding:0 8px;
-    padding-bottom:1px;
-    color:white;
-    white-space: nowrap;
-    overflow: hidden !important;
-    text-overflow: ellipsis;
-    box-shadow: 0 1px 3px #0000000d,0 1px 1px #00000006;
-    margin-right:5px;
-}
-.action {
-    padding-right:25px;
-    display:none;
-    gap:5px
-
-}
-.notes-msg:hover > .action {
-    display:flex
-}
-
-.btn {
-    line-height:1;
-    position: relative;
-    display: inline-block;
-    white-space: nowrap;
-    text-align: center;
-    border: 1px solid transparent;
-    box-shadow: 0 1px 3px #0000000d,0 1px 1px #00000006;
-    cursor: pointer;
-    height: 22px;
-    padding: 0px 8px;
-    font-size: 12px;
-    border-radius: 4px;
-    color: #000000d9;
-    background: #fff;
-    border-color: #d9d9d9;
-    transition: .2s;
-
-}
-
-.btn-default:hover, .btn-default:focus {
-    color: #3f77e8;
-    background: #fff;
-    border-color: #3f77e8;
-}
-
-.btn-primary {
-    color: #fff;
-    background: #1853db;
-    border-color: #1853db;
-    text-shadow: none;
-    box-shadow: 0 1px 3px #0000001a, 0 1px 1px #0000000d;
-}
-.btn-primary:hover, .btn-primary:focus {
-    color: #fff;
-    background: #3f77e8;
-    border-color: #3f77e8;
-}   
-.btn-dangerous {
-    color: #ff4d4f;
-    background: #fff;
-    border-color: #ff4d4f;
-}
-.btn-dangerous:hover{
-    color: #ff7875;
-    background: #fff;
-    border-color: #ff7875;
-}
-.btn-dangerous:focus {
-    color: #fff;
-    background: #ff7875;
-    border-color: #ff7875;
-}
-
-
-
-
-.edit-popup {
-    background-color:#fff;
-    width:240px;
-    position:absolute;
-    z-index:10;
-    right:15px;
-    margin: 5px auto;
-    border-radius:4px;
-    padding:15px;
-    // box-shadow:0 12px 28px 0 var(--shadow-2),0 2px 4px 0 var(--shadow-1),inset 0 0 0 1px var(--shadow-inset);
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-}
-.edit-popup::before {
-    content: " ";
-    position: absolute;
-    background: #fff;
-    width: 15px;
-    height: 15px;
-    top: -8px;
-    right: 142px;
-    transform: rotate(45deg);
-    z-index: 9999;
-
-}
-.edit-popup img {
-    width:58px;height:58px;
-    border-radius:30px;
-    border : 2px solid #93b6fc;
-    object-fit: cover;
-
-
-}
-.edit-popup h1 {
-    font-size:16px;
-    max-width:160px;
-    white-space: nowrap;
-    overflow: hidden !important;
-    text-overflow: ellipsis;
-}
-.edit-top-info {
-    display:flex;
-    gap:10px;
-    
-
-}
-.edit-top-uid {
-    display:flex;
-    flex-direction:column;
-    gap:1px;
-    justify-content:center;
-}
-
-.color-contact {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
-    left: 60px;
-    top: 55px;
-    z-index: 1;
-}
-
-.close-popup {
-    position: absolute;
-    width: 26px;
-    height: 26px;
-    right: 10px;
-    top: 10px;
-    border-radius: 13px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor:pointer;
-}
-.close-popup span {
-    font-size: 12px;
-    font-weight: bold;
-    color: #1d1f23;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.close-popup:hover {background: #e4e6eb;}
-
-.edit-center {
-    margin-top :15px;
-    display:flex;
-    flex-direction:column;
-    gap:7px;
-}
-.edit-center input {
-    box-sizing: border-box;
-    margin: 0;
-    position: relative;
-    display: inline-block;
-    width: 100%;
-    min-width: 0;
-    padding: 4px 12px;
-    color: #000000d9;
-    font-size: 14px;
-    line-height: 1;
-    background-color: #f3f3f5;
-    background-image: none;
-    border: none;
-    border-radius: 15px;
-    transition: all .3s;
-}
-.edit-center input:focus, .edit-center input-focused,.edit-center input:focus {
-    border-color: #3f77e8;
-    border-right-width: 1px!important;
-    outline: 0;
-    box-shadow: 0 0 0 3px #1853db33;
-    background:#fff;
-}
-
-.edit-bottom {
-    display:flex ;
-    align-items :center;
-    justify-content : space-between;
-    margin-top:15px
-}
-.color-btn {
-    width:30px;
-    height:30px;
-    cursor:pointer;
-}
-.color-defaut {
-    border:none;
-    out-line:none;
-    border-radius:15px;
-
-}
-
 .i224opu6 {
     background-color : #3a3b3c;
 }
@@ -472,85 +250,84 @@ function createNote(data) {
 
 
 function createNoteHtml(data, div_contact_parent) {
-    if (!div_contact_parent.querySelector(".notes-msg")) {
+    if (div_contact_parent.querySelector(".notes-msg")) return
 
 
-        const styles = data['styles']
+    const styles = data['styles']
 
-        const contacts = data['contacts']
+    const contacts = data['contacts']
 
-        var div_contact_url = div_contact_parent.querySelector("a")
-        var div_contact_info = div_contact_parent.querySelector(".irj2b8pg")
+    var div_contact_url = div_contact_parent.querySelector("a")
+    var div_contact_info = div_contact_parent.querySelector(".irj2b8pg")
 
-        var contact_id = div_contact_url.href.split('t/')[1].split("/")[0]
+    var contact_id = div_contact_url.href.split('t/')[1].split("/")[0]
 
-        div_contact_parent.setAttribute('contact-id', contact_id)
-
-
-        // Tạo thẻ cha ghi chú
-        div_note = document.createElement("div")
-        div_note.className = "notes-msg"
-        div_note.id = contact_id
-        if (!div_contact_info) {
-            var div_contact_info = div_contact_parent.querySelector('div.m9osqain').parentNode
-        }
-        div_contact_info.appendChild(div_note)
+    div_contact_parent.setAttribute('contact-id', contact_id)
 
 
-        //Tạo thẻ span hiển thị màu sắc, style và nội dung của ghi chú
-        span_note = document.createElement("span")
-        span_note.style.opacity = styles['opacity'] + '%'
-        if (contacts[contact_id]) {
-            span_note.style.background = contacts[contact_id]['color']
-            span_note.innerText = contacts[contact_id]['note']
-            if (!contacts[contact_id]['note']) {
-                span_note.style.borderRadius = "8px"
-            }
-
-        } else {
-            span_note.style.cssText = "background:transparent;border-radius:8px;"
-            span_note.innerText = ""
-        }
-        div_note.appendChild(span_note)
-
-
-        //Tạo thẻ cha chứa hành động với ghi chú
-        div_action_note = document.createElement("div")
-        div_action_note.className = "action"
-        div_note.appendChild(div_action_note)
-
-        //Tạo button mở cửa sổ chỉnh sửa ghi chú
-        btn_edit = document.createElement("button")
-        btn_edit.className = "btn btn-primary"
-        btn_edit.setAttribute("edit-id", contact_id)
-        btn_edit.setAttribute("actioned", "edit")
-        btn_edit.innerText = "Sửa"
-
-
-
-        btn_edit.onclick = () => {
-            div_contact_parent.appendChild(editPopup(contacts, styles, contact_id)
-
-            )
-
-        }
-        div_action_note.appendChild(btn_edit)
-
-        //Tạo button xóa ghi chú
-
-        btn_remove = document.createElement("button")
-        btn_remove.className = "btn btn-dangerous"
-        btn_remove.setAttribute("actioned", "remove")
-        if (contacts[contact_id]) {
-            btn_remove.setAttribute("remove-id", contacts[contact_id]['id'])
-            btn_remove.addEventListener("click", () => {
-                removeNote(contacts[contact_id]['id'])
-            })
-        }
-
-        btn_remove.innerText = "Xóa"
-        div_action_note.appendChild(btn_remove)
+    // Tạo thẻ cha ghi chú
+    div_note = document.createElement("div")
+    div_note.className = "notes-msg"
+    div_note.id = contact_id
+    if (!div_contact_info) {
+        var div_contact_info = div_contact_parent.querySelector('div.m9osqain').parentNode
     }
+    div_contact_info.appendChild(div_note)
+
+
+    //Tạo thẻ span hiển thị màu sắc, style và nội dung của ghi chú
+    span_note = document.createElement("span")
+    span_note.style.opacity = styles['opacity'] + '%'
+    if (contacts[contact_id]) {
+        span_note.style.background = contacts[contact_id]['color']
+        span_note.innerText = contacts[contact_id]['note']
+        if (!contacts[contact_id]['note']) {
+            span_note.style.borderRadius = "8px"
+        }
+
+    } else {
+        span_note.style.cssText = "background:transparent;border-radius:8px;"
+        span_note.innerText = ""
+    }
+    div_note.appendChild(span_note)
+
+
+    //Tạo thẻ cha chứa hành động với ghi chú
+    div_action_note = document.createElement("div")
+    div_action_note.className = "action"
+    div_note.appendChild(div_action_note)
+
+    //Tạo button mở cửa sổ chỉnh sửa ghi chú
+    btn_edit = document.createElement("button")
+    btn_edit.className = "btn btn-primary"
+    btn_edit.setAttribute("edit-id", contact_id)
+    btn_edit.setAttribute("actioned", "edit")
+    btn_edit.innerText = "Sửa"
+
+
+
+    btn_edit.onclick = () => {
+        div_contact_parent.appendChild(editPopup(contacts, styles, contact_id)
+
+        )
+
+    }
+    div_action_note.appendChild(btn_edit)
+
+    //Tạo button xóa ghi chú
+
+    btn_remove = document.createElement("button")
+    btn_remove.className = "btn btn-dangerous"
+    btn_remove.setAttribute("actioned", "remove")
+    if (contacts[contact_id]) {
+        btn_remove.setAttribute("remove-id", contacts[contact_id]['id'])
+        btn_remove.addEventListener("click", () => {
+            removeNote(contacts[contact_id]['id'])
+        })
+    }
+
+    btn_remove.innerText = "Xóa"
+    div_action_note.appendChild(btn_remove)
 }
 
 
@@ -659,7 +436,7 @@ chrome.runtime.onMessage.addListener(function (msg, sender, response) {
         if (data) {
             delete data["contacts"][msg.facebook]
             window.localStorage.setItem("facebook_data", JSON.stringify(data))
-        }else{
+        } else {
             var msg = getUserInfo();
             msg['msg'] = "getData"
             chrome.runtime.sendMessage(msg, function (response) {

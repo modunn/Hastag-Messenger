@@ -1,3 +1,16 @@
+/* focus message css */
+.i224opu6 {
+    background : #3a3b3c;
+}
+.i224opu6 span{
+    color:#e8f3ff;
+    font-weight:550;
+}
+
+
+
+
+/* ghi chú css */
 .notes-msg {
     display:flex;
     justify-content:space-between;
@@ -86,7 +99,7 @@
 
 
 
-
+/* popup edit ghi chú css */
 .edit-popup {
     background-color:#fff;
     width:240px;
@@ -214,15 +227,82 @@
 }
 .color-defaut {
     border:none;
-    out-line:none;
+    outline:none;
     border-radius:15px;
 
 }
 
-.i224opu6 {
-    background-color : #3a3b3c;
+
+
+
+
+
+
+
+
+/* notification css */
+.div_noti {
+    background-color:#242526;
+    position:absolute;
+    bottom:10px;
+    left:10px;
+    display:flex;
+    padding:10px 20px;
+    align-items:center;
+    gap:20px;
+    border-radius:4px;
+    opacity:0;
+    transition: .5s esea;
+    z-index:-1;
+    box-shadow: 0 2px 4px 0 rgb(0 0 0 / 28%);
 }
-.i224opu6 span{
-    color:#e8f3ff;
-    font-weight:550;
+.div_noti_container {
+    position:relative;
+    min-height:35px;
+    display:flex;
+    align-items:center;
+    min-width:300px;
+    justify-content:space-between;
+}
+
+.close_noti {
+    width:25px;
+    height:25px;
+    border-radius:50%;
+    font-size:11px;
+    font-weight:bold;
+    text-align:center;
+    border:none;
+    background:transparent;
+    color:#ededed;
+    cursor:pointer;
+    background: #484A4C;
+    margin-left:20px;
+
+}
+.close_noti:hover {
+    background:#000
+}
+
+.text_noti {
+    color:#ededed;
+    font-size:15px;
+    display:flex;
+    align-items:center;
+    gap:10px
+
+}
+.text_noti img {
+    height:30px;
+
+}
+.text_noti a {
+    font-weight:bold;
+    color:#CCDDFF;
+
+}
+
+.div_noti.activate {
+    opacity:1;
+    z-index:1;
 }
