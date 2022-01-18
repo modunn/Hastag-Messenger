@@ -9,13 +9,7 @@ function getCookie(name) {
 
 
 var style = document.createElement('style')
-style.innerText = `
-.i224opu6 {
-    background-color : #3a3b3c;
-    color:#e8f3ff;
-    font-weight:550;
-}
-`
+style.innerText = ".i224opu6 {background-color : #3a3b3c;color:#e8f3ff;font-weight:550;}"
 style.rel = 'stylesheet';
 style.type = 'text/css'
 document.head.appendChild(style)
