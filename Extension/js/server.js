@@ -41,26 +41,31 @@ socket.on('remove note', function(msg) {
 //Listen for messages
 chrome.runtime.onMessage.addListener((msg, sender, response) => {
   if (msg.msg == "getData") {
-    
     sendData(msg,response)
+
 
   }else if (msg.msg=="handleNote"){
     sendNote(msg,response)
 
+
   }else if (msg.msg=="removeNoteApi"){
     sendRemoveNote(msg,response)
+
+
   }else if (msg.msg=="joined") {
       socket.emit('joined', {name: msg.name,room: msg.facebook_id});
 
 
   }else if (msg.msg=="noteChanged") {
     socket.emit('notechange', msg);
+
+
   }else if (msg.msg=="removeNoteSocket"){
     console.log(msg)
     socket.emit('removeNote', msg);
   }  
-    return true;
-  
+
+  return true;
 })
 
 
@@ -86,6 +91,8 @@ async function getData(msg) {
   return data
 }
 
+
+
 // Api thêm hoặc sửa ghi chú
 async function sendNote(msg,response) {
   const data = await editNote(msg)
@@ -107,6 +114,7 @@ async function editNote(msg) {
   const data = await response.json()
   return data
 }
+
 
 
 // Api xóa ghi chú
