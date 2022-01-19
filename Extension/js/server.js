@@ -1,5 +1,10 @@
 
-var socket = io.connect('https://teenote.herokuapp.com/');
+var socket = io.connect('https://teenote.herokuapp.com/',{
+    reconnection: true,
+    reconnectionDelay: 1000,
+    reconnectionDelayMax : 5000,
+    reconnectionAttempts: Infinity
+});
    
 socket.on('status', function(msg) {
   console.log(msg);

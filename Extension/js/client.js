@@ -42,9 +42,6 @@ window.addEventListener('load', (event) => {
     let int = setInterval(() => {
         var msg = getUserInfo();
         if (msg) {
-            var join = msg
-            join['msg'] = "joined"
-            chrome.runtime.sendMessage(join)
             clearInterval(int)
             msg['msg'] = "getData"
             chrome.runtime.sendMessage(msg, function (response) {
@@ -52,11 +49,9 @@ window.addEventListener('load', (event) => {
                 window.localStorage.setItem("facebook_data", JSON.stringify(data))
                 let checkInv = setInterval(() => {
                     if (data) {
-
                         createNote(data)
                         clearInterval(checkInv)
                     }
-
                 }, 100)
 
                 let scrollITV = setInterval(() => {
@@ -78,6 +73,9 @@ window.addEventListener('load', (event) => {
                     }
                 })
             })
+            var join = msg
+            join['msg'] = "joined"
+            chrome.runtime.sendMessage(join)
         }
     }, 1000)
 })
