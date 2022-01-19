@@ -162,7 +162,6 @@ async function connectFacebook() {
 
 document.querySelector("#remove-user").addEventListener("click",()=>{
     if (confirm('Xóa tài khoản đồng nghĩa với việc xóa bỏ toàn bộ dữ liệu của tài khoản, bạn chắc chắn chứ ?')) {
-        logout();
         removeUser();
         
     }
