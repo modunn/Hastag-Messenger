@@ -2,7 +2,7 @@ import os
 
 class Config(object):
     # SQLALCHEMY_DATABASE_URI         = 'sqlite:///database.sqlite'
-    SQLALCHEMY_DATABASE_URI         = "postgresql://afmvhquxupwegt:8cb2f833e3e29732a81ba994be30b4cd57fae4dc0c2a3b8025fa06eeb96fe0d8@ec2-3-227-15-75.compute-1.amazonaws.com:5432/deuvmjj0t40gmv"
+    SQLALCHEMY_DATABASE_URI         = "postgresql://cbgxpivzpnfmuq:00aeb490da3db5fe1d6d5db6e144ea43d3fb6c02f9d9e017c83be5b7ddc2b31d@ec2-34-205-46-149.compute-1.amazonaws.com:5432/d8pcm6084ec5k2"
     SECRET_KEY                      = "8888"
     SQLALCHEMY_TRACK_MODIFICATIONS  = False
     EXECUTOR_PROPAGATE_EXCEPTIONS   = True
